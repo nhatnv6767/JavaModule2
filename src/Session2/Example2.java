@@ -29,23 +29,18 @@ public class Example2 {
         };
 
         int doDaiLonNhat = timDoDaiLonNhat(monAn);
-        int soDauSaoCanThiet = doDaiLonNhat + 4; // Cộng thêm 4 cho 2 dấu cách và 2 dấu * ở hai bên
+        int soDauSaoCanThiet = doDaiLonNhat + 4;
 
-        // In dòng đầu tiên
         System.out.println("*".repeat(soDauSaoCanThiet));
 
         // In các món ăn
         for (String mon : monAn) {
-            int padding = (soDauSaoCanThiet - mon.length() - 2) / 2; // Tính padding để căn giữa
-            String dong = "* " + " ".repeat(padding) + mon + " ".repeat(padding) + " *";
-            // Đảm bảo số lượng dấu cách là chẵn để căn giữa hoàn hảo
-            if (dong.length() < soDauSaoCanThiet) {
-                dong += " ";
-            }
+            int paddingTrai = (soDauSaoCanThiet - mon.length() - 2) / 2;
+            int paddingPhai = soDauSaoCanThiet - mon.length() - 2 - paddingTrai;
+            String dong = "* " + " ".repeat(paddingTrai) + mon + " ".repeat(paddingPhai) + " *";
             System.out.println(dong);
         }
 
-        // In dòng cuối cùng
         System.out.println("*".repeat(soDauSaoCanThiet));
     }
 
