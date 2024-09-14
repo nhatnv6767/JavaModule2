@@ -10,17 +10,37 @@ public class Example {
         int tuoi = scanner.nextInt();
 
         int giaVe = 7000;
-        int tienPhaiTra = 0;
+        int tienPhaiTra;
+        int loaiKhachHang;
 
         if (tuoi < 6 || tuoi > 60) {
-            tienPhaiTra = 0;
+            loaiKhachHang = 0;
         } else if (tuoi >= 6 && tuoi <= 18) {
-            tienPhaiTra = giaVe / 2;
+            loaiKhachHang = 1;
         } else {
-            tienPhaiTra = giaVe;
+            loaiKhachHang = 2;
         }
 
-        System.out.println("Số tiền bạn phải trả là: " + tienPhaiTra + " VND");
+        switch (loaiKhachHang) {
+            case 0:
+                tienPhaiTra = 0;
+                break;
+            case 1:
+                tienPhaiTra = giaVe / 2;
+                break;
+            case 2:
+                tienPhaiTra = giaVe;
+                break;
+            default:
+                tienPhaiTra = -1;
+                break;
+        }
+
+        if (tienPhaiTra != -1) {
+            System.out.println("Số tiền bạn phải trả là: " + tienPhaiTra + " VND");
+        } else {
+            System.out.println("Lỗi: Tuổi không hợp lệ.");
+        }
 
         scanner.close();
     }
