@@ -9,8 +9,8 @@ public class Example {
         System.out.print("Nhập tuổi của bạn: ");
         int tuoi = scanner.nextInt();
 
-        int giaVe = 7000;
-        int tienPhaiTra;
+        final float giaVe = 7000;
+        float tienPhaiTra;
         int loaiKhachHang;
 
         if (tuoi < 6 || tuoi > 60) {
@@ -21,20 +21,12 @@ public class Example {
             loaiKhachHang = 2;
         }
 
-        switch (loaiKhachHang) {
-            case 0:
-                tienPhaiTra = 0;
-                break;
-            case 1:
-                tienPhaiTra = giaVe / 2;
-                break;
-            case 2:
-                tienPhaiTra = giaVe;
-                break;
-            default:
-                tienPhaiTra = -1;
-                break;
-        }
+        tienPhaiTra = switch (loaiKhachHang) {
+            case 0 -> 0;
+            case 1 -> giaVe / 2;
+            case 2 -> giaVe;
+            default -> -1;
+        };
 
         if (tienPhaiTra != -1) {
             System.out.println("Số tiền bạn phải trả là: " + tienPhaiTra + " VND");
