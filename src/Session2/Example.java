@@ -26,4 +26,5 @@ public class Example {
     }
 }
 
-// Khi nằm trên 1 miền giá trị thì sử dụng if else, trong trường hợp này sử duụng switch case thì sẽ có vô vàn switch case
+// Khi nằm trên 1 miền giá trị thì sử dụng if else,
+// trong trường hợp này sử duụng switch case thì sẽ có vô vàn switch case => không khả thi
