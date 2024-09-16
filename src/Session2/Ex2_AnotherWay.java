@@ -14,6 +14,7 @@ public class Ex2_AnotherWay {
         if (number == 0) {
             return "không";
         }
+
         String[] units = {"", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"};
         String[] teens = {"mười", "mười một", "mười hai", "mười ba", "mười bốn", "mười lăm", "mười sáu", "mười bảy", "mười tám", "mười chín"};
         String[] tens = {"", "mười", "hai mươi", "ba mươi", "bốn mươi", "năm mươi", "sáu mươi", "bảy mươi", "tám mươi", "chín mươi"};
@@ -43,6 +44,8 @@ public class Ex2_AnotherWay {
         if (hundred > 0) {
             words += units[hundred] + " trăm ";
             if (ten == 0 && unit == 0) {
+                words += "chẵn ";
+            } else if (unit == 0) {
                 words += "lẻ ";
             }
         }
