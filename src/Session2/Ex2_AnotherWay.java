@@ -19,6 +19,21 @@ public class Ex2_AnotherWay {
         num = "0".repeat(needZeroCount) + num;
 
         System.out.println(num);
+
+        int iterations = (int) Math.ceil((double) num.length() / 3);
+        for (int i = 0; i < iterations; i++) {
+            int startIndex = i * 3;
+            int endIndex = Math.min(startIndex + 3, num.length());
+            String group = num.substring(startIndex, endIndex);
+//            System.out.println(group);
+
+            // chuyen sang so
+            int a = Integer.parseInt(group.substring(0, 1));
+            int b = Integer.parseInt(group.substring(1, 2));
+            int c = Integer.parseInt(group.substring(2, 3));
+
+            System.out.println(a + " " + b + " " + c);
+        }
     }
 
 
