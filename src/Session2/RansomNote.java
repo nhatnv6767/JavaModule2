@@ -23,7 +23,7 @@ public class RansomNote {
 
     public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);
-        boolean result = canAccept("aaaa", "aaaabfds");
+        boolean result = canAccept("aaaa", "gfdgsdf");
         System.out.println(result);
     }
 }
