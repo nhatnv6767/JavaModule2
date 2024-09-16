@@ -7,7 +7,9 @@ public class Ex2_AnotherWay {
         Scanner scanner = new Scanner(System.in);
 //        System.out.print("Nhập vào một số: ");
 
+
         String num = "4540204504";
+        final String[] UNITS = {"đơn vị", "nghìn", "triệu", "tỷ"};
 
         // tinh so luong so 0 can them vao
         int needZeroCount = num.length() % 3;
@@ -32,7 +34,7 @@ public class Ex2_AnotherWay {
             int b = Integer.parseInt(group.substring(1, 2));
             int c = Integer.parseInt(group.substring(2, 3));
 
-            System.out.println(a + " " + b + " " + c);
+            System.out.println(a + " " + b + " " + c + " " + UNITS[num.length() / 3 - 1 - i]);
         }
     }
 
