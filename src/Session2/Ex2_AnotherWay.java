@@ -59,10 +59,19 @@ public class Ex2_AnotherWay {
         return result;
     }
 
-    public static List<String> readTwo(int b, int c) {
+    public static List<String> readTwo(int b, int c, boolean hasHundred) {
         List<String> output = new ArrayList<>();
         switch (b) {
             case 0: {
+
+                // neu co doc hang tram  va b = 0, c = 0
+                // thi khong doc nua
+                if (hasHundred && c == 0) {
+                    break;
+                }
+                if (hasHundred) {
+                    output.add("lẻ"); // vi du a07 doc la "a lẻ bảy"
+                }
                 output.add(DIGITS[c]);
                 break;
             }
