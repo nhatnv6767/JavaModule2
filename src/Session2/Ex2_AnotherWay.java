@@ -39,9 +39,9 @@ public class Ex2_AnotherWay {
 //            System.out.println(group);
 
             // chuyen sang so
-            String a = num.substring(i * 3, i * 3 + 1);
-            String b = num.substring(i * 3 + 1, i * 3 + 2);
-            String c = num.substring(i * 3 + 2, i * 3 + 3);
+            int a = Integer.parseInt(num.substring(i * 3, i * 3 + 1));
+            int b = Integer.parseInt(num.substring(i * 3 + 1, i * 3 + 2));
+            int c = Integer.parseInt(num.substring(i * 3 + 2, i * 3 + 3));
 
             output.addAll(readThree(a, b, c));
             output.add(UNITS[num.length() / 3 - 1 - i]);
@@ -51,11 +51,16 @@ public class Ex2_AnotherWay {
         System.out.println(String.join(" ", output));
     }
 
-    public static List<String> readThree(String a, String b, String c) {
+    public static List<String> readThree(int a, int b, int c) {
         List<String> result = new ArrayList<>();
-        result.add(a);
-        result.add(b);
-        result.add(c);
+
+        // doc phan tram (a) truoc
+        if (a != 0) {
+            result.add(Integer.parseInt(DIGITS[a]), "trăm"); // doc la a trăm
+        }
+        result.addAll(readTwo(b, c, a != 0));
+        // noi them phan sau (b, c)
+
         return result;
     }
 
