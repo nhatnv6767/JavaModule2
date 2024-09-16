@@ -34,8 +34,12 @@ public class Ex2_AnotherWay {
             int b = Integer.parseInt(group.substring(1, 2));
             int c = Integer.parseInt(group.substring(2, 3));
 
-            System.out.println(a + " " + b + " " + c + " " + UNITS[num.length() / 3 - 1 - i]);
+            System.out.println(readThree(a, b, c) + " " + UNITS[num.length() / 3 - 1 - i]);
         }
+    }
+
+    public static String readThree(int a, int b, int c) {
+        return a + " " + b + " " + c;
     }
 
 
