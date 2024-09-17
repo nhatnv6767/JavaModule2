@@ -29,7 +29,7 @@ public class Ex7 {
         int doDaiLonNhat = timDoDaiLonNhat(options);
         int soDauSaoCanThiet = doDaiLonNhat + 6;
 
-        System.out.println("*".repeat(soDauSaoCanThiet));
+        System.out.println("*".repeat(soDauSaoCanThiet + 2));
 
         // In các món ăn
         for (String select : options) {
@@ -39,7 +39,7 @@ public class Ex7 {
             System.out.println(dong);
         }
 
-        System.out.println("*".repeat(soDauSaoCanThiet));
+        System.out.println("*".repeat(soDauSaoCanThiet + 2));
     }
 
     public static int timDoDaiLonNhat(String[] mang) {
