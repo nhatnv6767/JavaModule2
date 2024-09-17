@@ -55,16 +55,19 @@ public class Ex7 {
     public static void xuLyLuaChon(int luaChon, Scanner scanner) {
         switch (luaChon) {
             case 1:
-                System.out.println("1. Kiểm tra tính chẵn lẻ của 1 số");
+                System.out.println("==> 1. Kiểm tra tính chẵn lẻ của 1 số");
                 kiemTraChanLe(scanner);
                 break;
             case 2:
-                System.out.println("2. Kiểm tra số nguyên tố");
+                System.out.println("==> 2. Kiểm tra số nguyên tố");
                 optionPrime(scanner);
                 break;
             case 3:
-                System.out.println("3. Kiểm tra một số có chia hết cho 3 không");
+                System.out.println("==> 3. Kiểm tra một số có chia hết cho 3 không");
                 optionDividedByThree(scanner);
+                break;
+            case 0:
+                System.out.println("==> 0. Thoát chương trình....");
                 break;
             default:
                 System.out.println("Lựa chọn không hợp lệ. Vui lòng thử lại.");

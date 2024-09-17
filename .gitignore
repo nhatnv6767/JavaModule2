@@ -27,3 +27,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+./src/Session2/Ex2_Number_To_Words.java
