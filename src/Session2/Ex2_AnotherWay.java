@@ -56,7 +56,9 @@ public class Ex2_AnotherWay {
 
         // doc phan tram (a) truoc
         if (a != 0) {
-            result.add(Integer.parseInt(DIGITS[a]), "trăm"); // doc la a trăm
+            result.add(DIGITS[a]);
+            result.add("trăm");
+            // doc la a trăm
         }
         result.addAll(readTwo(b, c, a != 0));
         // noi them phan sau (b, c)
