@@ -10,28 +10,18 @@ import java.util.Scanner;
 
 public class Example {
     public static void main(String[] args) {
-//        int numbers[] = {1, 2, 3, 4, 5, 6};
-//        for (int num : numbers) {
-//            System.out.print(num);
-//        }
-//        System.out.println(numbers[7]);
-
-        int[] requiredArray = new int[10];
-
         Scanner scanner = new Scanner(System.in);
-        for (int i = 0; i < 10; i++) {
-            System.out.printf("numbers[%d] = ", i + 1);
-            requiredArray[i] = Integer.parseInt(scanner.nextLine());
+        int[][] matrix = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        };
+        for (int[] row : matrix) {
+            for (int element : row) {
+                System.out.print(element + " ");
+            }
+            System.out.println();
         }
 
-        int sum = 0;
-        System.out.println("List of even numbers:");
-        for (int num : requiredArray) {
-            if (num % 2 == 0) {
-                System.out.printf("%d\t", num);
-                sum += num;
-            }
-        }
-        System.out.printf("\nSum Even numbers = %d", sum);
     }
 }
