@@ -15,7 +15,8 @@ public class Ex2_AnotherWay {
 //        System.out.print("Nhập vào một số: ");
 
 
-        String num = "4540204504";
+//        String num = "4540204504";
+        String num = "3015003";
         final String[] UNITS = {"đơn vị", "nghìn", "triệu", "tỷ"};
 
 
@@ -43,7 +44,7 @@ public class Ex2_AnotherWay {
             int b = Integer.parseInt(num.substring(i * 3 + 1, i * 3 + 2));
             int c = Integer.parseInt(num.substring(i * 3 + 2, i * 3 + 3));
 
-            output.addAll(readThree(a, b, c));
+            output.addAll(readThree(a, b, c, true));
             output.add(UNITS[num.length() / 3 - 1 - i]);
 
 //            System.out.println(readThree(a, b, c) + " " + UNITS[num.length() / 3 - 1 - i]);
@@ -51,16 +52,16 @@ public class Ex2_AnotherWay {
         System.out.println(String.join(" ", output));
     }
 
-    public static List<String> readThree(int a, int b, int c) {
+    public static List<String> readThree(int a, int b, int c, boolean readZeroHundred) {
         List<String> result = new ArrayList<>();
 
         // doc phan tram (a) truoc
-        if (a != 0) {
+        if (a != 0 || readZeroHundred) {
             result.add(DIGITS[a]);
             result.add("trăm");
             // doc la a trăm
         }
-        result.addAll(readTwo(b, c, a != 0));
+        result.addAll(readTwo(b, c, a != 0 || readZeroHundred));
         // noi them phan sau (b, c)
 
         return result;
