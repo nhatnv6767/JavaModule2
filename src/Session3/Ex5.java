@@ -24,7 +24,8 @@ public class Ex5 {
 
     public static int findMin(int[] arr) {
         if (arr == null || arr.length == 0) {
-            throw new IllegalArgumentException("Mảng không hợp lệ");
+//            throw new IllegalArgumentException("Mảng không hợp lệ");
+            System.err.println("Mảng không hợp lệ");
         }
         int min = arr[0];
         for (int i = 1; i < arr.length; i++) {
