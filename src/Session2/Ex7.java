@@ -19,27 +19,27 @@ public class Ex7 {
     }
 
     public static void hienThiMenu() {
-        String[] monAn = {
+        String[] options = {
                 "1. Kiểm tra tính chẵn lẻ của 1 số",
                 "2. Kiểm tra số nguyên tố",
                 "3. Kiểm tra một số có chia hết cho 3 không",
                 "0. Thoát"
         };
 
-        int doDaiLonNhat = timDoDaiLonNhat(monAn);
+        int doDaiLonNhat = timDoDaiLonNhat(options);
         int soDauSaoCanThiet = doDaiLonNhat + 6;
 
-        System.out.println("*".repeat(soDauSaoCanThiet));
+        System.out.println("*".repeat(soDauSaoCanThiet + 2));
 
         // In các món ăn
-        for (String mon : monAn) {
-            int paddingTrai = (soDauSaoCanThiet - mon.length() - 2) / 2;
-            int paddingPhai = soDauSaoCanThiet - mon.length() - 2 - paddingTrai;
-            String dong = "* " + " ".repeat(paddingTrai) + mon + " ".repeat(paddingPhai) + " *";
+        for (String select : options) {
+            int paddingTrai = (soDauSaoCanThiet - select.length() - 2) / 2;
+            int paddingPhai = soDauSaoCanThiet - select.length() - 2 - paddingTrai;
+            String dong = "* " + " ".repeat(paddingTrai) + select + " ".repeat(paddingPhai) + " *";
             System.out.println(dong);
         }
 
-        System.out.println("*".repeat(soDauSaoCanThiet));
+        System.out.println("*".repeat(soDauSaoCanThiet + 2));
     }
 
     public static int timDoDaiLonNhat(String[] mang) {
@@ -55,16 +55,19 @@ public class Ex7 {
     public static void xuLyLuaChon(int luaChon, Scanner scanner) {
         switch (luaChon) {
             case 1:
-                System.out.println("1. Kiểm tra tính chẵn lẻ của 1 số");
+                System.out.println("==> 1. Kiểm tra tính chẵn lẻ của 1 số");
                 kiemTraChanLe(scanner);
                 break;
             case 2:
-                System.out.println("2. Kiểm tra số nguyên tố");
+                System.out.println("==> 2. Kiểm tra số nguyên tố");
                 optionPrime(scanner);
                 break;
             case 3:
-                System.out.println("3. Kiểm tra một số có chia hết cho 3 không");
+                System.out.println("==> 3. Kiểm tra một số có chia hết cho 3 không");
                 optionDividedByThree(scanner);
+                break;
+            case 0:
+                System.out.println("==> 0. Thoát chương trình....");
                 break;
             default:
                 System.out.println("Lựa chọn không hợp lệ. Vui lòng thử lại.");
