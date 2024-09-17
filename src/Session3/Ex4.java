@@ -44,8 +44,8 @@ public class Ex4 {
         }
     }
 
-    public static void getMatrix(double[][] maTran) {
-        for (double[] row : maTran) {
+    public static void getMatrix(double[][] matrix) {
+        for (double[] row : matrix) {
             for (double element : row) {
                 System.out.print(element + " ");
             }
