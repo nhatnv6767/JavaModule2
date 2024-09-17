@@ -12,11 +12,12 @@ public class Ex2_AnotherWay {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-//        System.out.print("Nhập vào một số: ");
+        System.out.print("Nhập vào một số: ");
+        String num = scanner.nextLine();
 
 
 //        String num = "4540204504";
-        String num = "3015003";
+//        String num = "5055003";
         final String[] UNITS = {"đơn vị", "nghìn", "triệu", "tỷ"};
 
 
@@ -44,7 +45,8 @@ public class Ex2_AnotherWay {
             int b = Integer.parseInt(num.substring(i * 3 + 1, i * 3 + 2));
             int c = Integer.parseInt(num.substring(i * 3 + 2, i * 3 + 3));
 
-            output.addAll(readThree(a, b, c, true));
+            boolean isFirstGroup = i == 0;
+            output.addAll(readThree(a, b, c, !isFirstGroup));
             output.add(UNITS[num.length() / 3 - 1 - i]);
 
 //            System.out.println(readThree(a, b, c) + " " + UNITS[num.length() / 3 - 1 - i]);
