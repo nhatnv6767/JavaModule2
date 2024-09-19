@@ -22,6 +22,17 @@ public class StringBufferWordCounter {
         String fileNameWithoutPath = parts[parts.length - 1];
         if (countWords != -1) {
             System.out.println("Số từ trong file " + fileNameWithoutPath + " là: " + countWords);
+
+            // tim tu xuat hien nhieu nhat
+            String mostFrequentWord = findMosFrequentWord(fileName);
+            int frequency = countWorldFrequency(fileName, mostFrequentWord);
+            if (mostFrequentWord != null) {
+                System.out.println("Từ xuất hiện nhiều nhất: " + mostFrequentWord);
+                System.out.println("Số lần xuất hiện: " + frequency);
+            } else {
+                System.out.println("Không tìm thấy từ nào trong file.");
+            }
+
         } else {
             System.out.println("Xảy ra lỗi khi đọc file.");
         }
