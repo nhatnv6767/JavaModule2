@@ -11,7 +11,7 @@ public class StudentManagement {
         Student student2 = new Student("SV002", "Tây Môn Khánh");
         Student student3 = new Student("SV003", "Phan Kim Liên", 20, true, "Hồ Chí Minh");
         Student student4 = new Student();
-        student4.getFavoriteBooks()[0] = "Sách 1";
+        student4.getFavoriteBooks()[0] = "Phan Kim Liên";
 
 
         Scanner scanner = new Scanner(System.in);
@@ -29,8 +29,8 @@ public class StudentManagement {
 
         String[] clearBook = student4.getFavoriteBooks();
 //        clearBook
-        clearBook[0] = null;
+//        clearBook[0] = null;
 
-        System.out.println("Sinh vieen 4: " + Arrays.toString(clearBook));
+        System.out.println("Sinh vien 4: " + Arrays.toString(clearBook));
     }
 }

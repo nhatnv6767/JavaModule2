@@ -74,7 +74,7 @@ public class Student {
     }
 
     public String[] getFavoriteBooks() {
-        return favoriteBooks;
+        return favoriteBooks.clone();
     }
 
     public void setFavoriteBooks(String[] favoriteBooks) {
