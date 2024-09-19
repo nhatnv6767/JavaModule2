@@ -62,5 +62,32 @@ public class StringBufferWordCounter {
         }
 
         String mostFrequentWord = null;
+        int maxFrequency = 0;
+        for (Map.Entry<String, Integer> entry : wordFrequency.entrySet()) {
+            if (entry.getValue() > maxFrequency) {
+                mostFrequentWord = entry.getKey();
+                maxFrequency = entry.getValue();
+            }
+        }
+        return mostFrequentWord;
+    }
+
+    public static int countWorldFrequency(String fileName, String word) {
+        int frequency = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.trim().split("[^\\p{L}\\p{N}]+");
+                for (String w : words) {
+                    if (w.equalsIgnoreCase(word)) {
+                        frequency++;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1;
+        }
+        return frequency;
     }
 }
