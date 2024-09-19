@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StringBufferWordCounter {
     public static void main(String[] args) {
@@ -16,8 +18,10 @@ public class StringBufferWordCounter {
         }
 
         int countWords = countWordInFile(fileName);
+        String[] parts = fileName.split("/");
+        String fileNameWithoutPath = parts[parts.length - 1];
         if (countWords != -1) {
-            System.out.println("Số từ trong file " + fileName + " là: " + countWords);
+            System.out.println("Số từ trong file " + fileNameWithoutPath + " là: " + countWords);
         } else {
             System.out.println("Xảy ra lỗi khi đọc file.");
         }
@@ -33,12 +37,30 @@ public class StringBufferWordCounter {
                 contextFile.append(line).append(" ");
             }
 
-            String[] eachWord = contextFile.toString().trim().split("\\s+");
+            String[] eachWord = contextFile.toString().trim().split("[^\\p{L}\\p{N}]+");
             countWords = eachWord.length;
         } catch (IOException e) {
             e.printStackTrace();
             return -1;
         }
         return countWords;
+    }
+
+    public static String findMosFrequentWord(String fileName) {
+        Map<String, Integer> wordFrequency = new HashMap<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.trim().split("[^\\p{L}\\p{N}]+");
+                for (String word : words) {
+                    wordFrequency.put(word, wordFrequency.getOrDefault(word, 0) + 1);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        String mostFrequentWord = null;
     }
 }
