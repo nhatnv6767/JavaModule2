@@ -11,6 +11,7 @@ public class Student {
     private String[] favoriteBooks;
 
     public Student() {
+        favoriteBooks = new String[3];
     }
 
     public Student(String studentId, String studentName) {
@@ -106,9 +107,11 @@ public class Student {
     }
 
     public void displayData() {
-        System.out.printf("Mã SV: %f - Tên SV: %f - Tuổi: %d\n", this.studentId, this.studentName, this.age);
+        System.out.printf("Mã SV: %s - Tên SV: %s - Tuổi: %d\n", this.studentId, this.studentName, this.age);
 
-        System.out.printf("Giới tính: %s - Địa chỉ: %\n", this.sex ? "Nam" : "Nữ", this.address);
+        System.out.printf("Giới tính: %s - Địa chỉ: %s\n", this.sex ? "Nam" : "Nữ", this.address);
+
+//        System.out.printf("FavoriteBook: %s", (Object) this.favoriteBooks);
 
     }
 
