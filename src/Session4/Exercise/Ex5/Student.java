@@ -76,9 +76,21 @@ public class Student {
         this.maHS = scanner.nextLine();
         System.out.print("Nhập tên học sinh: ");
         this.tenHS = scanner.nextLine();
-        System.out.print("Nhập tuổi: ");
-        this.tuoi = scanner.nextInt();
-        scanner.nextLine();
+
+
+        boolean inputValid = false;
+        do {
+            System.out.print("Nhập tuổi: ");
+            if (scanner.hasNextInt()) {
+                this.tuoi = Integer.parseInt(scanner.nextLine());
+                inputValid = true;
+            } else {
+                System.out.println("Tuổi phải là số nguyên. Vui lòng nhập lại");
+                scanner.nextLine();
+            }
+        } while (!inputValid);
+
+
         System.out.print("Nhập giới tính: ");
         this.gioiTinh = scanner.nextLine();
         System.out.print("Nhập địa chỉ: ");

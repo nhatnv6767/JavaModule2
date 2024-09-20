@@ -90,6 +90,8 @@ public class Action {
 
     private static void addStudent(List<Student> listStudent, Scanner scanner) {
         Student newStudent = new Student();
+        int lengthListStudent = listStudent.size();
+        System.out.println("Nhập thông tin học sinh thứ: " + ++lengthListStudent);
         newStudent.inputData(scanner);
         listStudent.add(newStudent);
         System.out.println("Thêm học sinh thành công");
