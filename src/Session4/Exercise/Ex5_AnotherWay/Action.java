@@ -1,25 +1,19 @@
-package Session4.Exercise.Ex5;
+package Session4.Exercise.Ex5_AnotherWay;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Action {
-
-    static int soLuongHocSinh;
-
     public static void main(String[] args) {
-//        soLuongHocSinh = 0;
+        List<Student> listStudent = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Nhập số lượng học sinh tối đa: ");
-        int maxHocSinh = Integer.parseInt(scanner.nextLine());
-        Student[] danhSachHocSinh = new Student[maxHocSinh];
         int select;
         do {
             showMenuChoice();
             System.out.print("Nhập lựa chọn của bạn: ");
             select = Integer.parseInt(scanner.nextLine());
-            processSelection(select, scanner, danhSachHocSinh, soLuongHocSinh);
+            processSelection(select, scanner, listStudent);
         } while (select != 5);
     }
 
@@ -58,24 +52,23 @@ public class Action {
         return max;
     }
 
-    public static void processSelection(int select, Scanner scanner, Student[] danhSach, int soLuongHocSinh) {
+    public static void processSelection(int select, Scanner scanner, List<Student> listStudent) {
         switch (select) {
             case 1:
                 System.out.println("==> 1. Hiển thị danh sách tất cả học sinh");
-//                System.out.println("--------------------");
-                showListStudent(danhSach, soLuongHocSinh);
+                showListStudent(listStudent);
                 break;
             case 2:
                 System.out.println("==> 2. Thêm mới học sinh");
-                addStudent(danhSach, scanner, soLuongHocSinh);
+                addStudent(listStudent, scanner);
                 break;
             case 3:
                 System.out.println("==> 3. Sửa thông tin học sinh dựa vào mã học sinh");
-                editStudentInfo(danhSach, scanner, soLuongHocSinh);
+                editStudentInfo(listStudent, scanner);
                 break;
             case 4:
                 System.out.println("==> 4. Xóa học sinh dựa vào mã học sinh");
-                deleteStudent(danhSach, scanner, soLuongHocSinh);
+                deleteStudent(listStudent, scanner);
                 break;
             case 5:
                 System.out.println("==> 5. Thoát chương trình....");
@@ -85,35 +78,32 @@ public class Action {
         }
     }
 
-    private static void showListStudent(Student[] danhSach, int soLuongHocSinh) {
-        if (soLuongHocSinh == 0) {
+    private static void showListStudent(List<Student> listStudent) {
+        if (listStudent.isEmpty()) {
             System.out.println("Danh sách học sinh trống.");
         } else {
-            for (int i = 0; i < soLuongHocSinh; i++) {
-                danhSach[i].displayData();
+            for (Student student : listStudent) {
+                student.displayData();
             }
         }
     }
 
-    private static void addStudent(Student[] danhSach, Scanner scanner, int soLuongHocSinh) {
-        if (soLuongHocSinh < danhSach.length) {
-            danhSach[soLuongHocSinh] = new Student();
-            System.out.println("Nhập thông tin học sinh thứ: " + (soLuongHocSinh + 1));
-            danhSach[soLuongHocSinh].inputData(scanner);
-            System.out.println("Thêm học sinh thành công");
-            Action.soLuongHocSinh++;
-        } else {
-            System.out.println("Danh sách đã đầy, không thể thêm học sinh mới");
-        }
+    private static void addStudent(List<Student> listStudent, Scanner scanner) {
+        Student newStudent = new Student();
+        int lengthListStudent = listStudent.size();
+        System.out.println("Nhập thông tin học sinh thứ: " + ++lengthListStudent);
+        newStudent.inputData(scanner);
+        listStudent.add(newStudent);
+        System.out.println("Thêm học sinh thành công");
     }
 
-    private static void editStudentInfo(Student[] danhSach, Scanner scanner, int soLuongHocSinh) {
+    private static void editStudentInfo(List<Student> listStudent, Scanner scanner) {
         System.out.print("Mời nhập vào mã của học sinh cần sửa: ");
         String studentCode = scanner.nextLine();
-        for (int i = 0; i < soLuongHocSinh; i++) {
-            if (danhSach[i].getMaHS().equals(studentCode)) {
+        for (Student student : listStudent) {
+            if (student.getMaHS().equals(studentCode)) {
                 System.out.println("Nhập thông tin mới cho học sinh: ");
-                danhSach[i].inputData(scanner);
+                student.inputData(scanner);
                 System.out.println("Sửa thông tin học sinh thành công!");
                 return;
             }
@@ -122,18 +112,13 @@ public class Action {
 
     }
 
-    private static void deleteStudent(Student[] danhSach, Scanner scanner, int soLuongHocSinh) {
+    private static void deleteStudent(List<Student> listStudent, Scanner scanner) {
         System.out.println("Nhập mã học sinh cần xoá: ");
         String selectStudentCode = scanner.nextLine();
-        for (int i = 0; i < soLuongHocSinh; i++) {
-            if (danhSach[i].getMaHS().equals(selectStudentCode)) {
-                // dich chuyen cac phan tu sau vi tri i len 1 don vi
-                for (int j = i; j < soLuongHocSinh - 1; j++) {
-                    danhSach[j] = danhSach[j + 1];
-                }
-                danhSach[soLuongHocSinh - 1] = null;
+        for (Student student : listStudent) {
+            if (student.getMaHS().equals(selectStudentCode)) {
+                listStudent.remove(student);
                 System.out.println("Xoá học sinh thành công!!!!");
-                Action.soLuongHocSinh--;
                 return;
             }
         }

@@ -1,4 +1,4 @@
-package Session4.Exercise.Ex5;
+package Session4.Exercise.Ex5_AnotherWay;
 
 /*
  * Thuộc tính:
@@ -100,34 +100,13 @@ public class Student {
     }
 
     public void displayData() {
-        String[] lines = {
-                "Mã HS: " + this.maHS,
-                "Tên HS: " + this.tenHS,
-                "Tuổi: " + this.tuoi,
-                "Giới tiính: " + this.gioiTinh,
-                "Địa chỉ: " + this.diaChi,
-                "Số điện thoại: " + this.soDienThoai
-        };
-        int longestLength = findLongestLength(lines);
-        int totalLength = longestLength + 6;
-
-        System.out.println("-".repeat(totalLength));
-
-        for (String line : lines) {
-            int padding = totalLength - line.length() - 2;
-            System.out.println("| " + line + " ".repeat(padding) + "|");
-        }
-        System.out.println("-".repeat(totalLength));
-    }
-
-    private static int findLongestLength(String[] mang) {
-        int max = 0;
-        for (String s : mang) {
-            if (s.length() > max) {
-                max = s.length();
-            }
-        }
-        return max;
+        System.out.println("Mã HS: " + maHS);
+        System.out.println("Tên HS: " + tenHS);
+        System.out.println("Tuổi: " + tuoi);
+        System.out.println("Giới tính: " + gioiTinh);
+        System.out.println("Địa chỉ: " + diaChi);
+        System.out.println("Số điện thoại: " + soDienThoai);
+        System.out.println("--------------------");
     }
 
     public String getMaHS() {
