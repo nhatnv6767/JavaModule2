@@ -117,20 +117,24 @@ public class Action {
                 }
 
                 System.out.print("Nhập tuổi mới: ");
-                String newAgeStr = scanner.nextLine();
-                if (!newAgeStr.isEmpty()) {
-                    try {
-                        int newAge = Integer.parseInt(newAgeStr);
-                        if (newAge >= 14 && newAge <= 60) {
-                            danhSach[i].setAge(newAge);
-                        } else {
-                            System.out.println("Tuổi phải nằm trong khoảng từ 14 đến 60. Giữ nguyên tuổi cũ.");
-                        }
+                boolean validAge = false;
+                do {
+                    String newAgeStr = scanner.nextLine();
+                    if (!newAgeStr.isEmpty()) {
+                        try {
+                            int newAge = Integer.parseInt(newAgeStr);
+                            if (newAge >= 14 && newAge <= 60) {
+                                danhSach[i].setAge(newAge);
+                                validAge = true;
+                            } else {
+                                System.out.println("Tuổi phải nằm trong khoảng từ 14 đến 60. Giữ nguyên tuổi cũ.");
+                            }
 
-                    } catch (NumberFormatException e) {
-                        System.out.println("Tuổi không hợp lệ. Giữ nguyên tuổi cũ.");
+                        } catch (NumberFormatException e) {
+                            System.out.println("Tuổi không hợp lệ. Tuổi phải là số nguyên.");
+                        }
                     }
-                }
+                } while (!validAge);
 
                 System.out.print("Nhập giới tính mới (true: nam, false: nữ): ");
                 String newSexStr = scanner.nextLine();
