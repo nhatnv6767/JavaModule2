@@ -109,13 +109,19 @@ public class Student {
                 "Số điện thoại: " + this.soDienThoai
         };
         int longestLength = findLongestLength(lines);
-        int totalLength = longestLength + 6;
+        int totalLength = longestLength + 8;
 
         System.out.println("-".repeat(totalLength));
 
         for (String line : lines) {
-            int padding = totalLength - line.length() - 2;
-            System.out.println("| " + line + " ".repeat(padding) + "|");
+//            int padding = totalLength - line.length() - 2;
+//            System.out.println("| " + line + " ".repeat(padding) + "|");
+
+
+            int paddingLeft = (totalLength - line.length() - 2) / 2;
+            int paddingRight = totalLength - line.length() - 3 - paddingLeft;
+            String oneLine = "| " + " ".repeat(paddingLeft) + line + " ".repeat(paddingRight) + " |";
+            System.out.println(oneLine);
         }
         System.out.println("-".repeat(totalLength));
     }
