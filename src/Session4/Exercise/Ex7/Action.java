@@ -178,7 +178,7 @@ public class Action {
                     danhSach[j] = danhSach[j + 1];
                 }
                 danhSach[soLuongHocSinh - 1] = null;
-                System.out.println("Xoá sinh viên thành công!!!!");
+                System.out.println("Xoá sinh viên thành công!!");
                 Action.soLuongHocSinh--;
                 return;
             }
