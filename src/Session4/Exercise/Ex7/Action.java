@@ -95,6 +95,7 @@ public class Action {
     private static void addStudent(Student[] danhSach, Scanner scanner, int soLuongHocSinh) {
         if (soLuongHocSinh < danhSach.length) {
             danhSach[soLuongHocSinh] = new Student();
+            danhSach[soLuongHocSinh].setStudentList(danhSach, soLuongHocSinh);
             System.out.println("Nhập thông tin sinh viên thứ: " + (soLuongHocSinh + 1));
             danhSach[soLuongHocSinh].inputData(scanner);
             System.out.println("Thêm sinh viên thành công");
@@ -169,7 +170,9 @@ public class Action {
     }
 
     private static void deleteStudent(Student[] danhSach, Scanner scanner, int soLuongHocSinh) {
-        System.out.println("Nhập mã sinh viên cần xoá: ");
+
+        showListStudent(danhSach, soLuongHocSinh);
+        System.out.println("Nhập mã sinh viên của sinh viên cần xoá: ");
         int selectStudentCode = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < soLuongHocSinh; i++) {
             if (danhSach[i].getStudentId() == selectStudentCode) {
@@ -178,8 +181,9 @@ public class Action {
                     danhSach[j] = danhSach[j + 1];
                 }
                 danhSach[soLuongHocSinh - 1] = null;
-                System.out.println("Xoá sinh viên thành công!!");
                 Action.soLuongHocSinh--;
+                showListStudent(danhSach, soLuongHocSinh);
+                System.out.println("Xoá sinh viên thành công!!");
                 return;
             }
         }

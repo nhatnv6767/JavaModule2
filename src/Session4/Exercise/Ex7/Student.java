@@ -15,6 +15,9 @@ public class Student {
     private int age;
     private String address;
 
+    private Student[] danhSachHocSinh;
+    private int soLuongHocSinh;
+
     public Student() {
     }
 
@@ -75,9 +78,34 @@ public class Student {
         this.address = address;
     }
 
+    public void setStudentList(Student[] danhSachHocSinh, int soLuongHocSinh) {
+        this.danhSachHocSinh = danhSachHocSinh;
+        this.soLuongHocSinh = soLuongHocSinh;
+    }
+
     public void inputData(Scanner scanner) {
-        System.out.print("Nhập mã sinh viên: ");
-        this.studentId = Integer.parseInt(scanner.nextLine());
+//        System.out.print("Nhập mã sinh viên: ");
+//        this.studentId = Integer.parseInt(scanner.nextLine());
+
+        boolean inputStudentCode = false;
+        do {
+            System.out.print("Nhập mã sinh viên: ");
+            if (scanner.hasNextInt()) {
+                int inputId = Integer.parseInt(scanner.nextLine());
+
+                if (isStudentIdUnique(inputId)) {
+                    this.studentId = inputId;
+                    inputStudentCode = true;
+                } else {
+                    System.out.println("Mã sinh viên đã tồn tại. Vui lòng nhập lại.");
+                }
+            } else {
+                System.out.println("Mã sinh viên phải là số nguyên. Vui lòng nhập lại.");
+                scanner.nextLine(); // Đọc bỏ đầu vào không hợp lệ
+            }
+        } while (!inputStudentCode);
+
+
         System.out.print("Nhập tên sinh viên: ");
         this.studentName = scanner.nextLine();
 
@@ -112,8 +140,8 @@ public class Student {
 
     public void displayData() {
         String[] lines = {
-                "Mã HS: " + this.studentId,
-                "Tên HS: " + this.studentName,
+                "Mã SV: " + this.studentId,
+                "Tên SV: " + this.studentName,
                 "Tuổi: " + this.age,
                 "Giới tính: " + (this.sex ? "Nam" : "Nữ"),
                 "Địa chỉ: " + this.address,
@@ -142,4 +170,14 @@ public class Student {
         }
         return max;
     }
+
+    private boolean isStudentIdUnique(int studentId) {
+        for (int i = 0; i < this.soLuongHocSinh; i++) {
+            if (this.danhSachHocSinh[i] != null && this.danhSachHocSinh[i].getStudentId() == studentId) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
