@@ -4,6 +4,7 @@ package Session4.Exercise.Ex7;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -13,6 +14,7 @@ import java.util.Scanner;
 
 public class Action {
     static int soLuongHocSinh;
+    final static int exitSelect = 6;
 
     public static void main(String[] args) {
 //        soLuongHocSinh = 0;
@@ -26,7 +28,7 @@ public class Action {
             System.out.print("Nhập lựa chọn của bạn: ");
             select = Integer.parseInt(scanner.nextLine());
             processSelection(select, scanner, danhSachHocSinh, soLuongHocSinh);
-        } while (select != 6);
+        } while (select != exitSelect);
     }
 
     public static void showMenuChoice() {
@@ -121,24 +123,18 @@ public class Action {
 
     private static void addStudentFromFile(Student[] danhSach, int soLuongHocSinh) {
         if (soLuongHocSinh < danhSach.length) {
-            try {
-
-                FileReader reader = new FileReader("/Users/bhnone/Work/Coding/Java/Module2/src/Session4/Exercise/Ex7/student.json");
+            try (BufferedReader br = new BufferedReader(new FileReader("/Users/bhnone/Work/Coding/Java/Module2/src/Session4/Exercise/Ex7/student.json"))) {
                 StringBuilder sb = new StringBuilder();
-
-                int i;
-                while ((i = reader.read()) != -1) {
-                    sb.append((char) i);
+                String line;
+                while ((line = br.readLine()) != null) {
+                    sb.append(line);
                 }
-                reader.close();
 
                 JSONArray jsonArray = new JSONArray(sb.toString());
 
-                // duyet qua tung doi tuong trong mang JSON
                 for (int j = 0; j < jsonArray.length(); j++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(j);
 
-                    // lay thong tin sinh vien tu doi tuong JSON
                     int studentId = jsonObject.getInt("studentCode");
                     String studentName = jsonObject.getString("studentName");
                     int age = jsonObject.getInt("age");
@@ -148,16 +144,14 @@ public class Action {
 
                     // kiem tra ma sinh vien da ton tai hay chua
 
-
-                    // tao doi tuong Student va them vao danh sach
                     danhSach[soLuongHocSinh] = new Student(studentId, studentName, sex, className, age, address);
-                    Action.soLuongHocSinh++;
+                    soLuongHocSinh++;
+                    Action.soLuongHocSinh = soLuongHocSinh;
 
                     if (soLuongHocSinh >= danhSach.length) {
                         System.out.println("Danh sách đã đầy, không thể thêm sinh viên mới.");
                         break;
                     }
-
                 }
 
                 System.out.println("Thêm sinh viên từ file thành công!");
