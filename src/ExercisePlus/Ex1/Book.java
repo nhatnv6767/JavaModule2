@@ -11,7 +11,7 @@ public class Book {
     private String author;
     private float interest;
     private int year;
-
+    
     public Book() {
     }
 
@@ -82,10 +82,9 @@ public class Book {
         return exportPrice - importPrice;
     }
 
-    public void inputData(Scanner scanner, List<Book> bookList) {
+    public void inputData(Scanner scanner, List<Book> bookList, int count) {
         boolean isValid;
-        int count = 1;
-        System.out.printf("------------Thông tin sách thứ %d --------------", count);
+        System.out.printf("------------Thông tin sách thứ %d --------------\n", count + 1);
         do {
             isValid = true;
             System.out.print("Nhập mã sách (bắt đầu bằng 'B' và có 4 ký tự): ");
@@ -151,9 +150,7 @@ public class Book {
             if (this.year <= 2000) {
                 System.out.println("Năm xuất bản phải sau năm 2000. Vui lòng nhập lại!");
             }
-            count++;
         } while (this.year <= 2000);
-
         this.interest = calculateInterest();
 
     }

@@ -28,7 +28,7 @@ public class BookImp {
                     int n = Integer.parseInt(scanner.nextLine());
                     for (int i = 0; i < n; i++) {
                         Book book = new Book();
-                        book.inputData(scanner, bookList);
+                        book.inputData(scanner, bookList, i);
                         bookList.add(book);
                     }
                     break;
