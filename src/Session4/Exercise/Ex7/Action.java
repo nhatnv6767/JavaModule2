@@ -8,8 +8,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class Action {
@@ -121,7 +119,7 @@ public class Action {
         }
     }
 
-    private static void addStudentFromFile(Student[] danhSach, int soLuongHocSinh) {
+    private static void addStudentFromFile(Student[] danhSach, Integer soLuongHocSinh) {
         if (soLuongHocSinh < danhSach.length) {
             try (BufferedReader br = new BufferedReader(new FileReader("/Users/bhnone/Work/Coding/Java/Module2/src/Session4/Exercise/Ex7/student.json"))) {
                 StringBuilder sb = new StringBuilder();
@@ -245,7 +243,8 @@ public class Action {
                         danhSach[j] = danhSach[j + 1];
                     }
                     danhSach[soLuongHocSinh - 1] = null;
-                    Action.soLuongHocSinh--;
+                    soLuongHocSinh--;
+                    Action.soLuongHocSinh = soLuongHocSinh;
                     showListStudent(danhSach, soLuongHocSinh);
                     System.out.println("Xoá sinh viên thành công!!");
                 } else {
