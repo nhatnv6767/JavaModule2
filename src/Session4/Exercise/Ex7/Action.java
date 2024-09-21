@@ -1,5 +1,14 @@
 package Session4.Exercise.Ex7;
 
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class Action {
@@ -17,16 +26,17 @@ public class Action {
             System.out.print("Nhập lựa chọn của bạn: ");
             select = Integer.parseInt(scanner.nextLine());
             processSelection(select, scanner, danhSachHocSinh, soLuongHocSinh);
-        } while (select != 5);
+        } while (select != 6);
     }
 
     public static void showMenuChoice() {
         String[] options = {
                 "1. Hiển thị danh sách tất cả sinh viên",
-                "2. Thêm mới sinh viên",
-                "3. Sửa thông tin sinh viên dựa vào mã sinh viên",
-                "4. Xóa sinh viên dựa vào mã sinh viên",
-                "5. Thoát"
+                "2. Thêm mới sinh viên (bằng tay)",
+                "3. Thêm mới sinh viên (bằng file)",
+                "4. Sửa thông tin sinh viên dựa vào mã sinh viên",
+                "5. Xóa sinh viên dựa vào mã sinh viên",
+                "6. Thoát"
         };
 
         int longestLength = findLongestLength(options);
@@ -63,19 +73,23 @@ public class Action {
                 showListStudent(danhSach, soLuongHocSinh);
                 break;
             case 2:
-                System.out.println("==> 2. Thêm mới sinh viên");
+                System.out.println("==> 2. Thêm mới sinh viên (bằng tay)");
                 addStudent(danhSach, scanner, soLuongHocSinh);
                 break;
             case 3:
-                System.out.println("==> 3. Sửa thông tin sinh viên dựa vào mã sinh viên");
-                editStudentInfo(danhSach, scanner, soLuongHocSinh);
+                System.out.println("==> 3. Thêm mới sinh viên (bằng file)");
+                addStudentFromFile(danhSach, soLuongHocSinh);
                 break;
             case 4:
-                System.out.println("==> 4. Xóa sinh viên dựa vào mã sinh viên");
-                deleteStudent(danhSach, scanner, soLuongHocSinh);
+                System.out.println("==> 4. Sửa thông tin sinh viên dựa vào mã sinh viên");
+                editStudentInfo(danhSach, scanner, soLuongHocSinh);
                 break;
             case 5:
-                System.out.println("==> 5. Thoát chương trình....");
+                System.out.println("==> 5. Xóa sinh viên dựa vào mã sinh viên");
+                deleteStudent(danhSach, scanner, soLuongHocSinh);
+                break;
+            case 6:
+                System.out.println("==> 6. Thoát chương trình....");
                 break;
             default:
                 System.out.println("Lựa chọn không hợp lệ. Vui lòng thử lại.");
@@ -100,6 +114,56 @@ public class Action {
             danhSach[soLuongHocSinh].inputData(scanner);
             System.out.println("Thêm sinh viên thành công");
             Action.soLuongHocSinh++;
+        } else {
+            System.out.println("Danh sách đã đầy, không thể thêm sinh viên mới");
+        }
+    }
+
+    private static void addStudentFromFile(Student[] danhSach, int soLuongHocSinh) {
+        if (soLuongHocSinh < danhSach.length) {
+            try {
+
+                FileReader reader = new FileReader("/Users/bhnone/Work/Coding/Java/Module2/src/Session4/Exercise/Ex7/student.json");
+                StringBuilder sb = new StringBuilder();
+
+                int i;
+                while ((i = reader.read()) != -1) {
+                    sb.append((char) i);
+                }
+                reader.close();
+
+                JSONArray jsonArray = new JSONArray(sb.toString());
+
+                // duyet qua tung doi tuong trong mang JSON
+                for (int j = 0; j < jsonArray.length(); j++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(j);
+
+                    // lay thong tin sinh vien tu doi tuong JSON
+                    int studentId = jsonObject.getInt("studentCode");
+                    String studentName = jsonObject.getString("studentName");
+                    int age = jsonObject.getInt("age");
+                    boolean sex = jsonObject.getString("sex").equalsIgnoreCase("Nam");
+                    String address = jsonObject.getString("address");
+                    String className = jsonObject.getString("className");
+
+                    // kiem tra ma sinh vien da ton tai hay chua
+
+
+                    // tao doi tuong Student va them vao danh sach
+                    danhSach[soLuongHocSinh] = new Student(studentId, studentName, sex, className, age, address);
+                    Action.soLuongHocSinh++;
+
+                    if (soLuongHocSinh >= danhSach.length) {
+                        System.out.println("Danh sách đã đầy, không thể thêm sinh viên mới.");
+                        break;
+                    }
+
+                }
+
+                System.out.println("Thêm sinh viên từ file thành công!");
+            } catch (IOException e) {
+                System.out.println("Lỗi khi đọc file JSON: " + e.getMessage());
+            }
         } else {
             System.out.println("Danh sách đã đầy, không thể thêm sinh viên mới");
         }
@@ -170,21 +234,32 @@ public class Action {
     }
 
     private static void deleteStudent(Student[] danhSach, Scanner scanner, int soLuongHocSinh) {
-
         showListStudent(danhSach, soLuongHocSinh);
         System.out.println("Nhập mã sinh viên của sinh viên cần xoá: ");
         int selectStudentCode = Integer.parseInt(scanner.nextLine());
         for (int i = 0; i < soLuongHocSinh; i++) {
             if (danhSach[i].getStudentId() == selectStudentCode) {
                 // dich chuyen cac phan tu sau vi tri i len 1 don vi
-                for (int j = i; j < soLuongHocSinh - 1; j++) {
-                    danhSach[j] = danhSach[j + 1];
+
+                System.out.println("Thông tin sinh viên cần xóa:");
+                danhSach[i].displayData();
+                System.out.print("Bạn có chắc chắn muốn xóa sinh viên này? (yes/no): ");
+                String confirm = scanner.nextLine();
+                if (confirm.equalsIgnoreCase("yes")) {
+                    // dich chuyen cac phan tu sau vi tri i len 1 don vi
+                    for (int j = i; j < soLuongHocSinh - 1; j++) {
+                        danhSach[j] = danhSach[j + 1];
+                    }
+                    danhSach[soLuongHocSinh - 1] = null;
+                    Action.soLuongHocSinh--;
+                    showListStudent(danhSach, soLuongHocSinh);
+                    System.out.println("Xoá sinh viên thành công!!");
+                } else {
+                    System.out.println("Đã hủy thao tác xóa.");
                 }
-                danhSach[soLuongHocSinh - 1] = null;
-                Action.soLuongHocSinh--;
-                showListStudent(danhSach, soLuongHocSinh);
-                System.out.println("Xoá sinh viên thành công!!");
                 return;
+
+
             }
         }
         System.out.println("Không tìm thấy sinh viên có mã " + selectStudentCode);

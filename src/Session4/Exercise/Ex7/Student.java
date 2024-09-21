@@ -171,7 +171,7 @@ public class Student {
         return max;
     }
 
-    private boolean isStudentIdUnique(int studentId) {
+    public boolean isStudentIdUnique(int studentId) {
         for (int i = 0; i < this.soLuongHocSinh; i++) {
             if (this.danhSachHocSinh[i] != null && this.danhSachHocSinh[i].getStudentId() == studentId) {
                 return false;
