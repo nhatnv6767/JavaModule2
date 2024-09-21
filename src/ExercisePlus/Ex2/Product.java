@@ -105,6 +105,17 @@ public class Product {
     }
 
     public void inputData(Scanner scanner, Product[] arrProduct) {
+        boolean isValid;
+
+        do{
+            isValid = true;
+            System.out.print("Nhập mã sản phẩm (4 ký tự): ");
+            productId = scanner.nextLine();
+            if(productId.length() != 4){
+                isValid = false;
+            }
+        }
+
         // Calculate profit
         this.profit = calProfit();
     }
