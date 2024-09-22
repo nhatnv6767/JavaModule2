@@ -30,17 +30,18 @@ public class ProductImp {
 
         int choice;
         do {
-            System.out.println("*********************MENU******************");
-            System.out.println("1. Nhập thông tin n sản phẩm (n nhập từ bàn phím)");
-            System.out.println("2. Hiển thị thông tin các sản phẩm");
-            System.out.println("3. Tính lợi nhuận các sản phẩm");
-            System.out.println("4. Sắp xếp các sản phẩm theo lợi nhuận giảm dần");
-            System.out.println("5. Thống kê các sản phẩm theo giá");
-            System.out.println("6. Tìm các sản phẩm theo tên sản phẩm");
-            System.out.println("7. Nhập sản phẩm");
-            System.out.println("8. Bán sản phẩm");
-            System.out.println("9. Cập nhật trạng thái sản phẩm");
-            System.out.println("10. Thoát");
+//            System.out.println("*********************MENU******************");
+//            System.out.println("1. Nhập thông tin n sản phẩm (n nhập từ bàn phím)");
+//            System.out.println("2. Hiển thị thông tin các sản phẩm");
+//            System.out.println("3. Tính lợi nhuận các sản phẩm");
+//            System.out.println("4. Sắp xếp các sản phẩm theo lợi nhuận giảm dần");
+//            System.out.println("5. Thống kê các sản phẩm theo giá");
+//            System.out.println("6. Tìm các sản phẩm theo tên sản phẩm");
+//            System.out.println("7. Nhập sản phẩm");
+//            System.out.println("8. Bán sản phẩm");
+//            System.out.println("9. Cập nhật trạng thái sản phẩm");
+//            System.out.println("10. Thoát");
+            productImp.showMenuChoice(productImp);
             System.out.print("Lựa chọn của bạn: ");
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
@@ -78,60 +79,13 @@ public class ProductImp {
                     productImp.findProductByName(scanner, productImp);
                     break;
                 case 7:
-                    productImp.updateProductQuantity(scanner, productImp);
+                    productImp.addProductQuantity(scanner, productImp);
                     break;
                 case 8:
-                    // Bán sản phẩm
-                    System.out.print("Nhập tên sản phẩm cần bán: ");
-                    String sellProductName = scanner.nextLine();
-                    System.out.print("Nhập số lượng cần bán: ");
-                    int sellQuantity;
-                    // Xử lý ngoại lệ khi nhập số lượng
-                    try {
-                        sellQuantity = Integer.parseInt(scanner.nextLine());
-                        if (sellQuantity <= 0) {
-                            System.err.println("Số lượng phải lớn hơn 0.");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.err.println("Lỗi: " + e.getMessage() + " Vui lòng nhập lại.");
-                        break;
-                    }
-                    boolean productFoundForSelling = false;
-                    for (int i = 0; i < productImp.count; i++) {
-                        if (productImp.productArr[i].getProductName().equalsIgnoreCase(sellProductName)) {
-                            if (productImp.productArr[i].getQuantity() >= sellQuantity) {
-                                productImp.productArr[i].setQuantity(productImp.productArr[i].getQuantity() - sellQuantity);
-                                System.out.println("Đã bán sản phẩm thành công!");
-                                productFoundForSelling = true;
-                                break;
-                            } else {
-                                System.out.println("Số lượng sản phẩm không đủ để bán.");
-                                productFoundForSelling = true; // Đánh dấu là đã tìm thấy sản phẩm nhưng không đủ số lượng
-                                break;
-                            }
-                        }
-                    }
-                    if (!productFoundForSelling) {
-                        System.out.println("Không tìm thấy sản phẩm có tên: " + sellProductName);
-                    }
+                    productImp.sellProduct(scanner, productImp);
                     break;
                 case 9:
-                    // Cập nhật trạng thái sản phẩm
-                    System.out.print("Nhập mã sản phẩm cần cập nhật trạng thái: ");
-                    String updateProductId = scanner.nextLine();
-
-                    boolean productFoundForUpdate = false;
-                    for (int i = 0; i < productImp.count; i++) {
-                        if (productImp.productArr[i].getProductId().equalsIgnoreCase(updateProductId)) {
-                            productImp.productArr[i].setStatus(!productImp.productArr[i].isStatus()); // Đảo ngược trạng thái
-                            System.out.println("Đã cập nhật trạng thái sản phẩm thành công!");
-                            productFoundForUpdate = true;
-                            break;
-                        }
-                    }
-                    if (!productFoundForUpdate) {
-                        System.out.println("Không tìm thấy sản phẩm có mã: " + updateProductId);
-                    }
+                    productImp.updateStatusProduct(scanner, productImp);
                     break;
                 case 10:
                     System.out.println("Thoát chương trình");
@@ -145,7 +99,107 @@ public class ProductImp {
         } while (choice != exitMenu);
     }
 
-    private void updateProductQuantity(Scanner scanner, ProductImp productImp) {
+    public void showMenuChoice(ProductImp productImp) {
+        String[] options = {
+                "1. Nhập thông tin n sản phẩm (n nhập từ bàn phím)",
+                "2. Hiển thị thông tin các sản phẩm",
+                "3. Tính lợi nhuận các sản phẩm",
+                "4. Sắp xếp các sản phẩm theo lợi nhuận giảm dần",
+                "5. Thống kê các sản phẩm theo giá",
+                "6. Tìm các sản phẩm theo tên sản phẩm",
+                "7. Nhập sản phẩm",
+                "8. Bán sản phẩm",
+                "9. Cập nhật trạng thái sản phẩm",
+                "10. Thoát"
+        };
+
+        int longestLength = productImp.findLongestLength(options);
+        int numberOfAsterisksRequired = longestLength + 6;
+
+        System.out.println("*".repeat(numberOfAsterisksRequired + 2));
+
+        // In các món ăn
+        for (String select : options) {
+            int paddingLeft = (numberOfAsterisksRequired - select.length() - 2) / 2;
+            int paddingRight = numberOfAsterisksRequired - select.length() - 2 - paddingLeft;
+            String oneLine = "* " + " ".repeat(paddingLeft) + select + " ".repeat(paddingRight) + " *";
+            System.out.println(oneLine);
+        }
+
+        System.out.println("*".repeat(numberOfAsterisksRequired + 2));
+    }
+
+    public int findLongestLength(String[] mang) {
+        int max = 0;
+        for (String s : mang) {
+            if (s.length() > max) {
+                max = s.length();
+            }
+        }
+        return max;
+    }
+
+    private void updateStatusProduct(Scanner scanner, ProductImp productImp) {
+        System.out.print("Nhập mã sản phẩm cần cập nhật trạng thái: ");
+        String updateProductId = scanner.nextLine();
+
+        boolean productFoundForUpdate = false;
+        for (int i = 0; i < productImp.count; i++) {
+            if (productImp.productArr[i].getProductId().equalsIgnoreCase(updateProductId)) {
+                productImp.productArr[i].setStatus(!productImp.productArr[i].isStatus());
+                System.out.println("Đã cập nhật trạng thái sản phẩm thành công!");
+                productImp.productArr[i].displayData();
+                productFoundForUpdate = true;
+                break;
+            }
+        }
+        if (!productFoundForUpdate) {
+            System.out.println("Không tìm thấy sản phẩm có mã: " + updateProductId);
+        }
+    }
+
+    private void sellProduct(Scanner scanner, ProductImp productImp) {
+        System.out.print("Nhập tên sản phẩm cần bán: ");
+        String sellProductName = scanner.nextLine();
+        System.out.print("Nhập số lượng cần bán: ");
+        int sellQuantity = 0;
+        boolean validQuantity;
+        do {
+            try {
+                sellQuantity = Integer.parseInt(scanner.nextLine());
+                if (sellQuantity <= 0) {
+                    System.err.println("Số lượng phải lớn hơn 0.");
+                    validQuantity = false;
+                } else {
+                    validQuantity = true;
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Lỗi: " + e.getMessage() + " Vui lòng nhập lại.");
+                validQuantity = false;
+            }
+        } while (!validQuantity);
+        boolean productFoundForSelling = false;
+        for (int i = 0; i < productImp.count; i++) {
+            if (productImp.productArr[i].getProductName().equalsIgnoreCase(sellProductName)) {
+                if (productImp.productArr[i].getQuantity() >= sellQuantity) {
+                    productImp.productArr[i].setQuantity(productImp.productArr[i].getQuantity() - sellQuantity);
+                    System.out.println("Đã bán sản phẩm thành công!");
+                    productImp.productArr[i].displayData();
+                    productFoundForSelling = true;
+                    break;
+                } else {
+                    System.out.println("Số lượng sản phẩm không đủ để bán.");
+                    productFoundForSelling = true;
+                    break;
+                }
+            }
+        }
+        if (!productFoundForSelling) {
+            System.out.println("Không tìm thấy sản phẩm có tên: " + sellProductName);
+        }
+    }
+
+    private void addProductQuantity(Scanner scanner, ProductImp productImp) {
         System.out.print("Nhập mã sản phẩm cần nhập thêm: ");
         String importProductId = scanner.nextLine();
         System.out.print("Nhập số lượng cần nhập thêm: ");
@@ -154,7 +208,7 @@ public class ProductImp {
         do {
             try {
                 importQuantity = Integer.parseInt(scanner.nextLine());
-                if (importQuantity < 0) {
+                if (importQuantity <= 0) {
                     System.err.println("Số lượng phải lớn hơn 0.");
                     validQuantity = false;
                 } else {

@@ -110,6 +110,16 @@ public class Product {
         System.out.println("-----------------------------");
     }
 
+    private int findLongestLength(String[] mang) {
+        int max = 0;
+        for (String s : mang) {
+            if (s.length() > max) {
+                max = s.length();
+            }
+        }
+        return max;
+    }
+
     public void inputData(Scanner scanner, Product[] arrProduct) {
 
         this.productId = inputProductId(scanner, arrProduct);
