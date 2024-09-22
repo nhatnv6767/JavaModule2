@@ -96,18 +96,30 @@ public class Product {
 
     public void displayData() {
 
-        System.out.println("-----------------------------");
-        System.out.println("Mã sản phẩm: " + this.productId);
-        System.out.println("Tên sản phẩm: " + this.productName);
-        System.out.println("Giá nhập: " + String.format("%.2f", this.importPrice));
-        System.out.println("Giá xuất: " + String.format("%.2f", this.exportPrice));
-        System.out.println("Số lượng: " + this.quantity);
-        this.profit = calProfit();
-        System.out.println("Lợi nhuận: " + String.format("%.2f", this.profit));
-        System.out.println("Mô tả: " + this.descriptions);
-        System.out.println("Trạng thái: " + (this.status ? "Đang bán" : "Không bán"));
+        String[] lines = {
+                "Mã sản phẩm: " + this.productId,
+                "Tên sản phẩm: " + this.productName,
+                "Giá nhập: " + String.format("%.2f", this.importPrice),
+                "Giá xuất: " + String.format("%.2f", this.exportPrice),
+                "Số lượng: " + this.quantity,
+                "Lợi nhuận: " + String.format("%.2f", this.profit = calProfit()),
+                "Mô tả: " + this.descriptions,
+                "Trạng thái: " + (this.status ? "Đang bán" : "Không bán")
+        };
 
-        System.out.println("-----------------------------");
+        int longestLength = findLongestLength(lines);
+        int totalLength = longestLength + 8;
+
+        System.out.println("-".repeat(totalLength));
+
+        for (String line : lines) {
+            int paddingLeft = (totalLength - line.length() - 2) / 2;
+            int paddingRight = totalLength - line.length() - 3 - paddingLeft;
+            String oneLine = "| " + " ".repeat(paddingLeft) + line + " ".repeat(paddingRight) + " |";
+            System.out.println(oneLine);
+        }
+
+        System.out.println("-".repeat(totalLength));
     }
 
     private int findLongestLength(String[] mang) {
