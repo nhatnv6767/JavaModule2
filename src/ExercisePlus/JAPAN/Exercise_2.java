@@ -9,8 +9,6 @@ public class Exercise_2 {
 
         Pattern pattern = Pattern.compile("\\b[^g\\s]\\w*g\\w*[^g\\s]\\b");
         Matcher matcher = pattern.matcher(text);
-        while (matcher.find()) {
-            System.out.println(matcher.group());
-        }
+        System.out.println(matcher.matches());
     }
 }

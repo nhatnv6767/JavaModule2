@@ -13,7 +13,7 @@ public class Exercise {
     }
 
     public boolean checkAllowedChars(String str) {
-        String regex = "^[a-zA-Z0-9]+$";
+        String regex = "^[a-zA-Z0-9\\s]+$";
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(str).matches();
     }
