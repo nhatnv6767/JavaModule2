@@ -437,6 +437,69 @@ public class ShopManagement {
 
     }
 
+    private void sortProductByPrice(Product[] arrProduct, int productIndex) {
+        for (int i = 0; i < productIndex - 1; i++) {
+            for (int j = i + 1; j < productIndex; j++) {
+                if (arrProduct[i] != null && arrProduct[j] != null && arrProduct[i].getPrice() > arrProduct[j].getPrice()) {
+                    Product temp = arrProduct[i];
+                    arrProduct[i] = arrProduct[j];
+                    arrProduct[j] = temp;
+                }
+            }
+        }
+        System.out.println("Sắp xếp sản phẩm theo giá thành công!");
+    }
+
+    private void deleteProduct(Scanner scanner, Product[] arrProduct) {
+        System.out.print("Nhập mã sản phẩm cần xóa: ");
+        String productId = scanner.nextLine();
+        int index = findProductIndexById(arrProduct, productId);
+        if (index != -1) {
+            // dich chuyen cac phan tu phia sau len de lap day cho trong
+            for (int i = index; i < arrProduct.length - 1; i++) {
+                arrProduct[i] = arrProduct[i + 1];
+            }
+            arrProduct[arrProduct.length - 1] = null; // xoa phan tu cuoi cung
+        } else {
+            System.err.println("Không tìm thấy sản phẩm có mã " + productId);
+        }
+    }
+
+    private void searchProductsByName(Scanner scanner, Product[] arrProduct, int productIndex) {
+        System.out.print("Nhập tên sản phẩm cần tìm: ");
+        String searchName = scanner.nextLine();
+        boolean found = false;
+        for (int i = 0; i < arrProduct.length; i++) {
+            if (arrProduct[i] != null && arrProduct[i].getProductName().toLowerCase().contains(searchName.toLowerCase())) {
+                arrProduct[i].displayData();
+                System.out.println("----------------------");
+                found = true;
+            }
+        }
+        if (!found) {
+            System.err.println("Không tìm thấy sản phẩm nào có tên chứa '" + searchName + "'");
+        }
+    }
+
+    private void searchProductsByPriceRange(Scanner scanner, Product[] arrProduct) {
+        System.out.print("Nhập giá tối thiểu: ");
+        float minPrice = Float.parseFloat(scanner.nextLine());
+        System.out.print("Nhập giá tối đa: ");
+        float maxPrice = Float.parseFloat(scanner.nextLine());
+        boolean found = false;
+        for (int i = 0; i < arrProduct.length; i++) {
+            if (arrProduct[i] != null && arrProduct[i].getPrice() >= minPrice && arrProduct[i].getPrice() <= maxPrice) {
+                arrProduct[i].displayData();
+                System.out.println("----------------------");
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.err.println("Không tìm thấy sản phẩm nào trong khoảng giá từ " + minPrice + " đến " + maxPrice);
+        }
+    }
+
     private int findProductIndexById(Product[] arrProduct, String productId) {
         for (int i = 0; i < arrProduct.length; i++) {
             if (arrProduct[i] != null && arrProduct[i].getProductId().equalsIgnoreCase(productId)) {
