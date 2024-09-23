@@ -13,10 +13,17 @@ public class ShopManagement {
         Scanner scanner = new Scanner(System.in);
         Categories[] arrCategories = new Categories[100];
         Product[] arrProducts = new Product[100];
-        int categoryIndex = 0;
-        int productIndex = 0;
+
+        // not for test - dung cho nhap lieu bang tay
+//        int categoryIndex = 0;
+//        int productIndex = 0;
 
         ShopManagement shopManagement = new ShopManagement();
+
+        int categoryIndex = 10;
+        int productIndex = 10;
+        // testing crawl data
+        shopManagement.initDataForTesting(arrCategories, arrProducts, new int[]{categoryIndex}, new int[]{productIndex});
         // menu chinh
         while (true) {
             shopManagement.displayShopMenu();
@@ -37,6 +44,43 @@ public class ShopManagement {
             }
         }
     }
+
+    private void initDataForTesting(Categories[] arrCategories, Product[] arrProduct, int[] categoryIndex, int[] productIndex) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        // Hardcode du lieu cho arrCategories
+        arrCategories[0] = new Categories(1, "Cà phê", "Các loại cà phê", true);
+        arrCategories[1] = new Categories(2, "Trà sữa", "Các loại trà sữa", true);
+        arrCategories[2] = new Categories(3, "Sinh tố", "Các loại sinh tố", true);
+        arrCategories[3] = new Categories(4, "Nước ép", "Các loại nước ép", true);
+        arrCategories[4] = new Categories(5, "Đồ ăn nhanh", "Các món ăn nhanh", true);
+        arrCategories[5] = new Categories(6, "Bánh ngọt", "Các loại bánh ngọt", true);
+        arrCategories[6] = new Categories(7, "Kem", "Các loại kem", true);
+        arrCategories[7] = new Categories(8, "Đồ uống khác", "Các loại đồ uống khác", true);
+        arrCategories[8] = new Categories(9, "Cà phê đá xay", "Cà phê đá xay", true);
+        arrCategories[9] = new Categories(10, "Trà trái cây", "Trà trái cây", true);
+
+        categoryIndex[0] = 10;
+
+        // Hardcode du lieu cho arrProduct
+        try {
+            arrProduct[0] = new Product("C001", "Cà phê đen đá", 25000, "Cà phê đen truyền thống", dateFormat.parse("20/09/2023"), 1, 0);
+            arrProduct[1] = new Product("C002", "Cà phê sữa đá", 30000, "Cà phê sữa đậm đà", dateFormat.parse("15/08/2023"), 1, 0);
+            arrProduct[2] = new Product("T001", "Trà sữa truyền thống", 35000, "Trà sữa thơm ngon", dateFormat.parse("12/07/2023"), 2, 0);
+            arrProduct[3] = new Product("T002", "Trà sữa matcha", 40000, "Trà sữa matcha đặc biệt", dateFormat.parse("05/06/2023"), 2, 0);
+            arrProduct[4] = new Product("S001", "Sinh tố bơ", 45000, "Sinh tố bơ béo ngậy", dateFormat.parse("28/05/2023"), 3, 0);
+            arrProduct[5] = new Product("S002", "Sinh tố dâu", 40000, "Sinh tố dâu tươi mát", dateFormat.parse("10/04/2023"), 3, 0);
+            arrProduct[6] = new Product("A001", "Hamburger bò", 50000, "Hamburger bò phô mai", dateFormat.parse("02/03/2023"), 5, 0);
+            arrProduct[7] = new Product("A002", "Gà rán", 40000, "Gà rán giòn tan", dateFormat.parse("18/02/2023"), 5, 0);
+            arrProduct[8] = new Product("B001", "Bánh tiramisu", 30000, "Bánh tiramisu cổ điển", dateFormat.parse("08/01/2023"), 6, 0);
+            arrProduct[9] = new Product("K001", "Kem ốc quế", 15000, "Kem ốc quế socola", dateFormat.parse("25/12/2022"), 7, 0);
+
+            productIndex[0] = 10;
+        } catch (ParseException e) {
+            System.err.println("Lỗi khi phân tích ngày tháng: " + e.getMessage());
+        }
+    }
+
 
     private void displayShopMenu() {
         System.out.println("******************SHOP MENU*******************");
@@ -73,12 +117,12 @@ public class ShopManagement {
                     break;
                 case 2:
                     System.out.println("===> 2. Hiển thị thông tin các sản phẩm");
-                    displayProducts(arrProduct, productIndex);
+                    displayProducts(arrProduct);
                     break;
                 case 3:
                     System.out.println("===> 3. Sắp xếp các sản phẩm theo giá");
                     sortProductByPrice(arrProduct, productIndex);
-                    displayProducts(arrProduct, productIndex);
+                    displayProducts(arrProduct);
                     break;
                 case 4:
                     System.out.println("===> 4. Cập nhật thông tin sản phẩm theo mã sản phẩm");
@@ -328,15 +372,22 @@ public class ShopManagement {
     }
 
     // hien thi thong tin cac san pham
-    private void displayProducts(Product[] arrProduct, int productIndex) {
-        if (productIndex == 0) {
+    private void displayProducts(Product[] arrProduct) {
+//        if (productIndex == 0) {
+//            System.out.println("Không có sản phẩm nào.");
+//            return;
+//        }
+
+        if (isProductArrayEmpty(arrProduct)) {
             System.out.println("Không có sản phẩm nào.");
             return;
         }
-        for (int i = 0; i < productIndex; i++) {
-            System.out.println("Thông tin sản phẩm thứ " + (i + 1) + ":");
-            arrProduct[i].displayData();
-            System.out.println("----------------------");
+        for (int i = 0; i < arrProduct.length; i++) {
+            if (arrProduct[i] != null) {
+                System.out.println("Thông tin sản phẩm thứ " + (i + 1) + ":");
+                arrProduct[i].displayData();
+                System.out.println("----------------------");
+            }
         }
     }
 
@@ -523,6 +574,15 @@ public class ShopManagement {
             }
         }
         return -1; // Mang da day
+    }
+
+    private boolean isProductArrayEmpty(Product[] arrProduct) {
+        for (Product product : arrProduct) {
+            if (product != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
