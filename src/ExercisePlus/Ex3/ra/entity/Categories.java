@@ -51,7 +51,7 @@ public class Categories {
     }
 
     public void inputData(Scanner scanner, Categories[] arrCategories, int index) {
-        System.out.print("Nhập tên danh mục");
+        System.out.print("Nhập tên danh mục: ");
         this.catalogName = scanner.nextLine();
 
         // kiem tra trung lap ten danh muc
