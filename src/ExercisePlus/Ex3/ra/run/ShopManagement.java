@@ -20,7 +20,7 @@ public class ShopManagement {
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
-                    shopManagement.handleCategoryMenu(scanner, arrCategories, categoryIndex);
+                    shopManagement.handleCategoryMenu(scanner, arrCategories, categoryIndex, arrProducts);
                     break;
                 case 2:
                     shopManagement.handleProductMenu(scanner, arrProducts, productIndex, arrCategories);
@@ -107,28 +107,34 @@ public class ShopManagement {
         System.out.print("Lựa chọn của bạn: ");
     }
 
-    private void handleCategoryMenu(Scanner scanner, Categories[] arrCategories, int categoryIndex) {
+    private void handleCategoryMenu(Scanner scanner, Categories[] arrCategories, int categoryIndex, Product[] arrProduct) {
         while (true) {
             displayCategoryMenu();
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
                     System.out.println("===> 1. Nhập thông tin các danh mục");
+                    inputCategories(scanner, arrCategories, categoryIndex);
+                    categoryIndex = getNextAvailableCategoryIndex(arrCategories);// chuyen ve vi tri index phu hop
                     break;
                 case 2:
                     System.out.println("===> 2. Hiển thị thông tin các danh mục");
+                    displayCategories(arrCategories);
                     break;
                 case 3:
                     System.out.println("===> 3. Cập nhật thông tin danh mục");
+                    updateCategory(scanner, arrCategories);
                     break;
                 case 4:
                     System.out.println("===> 4. Xóa danh mục");
+                    deleteCategory(scanner, arrCategories, arrProduct);
                     break;
                 case 5:
                     System.out.println("===> 5. Cập nhật trạng thái danh mục");
+                    updateCategoryStatus(scanner, arrCategories);
                     break;
                 case 6:
-                    System.out.println("===> 6. Thoát");
+                    System.err.println("===> 6. Thoát");
                     return;
                 default:
                     System.out.println("Lựa chọn không hợp lệ.");
@@ -174,6 +180,7 @@ public class ShopManagement {
         int categoryId = Integer.parseInt(scanner.nextLine());
         int index = findCategoryIndexById(arrCategories, categoryId);
         if (index != -1) {
+            arrCategories[index].displayData();
             System.out.println("Nhập thông tin mới cho danh mục");
             arrCategories[index].inputData(scanner, arrCategories, index);
             System.out.println("Cập nhật danh mục thành công");
@@ -187,6 +194,7 @@ public class ShopManagement {
         int categoryId = Integer.parseInt(scanner.nextLine());
         int index = findCategoryIndexById(arrCategories, categoryId);
         if (index != -1) {
+            arrCategories[index].displayData();
             if (!isCategoryContainProduct(arrCategories[index], arrProduct)) {
                 arrCategories[index] = null;
                 System.out.println("Xóa danh mục thành công!");
@@ -203,6 +211,7 @@ public class ShopManagement {
         int categoryId = Integer.parseInt(scanner.nextLine());
         int index = findCategoryIndexById(arrCategories, categoryId);
         if (index != -1) {
+            arrCategories[index].displayData();
             arrCategories[index].setCatalogStatus(!arrCategories[index].isCatalogStatus());
             System.out.println("Cập nhật trạng thái danh mục thành công!");
         } else {
