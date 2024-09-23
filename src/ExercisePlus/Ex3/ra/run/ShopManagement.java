@@ -45,6 +45,7 @@ public class ShopManagement {
         }
     }
 
+    
     private void initDataForTesting(Categories[] arrCategories, Product[] arrProduct, int[] categoryIndex, int[] productIndex) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
