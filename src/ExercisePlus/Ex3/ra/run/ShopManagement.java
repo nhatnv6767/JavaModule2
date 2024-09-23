@@ -3,6 +3,9 @@ package ExercisePlus.Ex3.ra.run;
 import ExercisePlus.Ex3.ra.entity.Categories;
 import ExercisePlus.Ex3.ra.entity.Product;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class ShopManagement {
@@ -66,10 +69,11 @@ public class ShopManagement {
                 case 1:
                     System.out.println("===> 1. Nhập thông tin các sản phẩm");
                     inputProducts(scanner, arrProduct, productIndex, arrCategories);
-                    productIndex++;
+                    productIndex = getNextAvailableProductIndex(arrProduct);
                     break;
                 case 2:
                     System.out.println("===> 2. Hiển thị thông tin các sản phẩm");
+                    displayProducts(arrProduct, productIndex);
                     break;
                 case 3:
                     System.out.println("===> 3. Sắp xếp các sản phẩm theo giá");
@@ -327,6 +331,128 @@ public class ShopManagement {
             arrProduct[i].displayData();
             System.out.println("----------------------");
         }
+    }
+
+    private void updateProduct(Scanner scanner, Product[] arrProduct, Categories[] arrCategories) {
+        System.out.print("Nhập mã sản phẩm cần cập nhật: ");
+        String productId = scanner.nextLine();
+        int index = findProductIndexById(arrProduct, productId);
+        if (index != -1) {
+            Product product = arrProduct[index];
+            product.displayData();
+            System.out.println("Nhập thông tin mới cho sản phẩm (nhấn Enter để giữ nguyên):");
+
+            System.out.print("Tên sản phẩm hiện tại: " + (product.getProductName()) + " - Nhập tên mới: ");
+            String newName = scanner.nextLine().strip();
+            if (!newName.isEmpty()) {
+                boolean isDuplicate = false;
+                for (int i = 0; i < arrProduct.length; i++) {
+                    if (arrProduct[i] != null && i != index && arrProduct[i].getProductName().equalsIgnoreCase(newName)) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
+                while (newName.length() < 10 || newName.length() > 50 || isDuplicate) {
+                    if (newName.length() < 10 || newName.length() > 50) {
+                        System.err.println("Tên sản phẩm không hợp lệ. Vui lòng nhập lại (10-50 ký tự): ");
+                    } else {
+                        System.err.println("Tên sản phẩm đã tồn tại. Vui lòng nhập lại!");
+                    }
+                    System.out.print("Nhập tên sản phẩm mới: ");
+                    newName = scanner.nextLine().strip();
+                    isDuplicate = false;
+                    for (int i = 0; i < arrProduct.length; i++) {
+                        if (arrProduct[i] != null && i != index && arrProduct[i].getProductName().equalsIgnoreCase(newName)) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                }
+                product.setProductName(newName);
+            }
+
+            // gia san pham
+            System.out.print("Giá sản phẩm hiện tại: " + (product.getPrice()) + " - Nhập giá mới: ");
+            String newPriceStr = scanner.nextLine().strip();
+            if (!newPriceStr.isEmpty()) {
+                float newPrice = Float.parseFloat(newPriceStr);
+                while (newPrice <= 0) {
+                    System.err.print("Giá sản phẩm không hợp lệ. Vui lòng nhập lại (lớn hơn 0): ");
+                    newPriceStr = scanner.nextLine().strip();
+                    newPrice = Float.parseFloat(newPriceStr);
+                }
+                product.setPrice(newPrice);
+            }
+
+            // cap nhat mo ta
+            System.out.print("Mô tả sản phẩm hiện tại: " + (product.getDescription()) + " - Nhập mô tả mới: ");
+            String newDescription = scanner.nextLine().strip();
+            if (!newDescription.isEmpty()) {
+                product.setDescription(newDescription);
+            }
+
+            // cap nhat ngay nhap san pham
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            System.out.print("Ngày nhập sản phẩm hiện tại: " + (dateFormat.format(product.getCreated())) + " - Nhập ngày mới (dd/MM/yyyy): ");
+            String newCreatedStr = scanner.nextLine().strip();
+            if (!newCreatedStr.isEmpty()) {
+                try {
+                    Date newCreated = dateFormat.parse(newCreatedStr);
+                    product.setCreated(newCreated);
+                } catch (ParseException e) {
+                    System.err.println("Định dạng ngày không hợp lệ.");
+                }
+            }
+
+            // cap nhat danh muc san pham
+            System.out.print("Danh mục sản phẩm hiện tại: " + (product.getCatalogId()) + " - Nhập danh mục mới: ");
+            displayCategories(arrCategories);
+            String newCatalogIdStr = scanner.nextLine().strip();
+            if (!newCatalogIdStr.isEmpty()) {
+                int newCatalogId = Integer.parseInt(newCatalogIdStr);
+                if (product.isValidCatalogId(arrCategories, newCatalogId)) {
+                    product.setCatalogId(newCatalogId);
+                } else {
+                    System.err.println("Mã danh mục không hợp lệ.");
+                }
+            }
+
+            // Cap nhat trang thai san pham
+            System.out.print("Trạng thái sản phẩm hiện tại: " + (product.getProductStatus()) + " - Nhập trạng thái mới (0-2): ");
+            String newSatusStr = scanner.nextLine().strip();
+            if (!newSatusStr.isEmpty()) {
+                int newStatus = Integer.parseInt(newSatusStr);
+                if (newStatus >= 0 && newStatus <= 2) {
+                    product.setProductStatus(newStatus);
+                } else {
+                    System.err.println("Trạng thái sản phẩm không hợp lệ.");
+                }
+            }
+
+            System.out.println("Cập nhật sản phẩm thành công!");
+        } else {
+            System.err.println("Không tìm thấy sản phẩm có mã " + productId);
+        }
+
+    }
+
+    private int findProductIndexById(Product[] arrProduct, String productId) {
+        for (int i = 0; i < arrProduct.length; i++) {
+            if (arrProduct[i] != null && arrProduct[i].getProductId().equalsIgnoreCase(productId)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int getNextAvailableProductIndex(Product[] arrProduct) {
+        for (int i = 0; i < arrProduct.length; i++) {
+            if (arrProduct[i] == null) {
+                return i;
+            }
+        }
+        return -1; // Mang da day
     }
 
 }

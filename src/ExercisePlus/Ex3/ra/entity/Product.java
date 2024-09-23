@@ -200,7 +200,7 @@ public class Product {
         }
     }
 
-    private boolean isValidCatalogId(Categories[] arrCategories, int catalogId) {
+    public boolean isValidCatalogId(Categories[] arrCategories, int catalogId) {
         for (Categories arrCategory : arrCategories) {
             if (arrCategory != null && arrCategory.getCatalogId() == catalogId) {
                 return true;
