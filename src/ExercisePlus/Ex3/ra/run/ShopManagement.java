@@ -7,7 +7,32 @@ import java.util.Scanner;
 
 public class ShopManagement {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Categories[] arrCategories = new Categories[100];
+        Product[] arrProducts = new Product[100];
+        int categoryIndex = 0;
+        int productIndex = 0;
 
+        ShopManagement shopManagement = new ShopManagement();
+        // menu chinh
+        while (true) {
+            shopManagement.displayShopMenu();
+            int choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    shopManagement.handleCategoryMenu(scanner, arrCategories, categoryIndex);
+                    break;
+                case 2:
+                    shopManagement.handleProductMenu(scanner, arrProducts, productIndex, arrCategories);
+                    break;
+                case 3:
+                    System.err.println("Kết thúc chương trình.");
+                    return;
+                default:
+                    System.err.println("Lựa chọn không hợp lệ.");
+
+            }
+        }
     }
 
     private void displayShopMenu() {
@@ -120,5 +145,16 @@ public class ShopManagement {
     }
 
     // hien thi thong tin cac san pham
+    private void displayProducts(Product[] arrProduct, int productIndex) {
+        if (productIndex == 0) {
+            System.out.println("Không có sản phẩm nào.");
+            return;
+        }
+        for (int i = 0; i < productIndex; i++) {
+            System.out.println("Thông tin sản phẩm thứ " + (i + 1) + ":");
+            arrProduct[i].displayData();
+            System.out.println("----------------------");
+        }
+    }
 
 }
