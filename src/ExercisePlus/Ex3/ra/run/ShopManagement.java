@@ -180,9 +180,54 @@ public class ShopManagement {
         int categoryId = Integer.parseInt(scanner.nextLine());
         int index = findCategoryIndexById(arrCategories, categoryId);
         if (index != -1) {
-            arrCategories[index].displayData();
-            System.out.println("Nhập thông tin mới cho danh mục");
-            arrCategories[index].inputData(scanner, arrCategories, index);
+            Categories category = arrCategories[index];
+            category.displayData();
+            System.out.println("Nhập thông tin mới cho danh mục (nhấn Enter nếu như muốn giữ nguyên giá trị cũ):");
+
+            System.out.print("Tên danh mục hiện tại: " + (category.getCatalogName()) + " - Nhập tên mới: ");
+            String newName = scanner.nextLine().strip();
+            if (!newName.isEmpty()) {
+                // Kiem tra trung lap ten danh muc (tru cai danh muc dang cap nhat)
+                boolean isDuplicate = false;
+                for (int i = 0; i < arrCategories.length; i++) {
+                    if (arrCategories[i] != null && i != index && arrCategories[i].getCatalogName().equalsIgnoreCase(newName)) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
+                while (newName.length() > 50 || isDuplicate) {
+                    if (newName.length() > 50) {
+                        System.err.println("Tên danh mục không được vượt quá 50 ký tự. Vui lòng nhập lại!");
+                    } else {
+                        System.err.println("Tên danh mục đã tồn tại. Vui lòng nhập lại!");
+                    }
+                    System.out.print("Nhập tên danh mục mới: ");
+                    newName = scanner.nextLine().strip();
+                    isDuplicate = false;
+                    for (int i = 0; i < arrCategories.length; i++) {
+                        if (arrCategories[i] != null && i != index && arrCategories[i].getCatalogName().equalsIgnoreCase(newName)) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                }
+                category.setCatalogName(newName);
+            }
+
+            System.out.print("Mô tả danh mục hiện tại: " + (category.getDescriptions()) + " - Nhập mô tả mới: ");
+            String newDescription = scanner.nextLine().strip();
+            if (!newDescription.isEmpty()) {
+                category.setDescriptions(newDescription);
+            }
+
+            System.out.print("Trạng thái danh mục hiện tại: " + (category.isCatalogStatus() ? "Hoạt động" : "Không hoạt động") + " - Nhập trạng thái mới (true/false): ");
+            String newStatus = scanner.nextLine().strip();
+            if (!newStatus.isEmpty()) {
+                category.setCatalogStatus(newStatus.equalsIgnoreCase("true"));
+            }
+
+//            arrCategories[index].inputData(scanner, arrCategories, index);
             System.out.println("Cập nhật danh mục thành công");
         } else {
             System.err.println("Không tìm thấy danh mục có mã " + categoryId);
@@ -211,8 +256,8 @@ public class ShopManagement {
         int categoryId = Integer.parseInt(scanner.nextLine());
         int index = findCategoryIndexById(arrCategories, categoryId);
         if (index != -1) {
-            arrCategories[index].displayData();
             arrCategories[index].setCatalogStatus(!arrCategories[index].isCatalogStatus());
+            arrCategories[index].displayData();
             System.out.println("Cập nhật trạng thái danh mục thành công!");
         } else {
             System.err.println("Không tìm thấy danh mục có mã " + categoryId);
