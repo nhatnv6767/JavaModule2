@@ -77,18 +77,25 @@ public class ShopManagement {
                     break;
                 case 3:
                     System.out.println("===> 3. Sắp xếp các sản phẩm theo giá");
+                    sortProductByPrice(arrProduct, productIndex);
+                    displayProducts(arrProduct, productIndex);
                     break;
                 case 4:
                     System.out.println("===> 4. Cập nhật thông tin sản phẩm theo mã sản phẩm");
+                    updateProduct(scanner, arrProduct, arrCategories);
                     break;
                 case 5:
                     System.out.println("===> 5. Xóa sản phẩm theo mã sản phẩm");
+                    deleteProduct(scanner, arrProduct);
+                    productIndex = getNextAvailableProductIndex(arrProduct);
                     break;
                 case 6:
                     System.out.println("===> 6. Tìm kiếm các sản phẩm theo tên sản phẩm");
+                    searchProductsByName(scanner, arrProduct, productIndex);
                     break;
                 case 7:
                     System.out.println("===> 7. Tìm kiếm sản phẩm trong khoảng giá a – b (a,b nhập từ bàn phím)");
+                    searchProductsByPriceRange(scanner, arrProduct);
                     break;
                 case 8:
                     System.out.println("===> 8. Thoát");
