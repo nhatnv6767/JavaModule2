@@ -22,8 +22,8 @@ public class Order {
         createOrderId();
     }
 
-    public Order(boolean orderType, String productId, int quantity, float price, int userCreatedId, boolean orderStatus) {
-        this.created = new Date();
+    public Order(boolean orderType, String productId, int quantity, float price, int userCreatedId, boolean orderStatus, Date randomDate) {
+        this.created = randomDate;
         createOrderId();
         this.orderType = orderType;
         this.productId = productId;

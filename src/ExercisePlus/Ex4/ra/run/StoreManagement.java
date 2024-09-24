@@ -6,7 +6,9 @@ import ExercisePlus.Ex4.ra.entity.Product;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.Scanner;
 
 public class StoreManagement {
@@ -83,17 +85,33 @@ public class StoreManagement {
     }
 
     private void createSampleOrders() {
-        orders[orderCount++] = new Order(true, "P001", 10, 100.0f, 1, true);
-        orders[orderCount++] = new Order(false, "P003", 5, 150.0f, 3, true);
-        orders[orderCount++] = new Order(true, "P005", 8, 80.0f, 2, false);
-        orders[orderCount++] = new Order(false, "P007", 3, 200.0f, 1, true);
-        orders[orderCount++] = new Order(true, "P002", 12, 50.0f, 4, false);
+        orders[orderCount++] = new Order(true, "P001", 10, 100.0f, 1, true, getRandomDate());
+        orders[orderCount++] = new Order(false, "P003", 5, 150.0f, 3, true, getRandomDate());
+        orders[orderCount++] = new Order(true, "P005", 8, 80.0f, 2, false, getRandomDate());
+        orders[orderCount++] = new Order(false, "P007", 3, 200.0f, 1, true, getRandomDate());
+        orders[orderCount++] = new Order(true, "P002", 12, 50.0f, 4, false, getRandomDate());
 
-        orders[orderCount++] = new Order(false, "P004", 7, 120.0f, 2, true);
-        orders[orderCount++] = new Order(true, "P006", 20, 40.0f, 3, false);
-        orders[orderCount++] = new Order(false, "P009", 1, 300.0f, 5, true);
-        orders[orderCount++] = new Order(true, "P008", 6, 75.0f, 1, true);
-        orders[orderCount++] = new Order(false, "P010", 4, 180.0f, 4, false);
+        orders[orderCount++] = new Order(false, "P004", 7, 120.0f, 2, true, getRandomDate());
+        orders[orderCount++] = new Order(true, "P006", 20, 40.0f, 3, false, getRandomDate());
+        orders[orderCount++] = new Order(false, "P009", 1, 300.0f, 5, true, getRandomDate());
+        orders[orderCount++] = new Order(true, "P008", 6, 75.0f, 1, true, getRandomDate());
+        orders[orderCount++] = new Order(false, "P010", 4, 180.0f, 4, false, getRandomDate());
+    }
+
+    private Date getRandomDate() {
+        Date currentDate = new Date();
+
+        // tao calendar va thiet lap ngay hien tai
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+
+        // tao 1 so ngau hien tu 0 - 90 (Khoang 3 thang)
+        Random random = new Random();
+        int randomDays = random.nextInt(91);
+
+        // tru di so ngay ngau nhien
+        calendar.add(Calendar.DAY_OF_YEAR, -randomDays);
+        return calendar.getTime();
     }
 
     private void displayMainMenu() {
@@ -643,6 +661,7 @@ public class StoreManagement {
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
+                    reportProductsImportedByDateRange(scanner);
                     break;
                 case 2:
                     break;
@@ -695,8 +714,21 @@ public class StoreManagement {
                     // tim vi tri cua san pham trong mang products
                     int productIndex = -1;
                     for (int j = 0; j < productCount; j++) {
-
+                        if (products[j].getProductId().equals(order.getProductId())) {
+                            productIndex = j;
+                            break;
+                        }
                     }
+                    if (productIndex != -1) {
+                        productQuantities[productIndex] += order.getQuantity();
+                    }
+                }
+            }
+
+            System.out.println("Thống kê sản phẩm nhập từ " + dateFormat.format(startDate) + " đến " + dateFormat.format(endDate) + " là: ");
+            for (int i = 0; i < productCount; i++) {
+                if (productQuantities[i] > 0) {
+                    System.out.println("- " + products[i].getProductName() + ": " + productQuantities[i]);
                 }
             }
         } catch (ParseException e) {
