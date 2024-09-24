@@ -9,51 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class StoreManagement {
-    private Product[] products = new Product[100];
-    private Employee[] employees = new Employee[100];
-    private Order[] orders = new Order[100];
-    private int productCount = 0, employeeCount = 0, orderCount = 0;
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        StoreManagement storeManagement = new StoreManagement();
-
-        // du lieu test nhanh
-        storeManagement.createSampleProducts();
-        storeManagement.createSampleEmployees();
-        storeManagement.createSampleOrders();
-
-        int choice;
-        do {
-            storeManagement.displayMainMenu();
-            choice = Integer.parseInt(scanner.nextLine());
-            switch (choice) {
-                case 1:
-                    storeManagement.productManagement(scanner);
-                    break;
-                case 2:
-                    storeManagement.employeeManagement(scanner);
-                    break;
-                case 3:
-                    storeManagement.receiptManagement(true, scanner);
-                    break;
-                case 4:
-                    storeManagement.receiptManagement(false, scanner);
-                    break;
-                case 5:
-                    storeManagement.reportManagement(scanner);
-                    break;
-                case 6:
-                    System.err.println("Thoát chương trình...");
-                    break;
-                default:
-                    System.err.println("Lựa chọn không hợp lệ");
-
-            }
-        } while (choice != 6);
-
-    }
-
     private void createSampleProducts() {
         products[productCount++] = new Product("P001", "Sản phẩm A", "Nhà sản xuất X", getRandomTrueFalse());
         products[productCount++] = new Product("P002", "Sản phẩm B", "Nhà sản xuất Y", getRandomTrueFalse());
@@ -166,6 +121,52 @@ public class StoreManagement {
         orders[orderCount++] = new Order(getRandomTrueFalse(), "P030", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
 
     }
+
+    private Product[] products = new Product[100];
+    private Employee[] employees = new Employee[100];
+    private Order[] orders = new Order[100];
+    private int productCount = 0, employeeCount = 0, orderCount = 0;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        StoreManagement storeManagement = new StoreManagement();
+
+        // du lieu test nhanh
+        storeManagement.createSampleProducts();
+        storeManagement.createSampleEmployees();
+        storeManagement.createSampleOrders();
+
+        int choice;
+        do {
+            storeManagement.displayMainMenu();
+            choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    storeManagement.productManagement(scanner);
+                    break;
+                case 2:
+                    storeManagement.employeeManagement(scanner);
+                    break;
+                case 3:
+                    storeManagement.receiptManagement(true, scanner);
+                    break;
+                case 4:
+                    storeManagement.receiptManagement(false, scanner);
+                    break;
+                case 5:
+                    storeManagement.reportManagement(scanner);
+                    break;
+                case 6:
+                    System.err.println("Thoát chương trình...");
+                    break;
+                default:
+                    System.err.println("Lựa chọn không hợp lệ");
+
+            }
+        } while (choice != 6);
+
+    }
+
 
     private Float getRandomFloat() {
         Random rand = new Random();
