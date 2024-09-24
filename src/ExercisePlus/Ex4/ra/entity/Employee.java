@@ -15,6 +15,15 @@ public class Employee {
         this.empId = nextEmpId++; // gan ma nv va tang bien static
     }
 
+    public Employee(String empName, int birthYear, String phone, String email, int empStatus) {
+        this.empId = nextEmpId++; // gan ma nv va tang
+        this.empName = empName;
+        this.birthYear = birthYear;
+        this.phone = phone;
+        this.email = email;
+        this.empStatus = empStatus;
+    }
+
     public int getEmpId() {
         return empId;
     }
@@ -23,11 +32,16 @@ public class Employee {
         return empName;
     }
 
-    public void setEmpName(String empName) {
-        if (empName.length() >= 10 && empName.length() <= 50) {
-            this.empName = empName;
-        } else {
-            System.err.println("Tên nhân viên phải có độ dài từ 10 đến 50 ký tự. Vui lòng nhập lại.");
+    public void setEmpName(String empName, Scanner scanner) {
+        boolean isValid = false;
+        while (!isValid) {
+            if (empName.length() >= 10 && empName.length() <= 50) {
+                this.empName = empName;
+                isValid = true;
+            } else {
+                System.err.println("Tên nhân viên phải có độ dài từ 10 đến 50 ký tự. Vui lòng nhập lại.");
+                empName = scanner.nextLine();
+            }
         }
     }
 
@@ -49,7 +63,7 @@ public class Employee {
     }
 
     public void setPhone(String phone) {
-        if (phone.matches("0[0-9]{9}")) { // regex fake
+        if (phone.matches("^(090|093|089|088|091|094|096|097|098|086)\\d{7}$")) { // regex fake
             this.phone = phone;
         } else {
             System.out.println("Số điện thoại không hợp lệ. Vui lòng nhập lại.");
@@ -84,7 +98,7 @@ public class Employee {
         Scanner scanner = new Scanner(System.in);
         do {
             System.out.print("Nhập tên nhân viên (10-50 ký tự): ");
-            setEmpName(scanner.nextLine());
+            setEmpName(scanner.nextLine(), scanner);
         } while (empName == null);
 
         do {

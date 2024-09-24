@@ -15,6 +15,11 @@ public class StoreManagement {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         StoreManagement storeManagement = new StoreManagement();
+
+        // du lieu test nhanh
+        storeManagement.createSampleProducts();
+        storeManagement.createSampleEmployees();
+
         int choice;
         do {
             storeManagement.displayMainMenu();
@@ -41,6 +46,33 @@ public class StoreManagement {
             }
         } while (choice != 6);
 
+    }
+
+    private void createSampleProducts() {
+        products[productCount++] = new Product("P001", "Sản phẩm A", "Nhà sản xuất X", true);
+        products[productCount++] = new Product("P002", "Sản phẩm B", "Nhà sản xuất Y", false);
+        products[productCount++] = new Product("P003", "Sản phẩm C", "Nhà sản xuất Z", true);
+        products[productCount++] = new Product("P004", "Sản phẩm D", "Nhà sản xuất X", true);
+        products[productCount++] = new Product("P005", "Sản phẩm E", "Nhà sản xuất Y", true);
+        products[productCount++] = new Product("P006", "Sản phẩm F", "Nhà sản xuất Z", false);
+        products[productCount++] = new Product("P007", "Sản phẩm G", "Nhà sản xuất X", true);
+        products[productCount++] = new Product("P008", "Sản phẩm H", "Nhà sản xuất Y", false);
+        products[productCount++] = new Product("P009", "Sản phẩm I", "Nhà sản xuất Z", true);
+        products[productCount++] = new Product("P010", "Sản phẩm J", "Nhà sản xuất X", true);
+    }
+
+    // Hàm tạo dữ liệu mẫu cho nhân viên
+    private void createSampleEmployees() {
+        employees[employeeCount++] = new Employee("Nguyễn Văn A", 1990, "0901234567", "a@gmail.com", 0);
+        employees[employeeCount++] = new Employee("Trần Thị B", 1995, "0939876543", "b@gmail.com", 1);
+        employees[employeeCount++] = new Employee("Lê Văn C", 1985, "0898888888", "c@gmail.com", 0);
+        employees[employeeCount++] = new Employee("Phạm Thị D", 1992, "0887777777", "d@gmail.com", 2);
+        employees[employeeCount++] = new Employee("Hoàng Văn E", 1988, "0916666666", "e@gmail.com", 0);
+        employees[employeeCount++] = new Employee("Vũ Thị F", 1997, "0945555555", "f@gmail.com", 1);
+        employees[employeeCount++] = new Employee("Đỗ Văn G", 1980, "0964444444", "g@gmail.com", 0);
+        employees[employeeCount++] = new Employee("Ngô Thị H", 1993, "0973333333", "h@gmail.com", 2);
+        employees[employeeCount++] = new Employee("Dương Văn I", 1986, "0982222222", "i@gmail.com", 0);
+        employees[employeeCount++] = new Employee("Trịnh Thị K", 1991, "0861111111", "k@gmail.com", 1);
     }
 
     private void displayMainMenu() {
@@ -235,19 +267,24 @@ public class StoreManagement {
 
     private void employeeManagement(Scanner scanner) {
         int choice;
-        {
+        do {
             displayEmployeeManagementMenu();
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
+                    inputEmployee(scanner);
                     break;
                 case 2:
+                    displayEmployee();
                     break;
                 case 3:
+                    updateEmployee(scanner);
                     break;
                 case 4:
+                    searchEmployeeByName(scanner);
                     break;
                 case 5:
+                    updateEmployeeStatus(scanner);
                     break;
                 case 6:
                     System.err.println("Quay lại menu");
@@ -255,8 +292,7 @@ public class StoreManagement {
                 default:
                     System.err.println("Lựa chọn không hợp lệ");
             }
-        }
-        while (choice != 6) ;
+        } while (choice != 6);
     }
 
     private void inputEmployee(Scanner scanner) {
@@ -304,7 +340,7 @@ public class StoreManagement {
                 System.out.print("Nhập tên (mới) cho nhân viên (ấn Enter để bỏ qua): ");
                 String newEmpName = scanner.nextLine();
                 if (!newEmpName.isEmpty()) {
-                    employeeToUpdate.setEmpName(newEmpName);
+                    employeeToUpdate.setEmpName(newEmpName, scanner);
                 }
                 System.out.print("Nhập năm sinh (mới) cho nhân viên (ấn Enter để bỏ qua): ");
                 int currentYear = java.time.Year.now().getValue();
@@ -337,11 +373,59 @@ public class StoreManagement {
                         System.out.println("Email không hợp lệ. Vui lòng nhập lại.");
                     }
                 }
-                System.out.print("Nhập email (mới) cho nhân viên (ấn Enter để bỏ qua): ");
-
-
+                System.out.print("Nhập trạng thái (mới) cho nhân viên (0-Đang làm việc, 1-Nghỉ việc, 2-Nghỉ chế độ --- ấn Enter để bỏ qua): ");
+                String newStatusStr = scanner.nextLine();
+                if (!newStatusStr.isEmpty()) {
+                    int newStatus = Integer.parseInt(newStatusStr);
+                    employeeToUpdate.setEmpStatus(newStatus);
+                }
+                System.out.println("Cập nhật thành công");
+                return;
             }
         }
+    }
+
+    private void searchEmployeeByName(Scanner scanner) {
+        System.out.print("Nhập tên nhân viên cần tìm: ");
+        String empName = scanner.nextLine();
+        boolean found = false;
+        for (int i = 0; i < employeeCount; i++) {
+            if (employees[i].getEmpName().contains(empName)) {
+                employees[i].displayData();
+                System.out.println("--------------------");
+                found = true;
+            }
+        }
+        if (!found) {
+            System.err.println("Không tìm thấy nhân viên tên là " + empName);
+        }
+    }
+
+    private void updateEmployeeStatus(Scanner scanner) {
+        System.out.print("Nhập mã nhân viên cần cập nhật trạng thái: ");
+        int empId = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < employeeCount; i++) {
+            if (employees[i].getEmpId() == empId) {
+                System.out.println("Thông tin nhân viên có id " + empId + " là:");
+                employees[i].displayData();
+                System.out.println("--------------------------");
+                System.out.println("Nhập trạng thái mới (0-Đang làm việc, 1-Nghỉ việc, 2-Nghỉ chế độ): ");
+                int status = Integer.parseInt(scanner.nextLine());
+                if (status >= 0 && status <= 2) {
+                    employees[i].setEmpStatus(status);
+                    System.out.println("Cập nhật trạng thái thành công");
+                    System.out.println("Thông tin sau khi cập nhật:");
+                    employees[i].displayData();
+                    System.out.println("--------------------------");
+                } else {
+                    System.err.println("Trạng thái nhập vào không hợp lệ");
+                }
+                return;
+            }
+        }
+
+        System.out.println("Không tìm thấy nhân viên có mã: " + empId);
     }
 
     private void displayReceiptManagementMenu(boolean isReceipt) {
@@ -356,6 +440,19 @@ public class StoreManagement {
         System.out.println("7. Thoát");
         System.out.print("Chọn chức năng: ");
     }
+
+    private void inputOrders(boolean isReceipt, Scanner scanner) {
+        System.out.print("Nhập số lượng phiếu " + (isReceipt ? "nhập" : "xuất") + " cần nhập: ");
+        int n = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < n; i++) {
+            Order order = new Order();
+            order.setOrderType(isReceipt);
+            order.inputData(products, employees);
+            orders[orderCount++] = order;
+        }
+    }
+
 
     private void displayReportManagementMenu() {
         System.out.println("*******************REPORT MANAGEMENT****************");
