@@ -45,7 +45,7 @@ public class Student {
 
     }
 
-    public int inputStudentId(Scanner scanner) {
+    public void inputStudentId(Scanner scanner) {
         System.out.print("Nhập vào mã sinh viên: ");
         do {
             String studentId = scanner.nextLine();
@@ -59,7 +59,7 @@ public class Student {
             if (isExist) {
                 System.err.println("Mã sinh viên đã tồn tại");
             } else {
-                return studentId;
+//                return studentId;
             }
         } while (true);
     }
