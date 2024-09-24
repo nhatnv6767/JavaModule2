@@ -683,6 +683,22 @@ public class StoreManagement {
             Date startDate = dateFormat.parse(scanner.nextLine());
             System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
             Date endDate = dateFormat.parse(scanner.nextLine());
+
+            // tao 1 mang de luu tru so luong nhap cua tung san pham
+            int[] productQuantities = new int[productCount];
+            for (int i = 0; i < orderCount; i++) {
+                Order order = orders[i];
+                // true: nhap
+                if (order.isOrderType()
+                        && order.getCreated().compareTo(startDate) >= 0
+                        && order.getCreated().compareTo(endDate) <= 0) {
+                    // tim vi tri cua san pham trong mang products
+                    int productIndex = -1;
+                    for (int j = 0; j < productCount; j++) {
+
+                    }
+                }
+            }
         } catch (ParseException e) {
             System.err.println("Định dạng ngày không hợp lệ.");
         }
