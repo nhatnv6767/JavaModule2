@@ -4,6 +4,9 @@ import ExercisePlus.Ex4.ra.entity.Employee;
 import ExercisePlus.Ex4.ra.entity.Order;
 import ExercisePlus.Ex4.ra.entity.Product;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class StoreManagement {
@@ -453,6 +456,131 @@ public class StoreManagement {
         }
     }
 
+    private void displayOrders(boolean isReceipt) {
+        if (orderCount == 0) {
+            System.out.println("Chưa có phiếu " + (isReceipt ? "nhập" : "xuất") + " nào.");
+            return;
+        }
+        for (int i = 0; i < orderCount; i++) {
+            if (orders[i].isOrderType() == isReceipt) {
+                orders[i].displayData();
+                System.out.println("----------------------------");
+            }
+        }
+    }
+
+    private void updateOrder(boolean isReceipt, Scanner scanner) {
+        System.out.print("Nhập mã phiếu " + (isReceipt ? "nhập" : "xuất") + " cần cập nhật: ");
+        String orderId = scanner.nextLine();
+
+        for (int i = 0; i < orderCount; i++) {
+            if (orders[i].getOrderId().equals(orderId) && orders[i].isOrderType() == isReceipt) {
+                orders[i].inputData(products, employees);
+                orders[i].setUpdated(new Date());
+                // chua de update user id making update
+                System.out.println("Cập nhật thành công.");
+                return;
+            }
+        }
+        System.out.print("Không tìm thấy phiếu " + (isReceipt ? "nhập" : "xuất") + " có id:  " + orderId);
+    }
+
+    private void searchReceiptsByDateRange(Scanner scanner) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
+            Date startDate = dateFormat.parse(scanner.nextLine());
+            System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
+            Date endDate = dateFormat.parse(scanner.nextLine());
+
+            boolean found = false;
+            for (int i = 0; i < orderCount; i++) {
+                // true: phieu nhap
+                if (orders[i].isOrderType()
+                        && orders[i].getCreated().compareTo(startDate) >= 0
+                        && orders[i].getCreated().compareTo(endDate) <= 0
+                ) {
+                    orders[i].displayData();
+                    System.out.println("--------------------------------");
+                    found = true;
+                }
+            }
+            if (!found) {
+                System.out.print("Không tìm thấy phiếu nhập trong khoảng từ" + (dateFormat.format(startDate)) + " đến " + (dateFormat.format(endDate)));
+            }
+
+        } catch (ParseException e) {
+            System.err.println("Định dạng ngày không hợp lệ");
+        }
+
+    }
+
+    private void searchBillsByDateRange(Scanner scanner) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
+            Date startDate = dateFormat.parse(scanner.nextLine());
+            System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
+            Date endDate = dateFormat.parse(scanner.nextLine());
+
+            boolean found = false;
+            for (int i = 0; i < orderCount; i++) {
+                // false: phieu xuất
+                if (!orders[i].isOrderType()
+                        && orders[i].getCreated().compareTo(startDate) >= 0
+                        && orders[i].getCreated().compareTo(endDate) <= 0
+                ) {
+                    orders[i].displayData();
+                    System.out.println("--------------------------------");
+                    found = true;
+                }
+            }
+            if (!found) {
+                System.out.print("Không tìm thấy phiếu xuất trong khoảng từ" + (dateFormat.format(startDate)) + " đến " + (dateFormat.format(endDate)));
+            }
+
+        } catch (ParseException e) {
+            System.err.println("Định dạng ngày không hợp lệ");
+        }
+
+    }
+
+    // tim kiem phieu nhap/xuat theo nguoi tao
+    private void searchOrdersByCreator(boolean isReceipt, Scanner scanner) {
+        System.out.print("Nhập mã nhân viên tạo phiếu: ");
+        int userCreatedId = Integer.parseInt(scanner.nextLine());
+
+        boolean found = false;
+        for (int i = 0; i < orderCount; i++) {
+            if (orders[i].isOrderType() == isReceipt && orders[i].getUserCreatedId() == userCreatedId) {
+                orders[i].displayData();
+                System.out.println("-----------------------");
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Không tìm thấy phiếu " + (isReceipt ? "nhập" : "xuất") + " được tạo bởi nhân viên có mã " + userCreatedId);
+        }
+    }
+
+    // tim kiem phieu nhap/xuat theo nguoi cap nhat
+    private void searchOrdersByUpdater(boolean isReceipt, Scanner scanner) {
+        System.out.print("Nhập mã nhân viên tạo phiếu: ");
+        int userUpdaterId = Integer.parseInt(scanner.nextLine());
+
+        boolean found = false;
+        for (int i = 0; i < orderCount; i++) {
+            if (orders[i].isOrderType() == isReceipt && orders[i].getUserCreatedId() == userUpdaterId) {
+                orders[i].displayData();
+                System.out.println("-----------------------");
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Không tìm thấy phiếu " + (isReceipt ? "nhập" : "xuất") + " được cập nhật bởi nhân viên có mã " + userUpdaterId);
+        }
+    }
+
 
     private void displayReportManagementMenu() {
         System.out.println("*******************REPORT MANAGEMENT****************");
@@ -465,4 +593,6 @@ public class StoreManagement {
         System.out.println("7. Thoát");
         System.out.print("Chọn chức năng: ");
     }
+
+    
 }
