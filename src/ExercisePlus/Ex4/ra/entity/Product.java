@@ -66,7 +66,7 @@ public class Product {
         System.out.print("Nhập nhà sản xuất: ");
         setManufacturer(scanner.nextLine());
         System.out.print("Nhập trạng thái sản phẩm (0-hoạt động, 1-không hoạt động): ");
-        do {
+        while (true) {
 
             try {
                 int status = Integer.parseInt(scanner.nextLine());
@@ -79,7 +79,7 @@ public class Product {
             } catch (NumberFormatException e) {
                 System.err.println("\nVui lòng nhập vào số 0 hoặc 1");
             }
-        } while (true);
+        }
 
     }
 

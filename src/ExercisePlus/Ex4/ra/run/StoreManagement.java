@@ -24,6 +24,7 @@ public class StoreManagement {
                     storeManagement.productManagement(scanner);
                     break;
                 case 2:
+                    storeManagement.employeeManagement(scanner);
                     break;
                 case 3:
                     break;
@@ -125,10 +126,47 @@ public class StoreManagement {
         String productId = scanner.nextLine();
         for (int i = 0; i < productCount; i++) {
             if (products[i].getProductId().equals(productId)) {
-                products[i].displayData();
+                Product productToUpdate = products[i];
+                productToUpdate.displayData();
                 System.out.println("-------------------------------");
-                products[i].inputData();
+
+                // UPDATE
+                System.out.print("Nhập tên sản phẩm mới (ấn Enter để bỏ qua): ");
+                String newProductName = scanner.nextLine();
+                if (!newProductName.isEmpty()) {
+                    productToUpdate.setProductName(newProductName);
+                }
+
+                System.out.print("Nhập nhà sản xuất mới (ấn Enter để bỏ qua): ");
+                String newManufacturer = scanner.nextLine();
+                if (!newManufacturer.isEmpty()) {
+                    productToUpdate.setManufacturer(newManufacturer);
+                }
+
+                System.out.print("Nhập trạng thái mới (0-hoạt động, 1-không hoạt động, ấn Enter để bỏ qua): ");
+
+                while (true) {
+                    String newStatusStr = scanner.nextLine();
+                    if (!newStatusStr.isEmpty()) {
+                        try {
+                            int newStatus = Integer.parseInt(newStatusStr);
+                            if (newStatus == 0 || newStatus == 1) {
+                                productToUpdate.setProductStatus(newStatus == 0);
+                                break;
+                            } else {
+                                System.err.println("Trạng thái không hợp lệ.");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.err.println("Vui lòng nhập vào số 0 hoặc 1");
+                        }
+                    } else {
+                        break;
+                    }
+                }
+
                 System.out.println("Cập nhật thành công");
+                System.out.println("Thông tin sản phẩm hiện tại:");
+                productToUpdate.displayData();
                 return;
             }
         }
@@ -158,16 +196,25 @@ public class StoreManagement {
 
         for (int i = 0; i < productCount; i++) {
             if (products[i].getProductId().equals(productId)) {
-                products[i].displayData();
-                System.out.print("Nhập trạng thái mới (0-hoạt động, 1-không hoạt động): ");
-                int status = Integer.parseInt(scanner.nextLine());
-                if (status == 0 || status == 1) {
-                    products[i].setProductStatus(status == 0);
-                    System.out.println("Cập nhật trạng thái thành công.");
-                } else {
-                    System.out.println("Trạng thái không hợp lệ.");
-                }
-                return;
+                Product productToUpdate = products[i];
+                productToUpdate.displayData();
+                System.out.println("-------------------------------");
+                System.out.print("Bạn có muốn thay đổi trạng thái sản phẩm không? (y/n): ");
+                boolean isValid = false;
+                do {
+                    String confirm = scanner.nextLine();
+                    if (confirm.equalsIgnoreCase("y")) {
+                        productToUpdate.setProductStatus(!productToUpdate.isProductStatus());
+                        System.out.println("Cập nhật trạng thái thành công.");
+                        System.out.println("Thông tin sản phẩm hiện tại:");
+                        productToUpdate.displayData();
+                        isValid = true;
+                    } else {
+                        isValid = true;
+                        return;
+                    }
+                } while (!isValid);
+
             }
         }
 
@@ -184,6 +231,32 @@ public class StoreManagement {
         System.out.println("5. Cập nhật trạng thái của nhân viên");
         System.out.println("6. Thoát");
         System.out.print("Chọn chức năng: ");
+    }
+
+    private void employeeManagement(Scanner scanner) {
+        int choice;
+        {
+            displayEmployeeManagementMenu();
+            choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    System.err.println("Quay lại menu");
+                    break;
+                default:
+                    System.err.println("Lựa chọn không hợp lệ");
+            }
+        }
+        while (choice != 6) ;
     }
 
     private void displayReceiptManagementMenu(boolean isReceipt) {
