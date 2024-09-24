@@ -18,6 +18,22 @@ public class Order {
     private boolean orderStatus;
 
     public Order() {
+        this.created = new Date();
+        createOrderId();
+    }
+
+    public Order(boolean orderType, String productId, int quantity, float price, int userCreatedId, boolean orderStatus) {
+        this.created = new Date();
+        createOrderId();
+        this.orderType = orderType;
+        this.productId = productId;
+        this.quantity = quantity;
+        this.price = price;
+        this.userCreatedId = userCreatedId;
+        this.orderStatus = orderStatus;
+    }
+
+    private void createOrderId() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyMM");
         try {
             String yearMonth = dateFormat.format(new Date());

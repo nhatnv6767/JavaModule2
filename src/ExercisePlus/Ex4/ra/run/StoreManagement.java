@@ -22,6 +22,7 @@ public class StoreManagement {
         // du lieu test nhanh
         storeManagement.createSampleProducts();
         storeManagement.createSampleEmployees();
+        storeManagement.createSampleOrders();
 
         int choice;
         do {
@@ -35,10 +36,13 @@ public class StoreManagement {
                     storeManagement.employeeManagement(scanner);
                     break;
                 case 3:
+                    storeManagement.receiptManagement(true, scanner);
                     break;
                 case 4:
+                    storeManagement.receiptManagement(false, scanner);
                     break;
                 case 5:
+                    storeManagement.reportManagement(scanner);
                     break;
                 case 6:
                     System.err.println("Thoát chương trình...");
@@ -76,6 +80,20 @@ public class StoreManagement {
         employees[employeeCount++] = new Employee("Ngô Thị H", 1993, "0973333333", "h@gmail.com", 2);
         employees[employeeCount++] = new Employee("Dương Văn I", 1986, "0982222222", "i@gmail.com", 0);
         employees[employeeCount++] = new Employee("Trịnh Thị K", 1991, "0861111111", "k@gmail.com", 1);
+    }
+
+    private void createSampleOrders() {
+        orders[orderCount++] = new Order(true, "P001", 10, 100.0f, 1, true);
+        orders[orderCount++] = new Order(false, "P003", 5, 150.0f, 3, true);
+        orders[orderCount++] = new Order(true, "P005", 8, 80.0f, 2, false);
+        orders[orderCount++] = new Order(false, "P007", 3, 200.0f, 1, true);
+        orders[orderCount++] = new Order(true, "P002", 12, 50.0f, 4, false);
+
+        orders[orderCount++] = new Order(false, "P004", 7, 120.0f, 2, true);
+        orders[orderCount++] = new Order(true, "P006", 20, 40.0f, 3, false);
+        orders[orderCount++] = new Order(false, "P009", 1, 300.0f, 5, true);
+        orders[orderCount++] = new Order(true, "P008", 6, 75.0f, 1, true);
+        orders[orderCount++] = new Order(false, "P010", 4, 180.0f, 4, false);
     }
 
     private void displayMainMenu() {
@@ -431,6 +449,43 @@ public class StoreManagement {
         System.out.println("Không tìm thấy nhân viên có mã: " + empId);
     }
 
+    private void receiptManagement(boolean isReceipt, Scanner scanner) {
+        int choice;
+        do {
+            displayReceiptManagementMenu(isReceipt);
+            choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    inputOrders(isReceipt, scanner);
+                    break;
+                case 2:
+                    displayOrders(isReceipt);
+                    break;
+                case 3:
+                    updateOrder(isReceipt, scanner);
+                    break;
+                case 4:
+                    if (isReceipt) {
+                        searchReceiptsByDateRange(scanner);
+                    } else {
+                        searchBillsByDateRange(scanner);
+                    }
+                    break;
+                case 5:
+                    searchOrdersByCreator(isReceipt, scanner);
+                    break;
+                case 6:
+                    searchOrdersByUpdater(isReceipt, scanner);
+                    break;
+                case 7:
+                    System.err.println("Thoát quản lý phiếu " + (isReceipt ? "nhập" : "xuất") + ".");
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ.");
+            }
+        } while (choice != 7);
+    }
+
     private void displayReceiptManagementMenu(boolean isReceipt) {
         String title = isReceipt ? "RECEIPT MANAGEMENT" : "BILL MANAGEMENT";
         System.out.println("*******************" + title + "***************");
@@ -581,6 +636,33 @@ public class StoreManagement {
         }
     }
 
+    private void reportManagement(Scanner scanner) {
+        int choice;
+        do {
+            displayReportManagementMenu();
+            choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    System.err.println("Thoát báo cáo thống kê.");
+                    break;
+                default:
+                    System.err.println("Lựa chọn không hợp lệ.");
+            }
+        } while (choice != 7);
+    }
+
 
     private void displayReportManagementMenu() {
         System.out.println("*******************REPORT MANAGEMENT****************");
@@ -594,5 +676,16 @@ public class StoreManagement {
         System.out.print("Chọn chức năng: ");
     }
 
-    
+    private void reportProductsImportedByDateRange(Scanner scanner) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
+            Date startDate = dateFormat.parse(scanner.nextLine());
+            System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
+            Date endDate = dateFormat.parse(scanner.nextLine());
+        } catch (ParseException e) {
+            System.err.println("Định dạng ngày không hợp lệ.");
+        }
+    }
+
 }
