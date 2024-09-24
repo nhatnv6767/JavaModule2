@@ -259,6 +259,91 @@ public class StoreManagement {
         while (choice != 6) ;
     }
 
+    private void inputEmployee(Scanner scanner) {
+        System.out.print("Nhập số lượng nhân viên cần nhập: ");
+        int n = 0;
+        while (true) {
+            try {
+                n = Integer.parseInt(scanner.nextLine());
+                if (n > 0) {
+                    break;
+                } else {
+                    System.err.println("Số lượng nhân viên phải là số nguyên dương");
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Số lượng nhân viên phải là số nguyên");
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            Employee employee = new Employee();
+            employee.inputData();
+            employees[employeeCount++] = employee;
+        }
+    }
+
+    private void displayEmployee() {
+        if (employeeCount == 0) {
+            System.err.println("Chưa có nhân viên nào.");
+            return;
+        }
+        for (int i = 0; i < employeeCount; i++) {
+            employees[i].displayData();
+            System.out.println("----------------------------");
+        }
+    }
+
+    private void updateEmployee(Scanner scanner) {
+        System.out.print("Nhập mã nhân viên cần cập nhật: ");
+        int employeeId = Integer.parseInt(scanner.nextLine());
+        for (int i = 0; i < employeeCount; i++) {
+            if (employees[i].getEmpId() == employeeId) {
+                Employee employeeToUpdate = employees[i];
+                employeeToUpdate.displayData();
+                System.out.println("-------------------------------");
+
+                System.out.print("Nhập tên (mới) cho nhân viên (ấn Enter để bỏ qua): ");
+                String newEmpName = scanner.nextLine();
+                if (!newEmpName.isEmpty()) {
+                    employeeToUpdate.setEmpName(newEmpName);
+                }
+                System.out.print("Nhập năm sinh (mới) cho nhân viên (ấn Enter để bỏ qua): ");
+                int currentYear = java.time.Year.now().getValue();
+                String newBirthYearStr = scanner.nextLine();
+                if (!newBirthYearStr.isEmpty()) {
+                    int newBirthYear = Integer.parseInt(newBirthYearStr);
+                    if (newBirthYear < currentYear && newBirthYear > 1900) {
+                        employeeToUpdate.setBirthYear(newBirthYear);
+                    } else {
+                        System.out.println("Năm sinh phải nhỏ hơn năm hiện tại và lớn hơn 1900. Vui lòng nhập lại.");
+                    }
+                }
+
+                System.out.print("Nhập sdt (mới) cho nhân viên (ấn Enter để bỏ qua): ");
+                String newTel = scanner.nextLine();
+                if (!newTel.isEmpty()) {
+                    if (newTel.matches("0[0-9]{9}")) {
+                        employeeToUpdate.setPhone(newTel);
+                    } else {
+                        System.out.println("Số điện thoại không hợp lệ. Vui lòng nhập lại.");
+                    }
+                }
+
+                System.out.print("Nhập email (mới) cho nhân viên (ấn Enter để bỏ qua): ");
+                String newEmail = scanner.nextLine();
+                if (!newEmail.isEmpty()) {
+                    if (newEmail.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+                        employeeToUpdate.setEmail(newEmail);
+                    } else {
+                        System.out.println("Email không hợp lệ. Vui lòng nhập lại.");
+                    }
+                }
+                System.out.print("Nhập email (mới) cho nhân viên (ấn Enter để bỏ qua): ");
+
+
+            }
+        }
+    }
+
     private void displayReceiptManagementMenu(boolean isReceipt) {
         String title = isReceipt ? "RECEIPT MANAGEMENT" : "BILL MANAGEMENT";
         System.out.println("*******************" + title + "***************");
