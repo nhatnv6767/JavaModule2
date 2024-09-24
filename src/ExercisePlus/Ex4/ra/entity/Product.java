@@ -19,7 +19,7 @@ public class Product {
         if (productId.matches("[A-Z][a-zA-Z0-9]{3}")) {
             this.productId = productId;
         } else {
-            System.err.println("Mã sản phẩm không hợp lệ. Vui lòng nhập lại.");
+            System.err.println("\nMã sản phẩm không hợp lệ. Vui lòng nhập lại.");
         }
     }
 
@@ -31,7 +31,7 @@ public class Product {
         if (productName.length() > 0) {
             this.productName = productName;
         } else {
-            System.out.println("Tên sản phẩm không hợp lệ. Vui lòng nhập lại.");
+            System.out.println("\nTên sản phẩm không hợp lệ. Vui lòng nhập lại.");
         }
     }
 
@@ -53,31 +53,31 @@ public class Product {
 
     public void inputData() {
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Nhập mã sản phẩm (4 ký tự, bắt đầu bằng chữ hoa): ");
         do {
-            System.out.print("Nhập mã sản phẩm (4 ký tự, bắt đầu bằng chữ hoa): ");
             setProductId(scanner.nextLine());
         } while (productId == null);
 
+        System.out.print("Nhập tên sản phẩm: ");
         do {
-            System.out.print("Nhập tên sản phẩm: ");
             setProductName(scanner.nextLine());
         } while (productName == null);
 
         System.out.print("Nhập nhà sản xuất: ");
         setManufacturer(scanner.nextLine());
-
+        System.out.print("Nhập trạng thái sản phẩm (0-hoạt động, 1-không hoạt động): ");
         do {
-            System.out.print("Nhập trạng thái sản phẩm (0-hoạt động, 1-không hoạt động): ");
+
             try {
                 int status = Integer.parseInt(scanner.nextLine());
                 if (status == 0 || status == 1) {
                     setProductStatus(status == 0);
                     break;
                 } else {
-                    System.out.println("Trạng thái không hợp lệ. Vui lòng nhập lại.");
+                    System.err.println("\nTrạng thái không hợp lệ. Vui lòng nhập lại.");
                 }
             } catch (NumberFormatException e) {
-                System.err.println("Vui lòng nhập vào số 0 hoặc 1");
+                System.err.println("\nVui lòng nhập vào số 0 hoặc 1");
             }
         } while (true);
 

@@ -21,6 +21,7 @@ public class StoreManagement {
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
+                    storeManagement.productManagement(scanner);
                     break;
                 case 2:
                     break;
@@ -31,7 +32,7 @@ public class StoreManagement {
                 case 5:
                     break;
                 case 6:
-                    System.out.println();
+                    System.err.println("Thoát chương trình...");
                     break;
                 default:
                     System.err.println("Lựa chọn không hợp lệ");
@@ -65,6 +66,37 @@ public class StoreManagement {
         System.out.print("Chọn chức năng: ");
     }
 
+    private void productManagement(Scanner scanner) {
+        int choice;
+        do {
+            displayProductManagementMenu();
+            choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+
+                case 1:
+                    inputProducts(scanner);
+                    break;
+                case 2:
+                    displayProducts();
+                    break;
+                case 3:
+                    updateProduct(scanner);
+                    break;
+                case 4:
+                    searchProductByName(scanner);
+                    break;
+                case 5:
+                    updateProductStatus(scanner);
+                    break;
+                case 6:
+                    System.err.println("Quay lại menu");
+                    break;
+                default:
+                    System.err.println("Lựa chọn không hợp lệ");
+            }
+        } while (choice != 6);
+    }
+
     private void inputProducts(Scanner scanner) {
         System.out.print("Nhập số lượng sản phẩm cần nhập: ");
         int n = Integer.parseInt(scanner.nextLine());
@@ -93,12 +125,54 @@ public class StoreManagement {
         String productId = scanner.nextLine();
         for (int i = 0; i < productCount; i++) {
             if (products[i].getProductId().equals(productId)) {
+                products[i].displayData();
+                System.out.println("-------------------------------");
                 products[i].inputData();
                 System.out.println("Cập nhật thành công");
                 return;
             }
         }
         System.out.println("Không tìm thấy sản phẩm có mã " + productId);
+    }
+
+    private void searchProductByName(Scanner scanner) {
+        System.out.print("Nhập tên sản phẩm cần tìm: ");
+        String productName = scanner.nextLine();
+
+        boolean found = false;
+        for (int i = 0; i < productCount; i++) {
+            if (products[i].getProductName().contains(productName)) {
+                products[i].displayData();
+                System.out.println("---------------------------");
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Không tìm thấy sản phẩm có tên chứa '" + productName + "'");
+        }
+    }
+
+    private void updateProductStatus(Scanner scanner) {
+        System.out.print("Nhập mã sản phẩm cần cập nhật trạng thái: ");
+        String productId = scanner.nextLine();
+
+        for (int i = 0; i < productCount; i++) {
+            if (products[i].getProductId().equals(productId)) {
+                products[i].displayData();
+                System.out.print("Nhập trạng thái mới (0-hoạt động, 1-không hoạt động): ");
+                int status = Integer.parseInt(scanner.nextLine());
+                if (status == 0 || status == 1) {
+                    products[i].setProductStatus(status == 0);
+                    System.out.println("Cập nhật trạng thái thành công.");
+                } else {
+                    System.out.println("Trạng thái không hợp lệ.");
+                }
+                return;
+            }
+        }
+
+        System.out.println("Không tìm thấy sản phẩm có mã " + productId);
+
     }
 
     private void displayEmployeeManagementMenu() {
