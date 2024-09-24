@@ -6,10 +6,7 @@ import ExercisePlus.Ex4.ra.entity.Product;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class StoreManagement {
     private Product[] products = new Product[100];
@@ -58,44 +55,62 @@ public class StoreManagement {
     }
 
     private void createSampleProducts() {
-        products[productCount++] = new Product("P001", "Sản phẩm A", "Nhà sản xuất X", true);
-        products[productCount++] = new Product("P002", "Sản phẩm B", "Nhà sản xuất Y", false);
-        products[productCount++] = new Product("P003", "Sản phẩm C", "Nhà sản xuất Z", true);
-        products[productCount++] = new Product("P004", "Sản phẩm D", "Nhà sản xuất X", true);
-        products[productCount++] = new Product("P005", "Sản phẩm E", "Nhà sản xuất Y", true);
-        products[productCount++] = new Product("P006", "Sản phẩm F", "Nhà sản xuất Z", false);
-        products[productCount++] = new Product("P007", "Sản phẩm G", "Nhà sản xuất X", true);
-        products[productCount++] = new Product("P008", "Sản phẩm H", "Nhà sản xuất Y", false);
-        products[productCount++] = new Product("P009", "Sản phẩm I", "Nhà sản xuất Z", true);
-        products[productCount++] = new Product("P010", "Sản phẩm J", "Nhà sản xuất X", true);
+        products[productCount++] = new Product("P001", "Sản phẩm A", "Nhà sản xuất X", getRandomTrueFalse());
+        products[productCount++] = new Product("P002", "Sản phẩm B", "Nhà sản xuất Y", getRandomTrueFalse());
+        products[productCount++] = new Product("P003", "Sản phẩm C", "Nhà sản xuất Z", getRandomTrueFalse());
+        products[productCount++] = new Product("P004", "Sản phẩm D", "Nhà sản xuất X", getRandomTrueFalse());
+        products[productCount++] = new Product("P005", "Sản phẩm E", "Nhà sản xuất Y", getRandomTrueFalse());
+        products[productCount++] = new Product("P006", "Sản phẩm F", "Nhà sản xuất Z", getRandomTrueFalse());
+        products[productCount++] = new Product("P007", "Sản phẩm G", "Nhà sản xuất X", getRandomTrueFalse());
+        products[productCount++] = new Product("P008", "Sản phẩm H", "Nhà sản xuất Y", getRandomTrueFalse());
+        products[productCount++] = new Product("P009", "Sản phẩm I", "Nhà sản xuất Z", getRandomTrueFalse());
+        products[productCount++] = new Product("P010", "Sản phẩm J", "Nhà sản xuất X", getRandomTrueFalse());
     }
 
     // Hàm tạo dữ liệu mẫu cho nhân viên
     private void createSampleEmployees() {
-        employees[employeeCount++] = new Employee("Nguyễn Văn A", 1990, "0901234567", "a@gmail.com", 0);
-        employees[employeeCount++] = new Employee("Trần Thị B", 1995, "0939876543", "b@gmail.com", 1);
-        employees[employeeCount++] = new Employee("Lê Văn C", 1985, "0898888888", "c@gmail.com", 0);
-        employees[employeeCount++] = new Employee("Phạm Thị D", 1992, "0887777777", "d@gmail.com", 2);
-        employees[employeeCount++] = new Employee("Hoàng Văn E", 1988, "0916666666", "e@gmail.com", 0);
-        employees[employeeCount++] = new Employee("Vũ Thị F", 1997, "0945555555", "f@gmail.com", 1);
-        employees[employeeCount++] = new Employee("Đỗ Văn G", 1980, "0964444444", "g@gmail.com", 0);
-        employees[employeeCount++] = new Employee("Ngô Thị H", 1993, "0973333333", "h@gmail.com", 2);
-        employees[employeeCount++] = new Employee("Dương Văn I", 1986, "0982222222", "i@gmail.com", 0);
-        employees[employeeCount++] = new Employee("Trịnh Thị K", 1991, "0861111111", "k@gmail.com", 1);
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0901234567", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0939876543", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0898888888", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0887777777", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0916666666", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0945555555", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0964444444", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0973333333", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0982222222", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0861111111", getRandomEmail(), getRandomNumber(0, 2));
     }
 
     private void createSampleOrders() {
-        orders[orderCount++] = new Order(true, "P001", 10, 100.0f, 1, true, getRandomDate());
-        orders[orderCount++] = new Order(false, "P003", 5, 150.0f, 3, true, getRandomDate());
-        orders[orderCount++] = new Order(true, "P005", 8, 80.0f, 2, false, getRandomDate());
-        orders[orderCount++] = new Order(false, "P007", 3, 200.0f, 1, true, getRandomDate());
-        orders[orderCount++] = new Order(true, "P002", 12, 50.0f, 4, false, getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P001", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P003", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P005", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P007", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P002", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
 
-        orders[orderCount++] = new Order(false, "P004", 7, 120.0f, 2, true, getRandomDate());
-        orders[orderCount++] = new Order(true, "P006", 20, 40.0f, 3, false, getRandomDate());
-        orders[orderCount++] = new Order(false, "P009", 1, 300.0f, 5, true, getRandomDate());
-        orders[orderCount++] = new Order(true, "P008", 6, 75.0f, 1, true, getRandomDate());
-        orders[orderCount++] = new Order(false, "P010", 4, 180.0f, 4, false, getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P004", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P006", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P009", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P008", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P010", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+    }
+
+    private Float getRandomFloat() {
+        Random rand = new Random();
+        float randomFloat = rand.nextFloat();
+        return 15000 + randomFloat * (9000000 - 15000);
+    }
+
+    private boolean getRandomTrueFalse() {
+        return Math.random() < 0.5;
+    }
+
+    private int getRandomNumber(int min, int max) {
+        if (min > max) {
+            throw new IllegalArgumentException("Giá trị min phải nhỏ hơn hoặc bằng max");
+        }
+        Random rand = new Random();
+        return rand.nextInt(max - min + 1) + min;
     }
 
     private Date getRandomDate() {
@@ -112,6 +127,33 @@ public class StoreManagement {
         // tru di so ngay ngau nhien
         calendar.add(Calendar.DAY_OF_YEAR, -randomDays);
         return calendar.getTime();
+    }
+
+    private String getRandomVietnameseName() {
+        String[] firstNames = {"Nguyễn", "Trần", "Lê", "Phạm", "Hoàng", "Phan", "Vũ", "Võ", "Đặng", "Bùi"};
+        String[] middleNames = {"Văn", "Thị", "Đức", "Hữu", "Ngọc", "Minh", "Hoàng", "Xuân", "Thu", "Hải"};
+        String[] lastNames = {"Anh", "Bình", "Chi", "Dũng", "Giang", "Hạnh", "Hòa", "Hương", "Khánh", "Linh"};
+
+        Random rand = new Random();
+        String firstName = firstNames[rand.nextInt(firstNames.length)];
+        String middleName = middleNames[rand.nextInt(middleNames.length)];
+        String lastName = lastNames[rand.nextInt(lastNames.length)];
+        return firstName + " " + middleName + " " + lastName;
+    }
+
+    private String getRandomEmail() {
+        String[] domains = {"gmail.com", "yahoo.com", "hotmail.com", "outlook.com"};
+        String characters = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+        Random rand = new Random();
+        int userNameLength = rand.nextInt(10) + 5; // ten nguoi dung tu 5 den 14 ky tu
+        StringBuilder username = new StringBuilder();
+        for (int i = 0; i < userNameLength; i++) {
+            username.append(characters.charAt(rand.nextInt(characters.length())));
+        }
+        // chon ngau nhien ten mien
+        String domain = domains[rand.nextInt(domains.length)];
+        return username.toString() + "@" + domain;
     }
 
     private void displayMainMenu() {
@@ -664,12 +706,16 @@ public class StoreManagement {
                     reportProductsImportedByDateRange(scanner);
                     break;
                 case 2:
+                    reportProductsExportedByDateRange(scanner);
                     break;
                 case 3:
+                    reportRevenueByDateRange(scanner);
                     break;
                 case 4:
+                    reportExpensesByDateRange(scanner);
                     break;
                 case 5:
+                    reportRevenueByMonth();
                     break;
                 case 6:
                     break;
@@ -695,6 +741,7 @@ public class StoreManagement {
         System.out.print("Chọn chức năng: ");
     }
 
+    //1. Thống kê các sản phẩm nhập từ ngày đến ngày
     private void reportProductsImportedByDateRange(Scanner scanner) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -733,6 +780,128 @@ public class StoreManagement {
             }
         } catch (ParseException e) {
             System.err.println("Định dạng ngày không hợp lệ.");
+        }
+    }
+
+
+    //2. Thống kê các sản phẩm xuất từ ngày đến ngày
+    private void reportProductsExportedByDateRange(Scanner scanner) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
+            Date startDate = dateFormat.parse(scanner.nextLine());
+            System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
+            Date endDate = dateFormat.parse(scanner.nextLine());
+
+            // tao 1 mang de luu tru so luong xuat cua tung san pham
+            int[] productQuantities = new int[productCount];
+            for (int i = 0; i < orderCount; i++) {
+                Order order = orders[i];
+                // true: nhap
+                if (!order.isOrderType()
+                        && order.getCreated().compareTo(startDate) >= 0
+                        && order.getCreated().compareTo(endDate) <= 0) {
+                    // tim vi tri cua san pham trong mang products
+                    int productIndex = -1;
+                    for (int j = 0; j < productCount; j++) {
+                        if (products[j].getProductId().equals(order.getProductId())) {
+                            productIndex = j;
+                            break;
+                        }
+                    }
+                    if (productIndex != -1) {
+                        productQuantities[productIndex] += order.getQuantity();
+                    }
+                }
+            }
+
+            System.out.println("Thống kê sản phẩm nhập từ " + dateFormat.format(startDate) + " đến " + dateFormat.format(endDate) + " là: ");
+            System.out.println("- " + "Tên sản phẩm" + ": " + "Số lượng");
+            for (int i = 0; i < productCount; i++) {
+                if (productQuantities[i] > 0) {
+                    System.out.println("- " + products[i].getProductName() + ": " + productQuantities[i]);
+                }
+            }
+        } catch (ParseException e) {
+            System.err.println("Định dạng ngày không hợp lệ.");
+        }
+    }
+
+    // 3. Thống kê doanh thu từ ngày đến ngày (theo các phiếu xuất)
+    private void reportRevenueByDateRange(Scanner scanner) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
+            Date startDate = dateFormat.parse(scanner.nextLine());
+            System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
+            Date endDate = dateFormat.parse(scanner.nextLine());
+
+            float totalRevenue = 0;
+            for (int i = 0; i < orderCount; i++) {
+                Order order = orders[i];
+                if (!order.isOrderType()
+                        && order.getCreated().compareTo(startDate) >= 0
+                        && order.getCreated().compareTo(endDate) <= 0
+                ) {
+                    totalRevenue += order.getQuantity() * order.getPrice();
+                }
+            }
+            System.out.println("Tổng doanh thu từ " + dateFormat.format(startDate) + " đến " + dateFormat.format(endDate) + " là: " + totalRevenue);
+        } catch (ParseException e) {
+            System.err.println("Định dạng ngày không hợp lệ (\"yyyy-MM-dd\")");
+        }
+    }
+
+    //4. Thống kê chi phí từ ngày đến ngày (theo các phiếu nhập)
+    private void reportExpensesByDateRange(Scanner scanner) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            System.out.print("Nhập ngày bắt đầu (yyyy-MM-dd): ");
+            Date startDate = dateFormat.parse(scanner.nextLine());
+            System.out.print("Nhập ngày kết thúc (yyyy-MM-dd): ");
+            Date endDate = dateFormat.parse(scanner.nextLine());
+
+            float totalExpenses = 0;
+            for (int i = 0; i < orderCount; i++) {
+                Order order = orders[i];
+                if (order.isOrderType()
+                        && order.getCreated().compareTo(startDate) >= 0
+                        && order.getCreated().compareTo(endDate) <= 0
+                ) {
+                    totalExpenses += order.getQuantity() * order.getPrice();
+                }
+            }
+            System.out.println("Tổng doanh thu từ " + dateFormat.format(startDate) + " đến " + dateFormat.format(endDate) + " là: " + totalExpenses);
+        } catch (ParseException e) {
+            System.err.println("Định dạng ngày không hợp lệ (\"yyyy-MM-dd\")");
+        }
+    }
+
+    // 5. Thống kê phiếu thu theo các tháng
+    private void reportRevenueByMonth() {
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM/yyyy");
+        // su dung hashmap de luu tong doanh thu cho moi thang
+        Map<String, Float> revenueByMonth = new HashMap<>();
+        for (int i = 0; i < orderCount; i++) {
+            Order order = orders[i];
+            // phieu xuat
+            if (!order.isOrderType()) {
+                try {
+                    String monthYear = monthFormat.format(order.getCreated());
+                    float revenue = order.getQuantity() + order.getPrice();
+
+                    // cong don doanh thu vao thang tuong ung
+                    revenueByMonth.put(monthYear, revenueByMonth.getOrDefault(monthYear, 0.0f) + revenue);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        // hien thi ket qua
+        System.out.println("Thống kê doanh thu theo tháng: ");
+        for (Map.Entry<String, Float> entry : revenueByMonth.entrySet()) {
+            System.out.println("- " + entry.getKey() + ": " + entry.getValue());
         }
     }
 
