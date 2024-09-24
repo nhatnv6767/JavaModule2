@@ -20,6 +20,7 @@ public class OverloadingDemo {
     }
 
     // C3: thay doi kieu du lieu cua tham so
+    // chu y dieu kien de ta co the thay doi phuong thuc nap chong
     public float addTwoNumbers(float firstNumber, float secondNumber) {
         return firstNumber + secondNumber;
     }
