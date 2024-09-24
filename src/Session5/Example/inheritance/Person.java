@@ -60,4 +60,11 @@ public class Person {
         System.out.print("Nhập vào địa chỉ: ");
         this.address = scanner.nextLine();
     }
+
+    public void displayData() {
+        System.out.println("NAME: " + this.name);
+        System.out.println("AGE: " + this.age);
+        System.out.println("SEX: " + (this.sex ? "Nam" : "Nữ"));
+        System.out.println("ADDRESS: " + this.address);
+    }
 }
