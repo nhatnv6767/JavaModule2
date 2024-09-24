@@ -11,7 +11,7 @@ public class Example1 {
         System.out.println("Số lượt view hiện tại sau khi guest 2 thăm: " + guest2.getView());
         RikkeiAcademy guest3 = new RikkeiAcademy();
         guest3.visited();
-        System.out.println("Số lượt view hiện tại sau khi guest 3 thăm: " + guest3.getView());
+        System.out.println("Số lượt view hiện tại sau khi guest 3 thăm: " + RikkeiAcademy.view);
     }
 
 }
