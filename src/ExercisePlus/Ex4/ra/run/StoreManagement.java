@@ -718,6 +718,7 @@ public class StoreManagement {
                     reportRevenueByMonth();
                     break;
                 case 6:
+                    reportExpensesByMonth();
                     break;
                 case 7:
                     System.err.println("Thoát báo cáo thống kê.");
@@ -901,6 +902,35 @@ public class StoreManagement {
         // hien thi ket qua
         System.out.println("Thống kê doanh thu theo tháng: ");
         for (Map.Entry<String, Float> entry : revenueByMonth.entrySet()) {
+            System.out.println("- " + entry.getKey() + ": " + entry.getValue());
+        }
+    }
+
+    // 6. Thống kê chi phí theo các tháng
+
+    private void reportExpensesByMonth() {
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM/yyyy");
+        // su dung hashmap de luu tong doanh thu cho moi thang
+        Map<String, Float> expensesByMonth = new HashMap<>();
+        for (int i = 0; i < orderCount; i++) {
+            Order order = orders[i];
+            // phieu nhap
+            if (order.isOrderType()) {
+                try {
+                    String monthYear = monthFormat.format(order.getCreated());
+                    float expense = order.getQuantity() + order.getPrice();
+
+                    // cong don doanh thu vao thang tuong ung
+                    expensesByMonth.put(monthYear, expensesByMonth.getOrDefault(monthYear, 0.0f) + expense);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        // hien thi ket qua
+        System.out.println("Thống kê chi phí theo tháng: ");
+        for (Map.Entry<String, Float> entry : expensesByMonth.entrySet()) {
             System.out.println("- " + entry.getKey() + ": " + entry.getValue());
         }
     }
