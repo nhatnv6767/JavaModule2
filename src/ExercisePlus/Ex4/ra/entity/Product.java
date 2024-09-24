@@ -11,6 +11,13 @@ public class Product {
     public Product() {
     }
 
+    public Product(String productId, String productName, String manufacturer, boolean productStatus) {
+        this.productId = productId;
+        this.productName = productName;
+        this.manufacturer = manufacturer;
+        this.productStatus = productStatus;
+    }
+
     public String getProductId() {
         return productId;
     }
