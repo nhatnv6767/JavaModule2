@@ -1,7 +1,7 @@
 package Session5.Example;
 
 public class RikkeiAcademy {
-    private int view = 0;
+    private static int view = 0;
 
     public RikkeiAcademy() {
     }
