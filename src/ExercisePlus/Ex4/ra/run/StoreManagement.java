@@ -65,6 +65,29 @@ public class StoreManagement {
         products[productCount++] = new Product("P008", "Sản phẩm H", "Nhà sản xuất Y", getRandomTrueFalse());
         products[productCount++] = new Product("P009", "Sản phẩm I", "Nhà sản xuất Z", getRandomTrueFalse());
         products[productCount++] = new Product("P010", "Sản phẩm J", "Nhà sản xuất X", getRandomTrueFalse());
+
+
+        products[productCount++] = new Product("P011", "Sản phẩm K", "Nhà sản xuất Y", getRandomTrueFalse());
+        products[productCount++] = new Product("P012", "Sản phẩm L", "Nhà sản xuất Z", getRandomTrueFalse());
+        products[productCount++] = new Product("P013", "Sản phẩm M", "Nhà sản xuất X", getRandomTrueFalse());
+        products[productCount++] = new Product("P014", "Sản phẩm N", "Nhà sản xuất Y", getRandomTrueFalse());
+        products[productCount++] = new Product("P015", "Sản phẩm O", "Nhà sản xuất Z", getRandomTrueFalse());
+        products[productCount++] = new Product("P016", "Sản phẩm P", "Nhà sản xuất X", getRandomTrueFalse());
+        products[productCount++] = new Product("P017", "Sản phẩm Q", "Nhà sản xuất Y", getRandomTrueFalse());
+        products[productCount++] = new Product("P018", "Sản phẩm R", "Nhà sản xuất Z", getRandomTrueFalse());
+        products[productCount++] = new Product("P019", "Sản phẩm S", "Nhà sản xuất X", getRandomTrueFalse());
+        products[productCount++] = new Product("P020", "Sản phẩm T", "Nhà sản xuất Y", getRandomTrueFalse());
+
+        products[productCount++] = new Product("P021", "Sản phẩm U", "Nhà sản xuất Z", getRandomTrueFalse());
+        products[productCount++] = new Product("P022", "Sản phẩm V", "Nhà sản xuất X", getRandomTrueFalse());
+        products[productCount++] = new Product("P023", "Sản phẩm W", "Nhà sản xuất Y", getRandomTrueFalse());
+        products[productCount++] = new Product("P024", "Sản phẩm X", "Nhà sản xuất Z", getRandomTrueFalse());
+        products[productCount++] = new Product("P025", "Sản phẩm Y", "Nhà sản xuất X", getRandomTrueFalse());
+        products[productCount++] = new Product("P026", "Sản phẩm Z", "Nhà sản xuất Y", getRandomTrueFalse());
+        products[productCount++] = new Product("P027", "Sản phẩm AA", "Nhà sản xuất Z", getRandomTrueFalse());
+        products[productCount++] = new Product("P028", "Sản phẩm BB", "Nhà sản xuất X", getRandomTrueFalse());
+        products[productCount++] = new Product("P029", "Sản phẩm CC", "Nhà sản xuất Y", getRandomTrueFalse());
+        products[productCount++] = new Product("P030", "Sản phẩm DD", "Nhà sản xuất Z", getRandomTrueFalse());
     }
 
     // Hàm tạo dữ liệu mẫu cho nhân viên
@@ -79,6 +102,29 @@ public class StoreManagement {
         employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0973333333", getRandomEmail(), getRandomNumber(0, 2));
         employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0982222222", getRandomEmail(), getRandomNumber(0, 2));
         employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0861111111", getRandomEmail(), getRandomNumber(0, 2));
+
+
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0123456789", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0987654321", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0112233445", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0556677889", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0998877665", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0332211009", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0774433221", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0665544332", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0889900112", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0223311440", getRandomEmail(), getRandomNumber(0, 2));
+
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0445522663", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0778833991", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0116644772", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0559933881", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0227755664", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0880011336", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0334422557", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0661188990", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0992200334", getRandomEmail(), getRandomNumber(0, 2));
+        employees[employeeCount++] = new Employee(getRandomVietnameseName(), getRandomNumber(1990, 2004), "0447711225", getRandomEmail(), getRandomNumber(0, 2));
     }
 
     private void createSampleOrders() {
@@ -93,12 +139,39 @@ public class StoreManagement {
         orders[orderCount++] = new Order(getRandomTrueFalse(), "P009", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
         orders[orderCount++] = new Order(getRandomTrueFalse(), "P008", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
         orders[orderCount++] = new Order(getRandomTrueFalse(), "P010", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+
+
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P011", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P013", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P015", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P017", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P012", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P014", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P016", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P019", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P018", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P020", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P021", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P023", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P025", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P027", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P022", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P024", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P026", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P029", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P028", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+        orders[orderCount++] = new Order(getRandomTrueFalse(), "P030", getRandomNumber(1, 300), getRandomFloat(), getRandomNumber(1, 10), getRandomTrueFalse(), getRandomDate());
+
     }
 
     private Float getRandomFloat() {
         Random rand = new Random();
         float randomFloat = rand.nextFloat();
-        return 15000 + randomFloat * (9000000 - 15000);
+        // random from 300.000 -> 900.000
+        return 300000 + randomFloat * (900000 - 300000);
     }
 
     private boolean getRandomTrueFalse() {
