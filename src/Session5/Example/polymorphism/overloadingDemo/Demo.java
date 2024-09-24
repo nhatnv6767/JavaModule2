@@ -6,5 +6,6 @@ public class Demo {
         od.test(12, "name");
         Overridding2 o2 = new Overridding2();
         o2.talk();
+        System.out.println(o2);// mac dinh thi se goi phuong thuoc toString
     }
 }
