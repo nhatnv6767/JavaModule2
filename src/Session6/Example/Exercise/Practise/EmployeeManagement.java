@@ -1,5 +1,7 @@
 package Session6.Example.Exercise.Practise;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeManagement {
@@ -42,39 +44,43 @@ public class EmployeeManagement {
     }
 
     private void run(Scanner scanner) {
-        int choice;
+        int choice = -1;
         do {
             displayMenu();
-            choice = Integer.parseInt(scanner.nextLine());
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
 
-            switch (choice) {
-                case 1:
-                    inputEmployees(scanner);
-                    break;
-                case 2:
-                    displayEmployees();
-                    break;
-                case 3:
-                    System.out.println("Đã tính lương cho các nhân viên:");
-                    displayEmployees();
-                    break;
-                case 4:
-                    findEmployeeByName(scanner);
-                    break;
-                case 5:
-
-                    break;
-                case 6:
-
-                    break;
-                case 7:
-
-                    break;
-                case 8:
-                    System.err.println("Thoát chương trình.");
-                    break;
-                default:
-                    System.err.println("Lựa chọn không hợp lệ.");
+                switch (choice) {
+                    case 1:
+                        inputEmployees(scanner);
+                        break;
+                    case 2:
+                        displayEmployees();
+                        break;
+                    case 3:
+                        System.out.println("Đã tính lương cho các nhân viên:");
+                        displayEmployees();
+                        break;
+                    case 4:
+                        findEmployeeByName(scanner);
+                        break;
+                    case 5:
+                        updateEmployee(scanner);
+                        break;
+                    case 6:
+                        deleteEmployee(scanner);
+                        break;
+                    case 7:
+                        sortEmployeesBySalary();
+                        break;
+                    case 8:
+                        System.err.println("Thoát chương trình.");
+                        break;
+                    default:
+                        System.err.println("Lựa chọn không hợp lệ.");
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Lựa chọn không hợp lệ. Vui lòng nhập một số nguyên.");
             }
         } while (choice != 8);
     }
@@ -128,23 +134,247 @@ public class EmployeeManagement {
 
     private void findEmployeeByName(Scanner scanner) {
         System.out.print("Nhập tên nhân viên cần tìm: ");
-        String searchName = scanner.nextLine();
+        String searchName = scanner.nextLine().toLowerCase();
 
-        boolean found = false;
-        int foundCount = 0;
+        List<Employee> foundEmployees = new ArrayList<>(); // Danh sach luu nhan vien tim thay
         for (int i = 0; i < count; i++) {
-            if (employees[i].getName().toLowerCase().contains(searchName.toLowerCase())) {
-                found = true;
+            if (employees[i] != null && employees[i].getName().toLowerCase().contains(searchName)) {
+                foundEmployees.add(employees[i]);
             }
         }
 
-        if (!found) {
+        if (foundEmployees.isEmpty()) {
             System.out.println("Không tìm thấy nhân viên nào có tên chứa '" + searchName + "'.");
         } else {
-            System.out.println("\nThông tin nhân viên tìm thấy:");
-            for (int i = 0; i < foundCount; i++) {
-                employees[i].displayData();
+            System.out.println("\nCó " + foundEmployees.size() + " nhân viên phù hợp được tìm thấy:");
+            for (Employee employee : foundEmployees) {
+                employee.displayData();
+                System.out.println("---------------------------");
             }
         }
+
+    }
+
+    private void updateEmployee(Scanner scanner) {
+        System.out.print("Nhập mã nhân viên cần cập nhật: ");
+        String idToUpdate = scanner.nextLine();
+
+        int index = -1;
+        for (int i = 0; i < count; i++) {
+            if (employees[i].getId().equalsIgnoreCase(idToUpdate)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            System.err.println("Không tìm thấy nhân viên có mã '" + idToUpdate + "'.");
+            return;
+        }
+
+        Employee employeeToUpdate = employees[index];
+        System.out.println("Thông tin nhân viên cần cập nhật: ");
+        employeeToUpdate.displayData();
+        System.out.println("----------------------------------");
+        int updateChoice = -1;
+
+        do {
+            displayUpdateMenu();
+            try {
+                updateChoice = Integer.parseInt(scanner.nextLine());
+
+                switch (updateChoice) {
+                    case 1:
+                        updateName(scanner, employeeToUpdate);
+                        break;
+                    case 2:
+                        updateYear(scanner, employeeToUpdate);
+                        break;
+                    case 3:
+                        updateRate(scanner, employeeToUpdate);
+                        break;
+                    case 4:
+                        updateCommission(scanner, employeeToUpdate);
+                        break;
+                    case 5:
+                        updateStatus(scanner, employeeToUpdate);
+                        break;
+                    case 0:
+                        System.err.println("Thoát khỏi chức năng cập nhật.");
+                        break;
+                    default:
+                        System.err.println("Lựa chọn không hợp lệ.");
+                }
+            } catch (NumberFormatException e) {
+                System.err.println("Lựa chọn không hợp lệ. Vui lòng nhập một số nguyên.");
+            }
+        } while (updateChoice != 0);
+    }
+
+    private void displayUpdateMenu() {
+        System.out.println("\nChọn thông tin cần cập nhật:");
+        System.out.println("1. Tên nhân viên");
+        System.out.println("2. Năm sinh");
+        System.out.println("3. Hệ số lương");
+        System.out.println("4. Hoa hồng");
+        System.out.println("5. Trạng thái");
+        System.out.println("0. Thoát");
+        System.out.print("Lựa chọn của bạn: ");
+    }
+
+    private void updateName(Scanner scanner, Employee employeeToUpdate) {
+        do {
+            System.out.print("Nhập tên nhân viên mới (6-50 ký tự): ");
+            String newName = scanner.nextLine();
+            if (newName.length() >= 6 && newName.length() <= 50) {
+                employeeToUpdate.setName(newName);
+                System.out.println("Cập nhật tên thành công!");
+                break;
+            } else {
+                System.err.println("Tên không hợp lệ. Vui lòng nhập lại.");
+            }
+        } while (true);
+    }
+
+    private void updateYear(Scanner scanner, Employee employeeToUpdate) {
+        do {
+            System.out.print("Nhập năm sinh mới (phải trước năm 2002): ");
+            while (!scanner.hasNextInt()) {
+                System.err.println("Năm sinh phải là số nguyên. Vui lòng nhập lại.");
+                scanner.next();
+            }
+            int newYear = scanner.nextInt();
+            scanner.nextLine();
+            if (newYear < 2002) {
+                employeeToUpdate.setYear(newYear);
+                System.out.println("Cập nhật năm sinh thành công!");
+                break;
+            } else {
+                System.err.println("Năm sinh không hợp lệ. Vui lòng nhập lại.");
+            }
+        } while (true);
+    }
+
+    private void updateRate(Scanner scanner, Employee employeeToUpdate) {
+        do {
+            System.out.print("Nhập hệ số lương mới (phải lớn hơn 0): ");
+            while (!scanner.hasNextFloat()) {
+                System.err.println("Hệ số lương phải là số. Vui lòng nhập lại.");
+                scanner.next();
+            }
+            float newRate = scanner.nextFloat();
+            scanner.nextLine();
+            if (newRate > 0) {
+                employeeToUpdate.setRate(newRate);
+                System.out.println("Cập nhật hệ số lương thành công!");
+                break;
+            } else {
+                System.err.println("Hệ số lương không hợp lệ. Vui lòng nhập lại.");
+            }
+        } while (true);
+    }
+
+    private void updateCommission(Scanner scanner, Employee employeeToUpdate) {
+        do {
+            System.out.print("Nhập hoa hồng mới: ");
+            while (!scanner.hasNextFloat()) {
+                System.err.println("Hoa hồng phải là số. Vui lòng nhập lại.");
+                scanner.next();
+            }
+            float newCommission = scanner.nextFloat();
+            scanner.nextLine();
+            if (newCommission >= 0) {
+                employeeToUpdate.setCommission(newCommission);
+                System.out.println("Cập nhật hoa hồng thành công!");
+                break;
+            } else {
+                System.err.println("Hoa hồng không hợp lệ. Vui lòng nhập lại.");
+            }
+        } while (true);
+    }
+
+    private void updateStatus(Scanner scanner, Employee employeeToUpdate) {
+        boolean validStatus = false;
+        do {
+            System.out.print("Nhập trạng thái mới (true/false): ");
+            if (scanner.hasNextBoolean()) {
+                boolean newStatus = scanner.nextBoolean();
+                employeeToUpdate.setStatus(newStatus);
+                validStatus = true;
+                System.out.println("Cập nhật trạng thái thành công!");
+            } else {
+                System.err.println("Trạng thái phải là true hoặc false. Vui lòng nhập lại.");
+                scanner.next();
+            }
+            scanner.nextLine();
+        } while (!validStatus);
+    }
+
+
+    // DELETE AN EMPLOYEE
+
+    private void deleteEmployee(Scanner scanner) {
+        if (count == 0) {
+            System.err.println("Không có nhân viên nào để xóa.");
+            return;
+        }
+
+        System.out.print("Nhập mã nhân viên cần xóa: ");
+        String idToDelete = scanner.nextLine();
+
+        int index = -1;
+        for (int i = 0; i < count; i++) {
+            if (employees[i].getId().equalsIgnoreCase(idToDelete)) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            System.err.println("Không tìm thấy nhân viên có mã '" + idToDelete + "'.");
+            return;
+        }
+
+        System.out.print("Bạn có chắc chắn muốn xóa nhân viên này (y/n)? ");
+        String confirm = scanner.nextLine();
+        if (confirm.equalsIgnoreCase("y")) {
+            // Don cac phan tu phia sau len
+            for (int i = index; i < count - 1; i++) {
+                employees[i] = employees[i + 1];
+            }
+            employees[count - 1] = null; // xoa phan tu cuoi
+            count--;
+            System.out.println("Đã xóa nhân viên thành công!");
+        } else {
+            System.out.println("Đã hủy thao tác xóa.");
+        }
+    }
+
+    private void sortEmployeesBySalary() {
+        if (count == 0) {
+            System.err.println("Không có nhân viên nào để sắp xếp.");
+            return;
+        }
+
+        // bubble sort
+        for (int i = 0; i < count - 1; i++) {
+            for (int j = 0; j < count - i - 1; j++) {
+                if (employees[j].getSalary() > employees[j + 1].getSalary()) {
+                    Employee temp = employees[j];
+                    employees[j] = employees[j + 1];
+                    employees[j + 1] = temp;
+                }
+            }
+        }
+        System.out.println("Đã sắp xếp nhân viên theo lương tăng dần!");
+        System.out.println("Thông tin nhân viên sau khi sắp xếp lương tăng dần:");
+        for (Employee employee : employees) {
+            if (employee != null) {
+                employee.displayData();
+                System.out.println("----------------------");
+            }
+        }
+
+
     }
 }
