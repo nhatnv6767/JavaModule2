@@ -91,6 +91,7 @@ public class Product {
     }
 
     public void displayData() {
+        ;
         System.out.println("Mã sản phẩm: " + this.productId);
         System.out.println("Tên sản phẩm: " + this.productName);
         System.out.println("Nhà sản xuất: " + this.manufacturer);
