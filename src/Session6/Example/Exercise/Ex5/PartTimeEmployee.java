@@ -1,4 +1,4 @@
-package Session6.Example.Ex5;
+package Session6.Example.Exercise.Ex5;
 
 public class PartTimeEmployee extends Employee {
     private int workingHours;

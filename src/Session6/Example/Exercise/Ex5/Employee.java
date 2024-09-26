@@ -1,4 +1,4 @@
-package Session6.Example.Ex5;
+package Session6.Example.Exercise.Ex5;
 
 
 abstract class Employee implements IEmployee {
