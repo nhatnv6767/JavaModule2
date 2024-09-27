@@ -2,6 +2,7 @@ package Session6.Example.Exercise.Practise;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class EmployeeManagement {
@@ -23,24 +24,55 @@ public class EmployeeManagement {
 
         String[] sampleIds = {"NV001", "NV002", "NV003", "NV004", "NV005", "NV006", "NV007", "NV008", "NV009", "NV010",
                 "NV011", "NV012", "NV013", "NV014", "NV015", "NV016", "NV017", "NV018", "NV019", "NV020"};
-        String[] sampleNames = {"Nguyễn Văn A", "Trần Thị B", "Lê Văn C", "Phạm Thị D", "Hoàng Văn E", "Vũ Thị F", "Đỗ Văn G", "Phan Thị H", "Ngô Văn I", "Dương Thị J",
-                "Trịnh Văn K", "Bùi Thị L", "Hồ Văn M", "Ngọc Thị N", "Lý Văn O", "Tạ Thị P", "Đặng Văn Q", "Cao Thị R", "Trần Văn S", "Nguyễn Thị T"};
-        int[] sampleYears = {1990, 1995, 1988, 1992, 1997, 1985, 1993, 1998, 1987, 1991,
-                1994, 1989, 1996, 1986, 1999, 1984, 1992, 1995, 1988, 1993};
-        float[] sampleRates = {1.2f, 1.5f, 1.0f, 1.3f, 1.6f, 0.9f, 1.1f, 1.4f, 0.8f, 1.2f,
-                1.3f, 1.0f, 1.5f, 0.7f, 1.7f, 0.6f, 1.3f, 1.4f, 1.1f, 1.2f};
+//        String[] sampleNames = {"Nguyễn Văn A", "Trần Thị B", "Lê Văn C", "Phạm Thị D", "Hoàng Văn E", "Vũ Thị F", "Đỗ Văn G", "Phan Thị H", "Ngô Văn I", "Dương Thị J",
+//                "Trịnh Văn K", "Bùi Thị L", "Hồ Văn M", "Ngọc Thị N", "Lý Văn O", "Tạ Thị P", "Đặng Văn Q", "Cao Thị R", "Trần Văn S", "Nguyễn Thị T"};
+//        int[] sampleYears = {1990, 1995, 1988, 1992, 1997, 1985, 1993, 1998, 1987, 1991,
+//                1994, 1989, 1996, 1986, 1999, 1984, 1992, 1995, 1988, 1993};
+//        float[] sampleRates = {1.2f, 1.5f, 1.0f, 1.3f, 1.6f, 0.9f, 1.1f, 1.4f, 0.8f, 1.2f,
+//                1.3f, 1.0f, 1.5f, 0.7f, 1.7f, 0.6f, 1.3f, 1.4f, 1.1f, 1.2f};
         float[] sampleCommissions = {500000, 300000, 200000, 400000, 600000, 100000, 350000, 550000, 0, 250000,
                 450000, 150000, 300000, 50000, 700000, 0, 400000, 500000, 300000, 350000};
-        boolean[] sampleStatuses = {true, false, true, true, false, true, false, true, true, false,
-                true, true, false, true, false, false, true, true, false, true};
+//        boolean[] sampleStatuses = {true, false, true, true, false, true, false, true, true, false,
+//                true, true, false, true, false, false, true, true, false, true};
 
         for (int i = 0; i < 20; i++) {
-            Employee employee = new Employee(sampleIds[i], sampleNames[i], sampleYears[i], sampleRates[i], sampleCommissions[i], sampleStatuses[i]);
+            Employee employee = new Employee(sampleIds[i], getRandomVietnameseName(), getRandomNumber(1985, 2005), getRandomFloat(), sampleCommissions[i], getRandomTrueFalse());
             employees[count] = employee;
             count++;
         }
 
         System.out.println("Đã tạo 20 dữ liệu mẫu thành công!");
+    }
+
+    private String getRandomVietnameseName() {
+        String[] firstNames = {"Nguyễn", "Trần", "Lê", "Phạm", "Hoàng", "Phan", "Vũ", "Võ", "Đặng", "Bùi"};
+        String[] middleNames = {"Văn", "Thị", "Đức", "Hữu", "Ngọc", "Minh", "Hoàng", "Xuân", "Thu", "Hải"};
+        String[] lastNames = {"Anh", "Bình", "Chi", "Dũng", "Giang", "Hạnh", "Hòa", "Hương", "Khánh", "Linh"};
+
+        Random rand = new Random();
+        String firstName = firstNames[rand.nextInt(firstNames.length)];
+        String middleName = middleNames[rand.nextInt(middleNames.length)];
+        String lastName = lastNames[rand.nextInt(lastNames.length)];
+        return firstName + " " + middleName + " " + lastName;
+    }
+
+    private int getRandomNumber(int min, int max) {
+        if (min > max) {
+            throw new IllegalArgumentException("Giá trị min phải nhỏ hơn hoặc bằng max");
+        }
+        Random rand = new Random();
+        return rand.nextInt(max - min + 1) + min;
+    }
+
+    private Float getRandomFloat() {
+        Random rand = new Random();
+        float randomFloat = rand.nextFloat();
+        // random from 300.000 -> 900.000
+        return 0.5f + randomFloat * (7.0f - 0.5f);
+    }
+
+    private boolean getRandomTrueFalse() {
+        return Math.random() < 0.5;
     }
 
     private void run(Scanner scanner) {
