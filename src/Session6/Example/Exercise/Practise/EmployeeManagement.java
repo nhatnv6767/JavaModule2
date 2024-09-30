@@ -19,7 +19,6 @@ public class EmployeeManagement {
     private void createSampleData() {
         if (count + 20 > employees.length) {
             System.err.println("Không đủ chỗ trống để tạo dữ liệu sample.");
-
             return;
         }
 
