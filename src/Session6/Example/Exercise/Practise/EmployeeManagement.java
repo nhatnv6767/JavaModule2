@@ -23,7 +23,7 @@ public class EmployeeManagement {
         }
 
         String[] sampleIds = {"NV001", "NV002", "NV003", "NV004", "NV005", "NV006", "NV007", "NV008", "NV009", "NV010",
-                "NV011", "NV012", "NV013", "NV014", "NV015", "NV016", "NV017", "NV018", "NV019", "NV020"};
+                "NV011", "NV012", "NV013", "NV014", "NV015", "NV016", "NV017", "NV018", "NV019", "NV022"};
 //        String[] sampleNames = {"Nguyễn Văn A", "Trần Thị B", "Lê Văn C", "Phạm Thị D", "Hoàng Văn E", "Vũ Thị F", "Đỗ Văn G", "Phan Thị H", "Ngô Văn I", "Dương Thị J",
 //                "Trịnh Văn K", "Bùi Thị L", "Hồ Văn M", "Ngọc Thị N", "Lý Văn O", "Tạ Thị P", "Đặng Văn Q", "Cao Thị R", "Trần Văn S", "Nguyễn Thị T"};
 //        int[] sampleYears = {1990, 1995, 1988, 1992, 1997, 1985, 1993, 1998, 1987, 1991,
