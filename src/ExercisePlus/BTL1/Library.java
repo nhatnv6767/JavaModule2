@@ -63,6 +63,7 @@ public class Library {
                     break;
                 case 2:
                     System.out.println("======> 2. Hiển thị danh sách theo tênA–Z");
+                    displayCategoriesByNameAZ();
                     break;
                 case 3:
                     System.out.println("======> 3. Thống kê thể loại và số sách có trong mỗi thể loại");
@@ -137,6 +138,7 @@ public class Library {
 
 
     // all functions
+    // add new category
     private void addNewCategory(Scanner scanner) {
         Category newCategory = new Category();
         newCategory.input(scanner);
@@ -180,6 +182,21 @@ public class Library {
             }
         } catch (IOException e) {
             System.err.println("Lỗi khi lưu dữ liệu vào file: " + e.getMessage());
+        }
+    }
+
+    // display categories A-Z
+    private void displayCategoriesByNameAZ() {
+        if (categories.isEmpty()) {
+            System.out.println("Danh sách thể loại trống.");
+            return;
+        }
+
+        categories.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        System.out.println("Danh sách thể loại theo tên (A-Z):");
+        for (Category category : categories) {
+            category.output();
+            System.out.println("--------------------");
         }
     }
 
