@@ -36,4 +36,8 @@ public class Demo {
     public List<? extends Teacher> getObject() {
         return new ArrayList<Employee>();
     }
+
+    public List<? super Teacher> getObject2() {
+        return new ArrayList<Teacher>();
+    }
 }
