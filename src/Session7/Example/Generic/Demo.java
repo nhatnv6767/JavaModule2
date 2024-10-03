@@ -30,9 +30,10 @@ public class Demo {
 //        List<?> list = new ArrayList<>();
 //        list.add(person);
 
+
     }
 
-    public List<?> getObject() {
-        return new ArrayList<Employee>();
+    public List<? extends Teacher> getObject() {
+        return new ArrayList<Integer>();
     }
 }
