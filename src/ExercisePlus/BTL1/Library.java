@@ -196,7 +196,7 @@ public class Library {
         System.out.println("Danh sách thể loại theo tên (A-Z):");
         for (Category category : categories) {
             category.output();
-            System.out.println("--------------------");
+            System.out.println("-------------------");
         }
     }
 
