@@ -38,6 +38,6 @@ public class Demo {
     }
 
     public List<? super Teacher> getObject2() {
-        return new ArrayList<Teacher>();
+        return new ArrayList<Person>();
     }
 }
