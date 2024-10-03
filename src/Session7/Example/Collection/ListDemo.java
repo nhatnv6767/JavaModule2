@@ -26,7 +26,12 @@ public class ListDemo {
         // isEmpty(): kiem tra danh sach co phan tu chua
         System.out.println("Kiem tra danh sach co phan tu chua: " + listStudent.isEmpty());
         // remove(obj): xoa 1 phan tu trong danh sach
-        listStudent.remove(2);
+        listStudent.remove(student3);
+        // containAll(listChild): boolean - Kiem tra danh sach con co trong danh sach cha (hien tai) hay khong
+        List<Student> listChild = new ArrayList<>();
+        listChild.add(student1);
+        listChild.add(student2);
+        System.out.println("Danh sach listChild co trong listStudent khong: " + listStudent.containsAll(listChild));
 
         // forEach: duyet tat ca cac phan tu cua danh sach
         listStudent.forEach(student -> {
