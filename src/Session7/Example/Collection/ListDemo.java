@@ -21,6 +21,13 @@ public class ListDemo {
         listStudent.add(student4);
         listStudent.add(student5);
 
+        // size(): so phan tu cua danh sach
+        System.out.println("So phan tu cua danh sach: " + listStudent.size());
+        // isEmpty(): kiem tra danh sach co phan tu chua
+        System.out.println("Kiem tra danh sach co phan tu chua: " + listStudent.isEmpty());
+        // remove(obj): xoa 1 phan tu trong danh sach
+        listStudent.remove(2);
+
         // forEach: duyet tat ca cac phan tu cua danh sach
         listStudent.forEach(student -> {
             System.out.println(student);
