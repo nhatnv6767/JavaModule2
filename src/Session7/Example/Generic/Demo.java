@@ -1,5 +1,8 @@
 package Session7.Example.Generic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Demo {
     public static void main(String[] args) {
         // khoi tao doi tuong tu lop ClassGenetic
@@ -20,5 +23,16 @@ public class Demo {
         mg.printElementOfArray(arrFloat);
         mg.printElementOfArray(arrString);
 
+        // wildcard ?: dai dien cho bat cu kieu du lieu nao
+        Person person = new Person();
+        Teacher teacher = new Teacher();
+        Employee employee = new Employee();
+//        List<?> list = new ArrayList<>();
+//        list.add(person);
+
+    }
+
+    public List<?> getObject() {
+        return new ArrayList<Employee>();
     }
 }

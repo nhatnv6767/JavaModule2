@@ -1,6 +1,6 @@
 package Session7.Example.Generic;
 
-public class Teacher implements InterfaceGeneric<Teacher> {
+public class Teacher extends Person implements InterfaceGeneric<Teacher> {
     @Override
     public void read() {
 
