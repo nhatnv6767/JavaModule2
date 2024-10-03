@@ -34,6 +34,6 @@ public class Demo {
     }
 
     public List<? extends Teacher> getObject() {
-        return new ArrayList<Integer>();
+        return new ArrayList<Employee>();
     }
 }
