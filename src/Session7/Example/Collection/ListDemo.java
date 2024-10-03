@@ -54,6 +54,10 @@ public class ListDemo {
             System.out.println(student);
         });
         System.out.println("\n");
+
+        // add(int index, Object o): chen doi tuong o vao chi so index trong danh sach
+        listStudent.add(2, student3);
+
         // forEach: duyet tat ca cac phan tu cua danh sach
         listStudent.forEach(student -> {
             System.out.println(student);
