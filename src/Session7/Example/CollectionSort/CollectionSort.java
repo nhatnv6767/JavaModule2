@@ -1,0 +1,38 @@
+package Session7.Example.CollectionSort;
+
+import Session7.Example.Collection.Student;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class CollectionSort {
+    /*
+     * 2 cach sap xep trong collection: Comparable Interface va Comparator Interface
+     * 1. Su dung Comparaable de sap xep
+     *  B1: Lop sap xep phai ke thua Comparaable
+     *  B2: Trien khai phuong thuc compareTo va cai dat sap xep
+     *  B3: Su dung phuong thuc sort cua Collection de sap xep
+     * */
+    public static void main(String[] args) {
+        List<Student> listStudent = new ArrayList<Student>();
+        Student student1 = new Student("SV001", "Nguyen Van A", 20);
+        Student student2 = new Student("SV002", "Nguyen Van B", 22);
+        Student student3 = new Student("SV003", "Nguyen Van C", 21);
+        Student student4 = new Student("SV004", "Nguyen Van D", 18);
+        Student student5 = new Student("SV005", "Nguyen Van F", 19);
+
+        // add(obj): them 1 doi tuong vao cuoi danh sach
+        listStudent.add(student1);
+        listStudent.add(student2);
+        listStudent.add(student3);
+        listStudent.add(student4);
+        listStudent.add(student5);
+        // sap xep danh sach sinh vien theo tuoi tang dan
+        Collections.sort(listStudent);
+        System.out.println("Danh sach sinh vien sap xep theo tuoi tang dan: ");
+        listStudent.forEach(student -> {
+            System.out.println(student);
+        });
+    }
+}

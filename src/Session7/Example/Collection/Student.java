@@ -1,6 +1,8 @@
 package Session7.Example.Collection;
 
-public class Student {
+import org.jetbrains.annotations.NotNull;
+
+public class Student implements Comparable<Student> {
     private String studentId;
     private String studentName;
     private int age;
@@ -41,5 +43,17 @@ public class Student {
     @Override
     public String toString() {
         return "StudentId: " + this.studentId + ", Student Name: " + this.studentName + ", Age: " + this.age;
+    }
+
+    @Override
+    public int compareTo(@NotNull Student o) {
+        // cai dat sap xep
+        if (this.age > o.age) {
+            return 1;
+        } else if (this.age == o.age) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 }
