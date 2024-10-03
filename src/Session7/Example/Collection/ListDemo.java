@@ -32,7 +32,28 @@ public class ListDemo {
         listChild.add(student1);
         listChild.add(student2);
         System.out.println("Danh sach listChild co trong listStudent khong: " + listStudent.containsAll(listChild));
+        // addAll(list): them danh sach list vao danh sach hien tai
+        listStudent.addAll(listChild);
+        // removeAll(list): xoa danh sach list trong danh sach hien tai
+//        listStudent.removeAll(listChild);
+        // clear(): xoa tat ca cac phan tu
+//        listStudent.clear();
+        // get(int index): lay phan tu theo chi so
+        System.out.println("Ten sinh vien cua phan tu co chi so 2 trong danh sach: " + listStudent.get(2).getStudentName());
 
+        // set(int index, Object o): de` doi tuong o vao chi so index
+        listStudent.set(4, student3);
+
+        // indexOf(Object o): lay chi so phan tu o o trong danh sach
+        System.out.println("Chi so cua doi tuong SV003 trong danh sach " + listStudent.indexOf(student3));
+
+        // subList(int begin, int end): cat chuoi tu chi so begin den end
+        List<Student> listSub = listStudent.subList(0, 4);
+        System.out.println("Danh sach sinh vien trong sublist");
+        listSub.forEach(student -> {
+            System.out.println(student);
+        });
+        System.out.println("\n");
         // forEach: duyet tat ca cac phan tu cua danh sach
         listStudent.forEach(student -> {
             System.out.println(student);
