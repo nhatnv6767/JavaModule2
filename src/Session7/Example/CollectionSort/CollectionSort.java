@@ -4,6 +4,7 @@ import Session7.Example.Collection.Student;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CollectionSort {
@@ -33,10 +34,30 @@ public class CollectionSort {
         listStudent.add(student4);
         listStudent.add(student5);
         // sap xep danh sach sinh vien theo tuoi tang dan
-        Collections.sort(listStudent);
+//        Collections.sort(listStudent);
+
+        Collections.sort(listStudent, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return o1.getAge() - o2.getAge();
+            }
+        });
         System.out.println("Danh sach sinh vien sap xep theo tuoi tang dan: ");
         listStudent.forEach(student -> {
             System.out.println(student);
         });
+
+        // sap xep sinh vien theo ten giam dan
+        Collections.sort(listStudent, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return -o1.getStudentName().compareTo(o2.getStudentName());
+            }
+        });
+        System.out.println("Danh sach sinh vien sap xep theo ten giam dan: ");
+        listStudent.forEach(student -> {
+            System.out.println(student);
+        });
+
     }
 }
