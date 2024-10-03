@@ -33,11 +33,18 @@ public class Demo {
 
     }
 
-    public List<? extends Teacher> getObject() {
+    public List<?> getObject1() {
+        // dai dien cho bat cu kieu du lieu nao
+        return new ArrayList<Integer>();
+    }
+
+    public List<? extends Teacher> getObject2() {
+        // extend dai dien cho tat ca cac kieu du lieu ke thua tu Teacher
         return new ArrayList<Employee>();
     }
 
-    public List<? super Teacher> getObject2() {
+    public List<? super Teacher> getObject3() {
+        // extend dai dien cho tat ca cac kieu du lieu ma Teacher ke thua
         return new ArrayList<Person>();
     }
 }
