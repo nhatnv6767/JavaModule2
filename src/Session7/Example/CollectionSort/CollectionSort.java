@@ -13,6 +13,10 @@ public class CollectionSort {
      *  B1: Lop sap xep phai ke thua Comparaable
      *  B2: Trien khai phuong thuc compareTo va cai dat sap xep
      *  B3: Su dung phuong thuc sort cua Collection de sap xep
+     *
+     * 2. Su dung Comparator de sap xep
+     *  B1: Dung phuojng thuc sort cua Collection de sap xep theo doi tuong Comparator
+     *  B2: Trien khai phuong thuc compare cua COmparator va cai dat sap xep
      * */
     public static void main(String[] args) {
         List<Student> listStudent = new ArrayList<Student>();
