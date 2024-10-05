@@ -3,7 +3,7 @@ package Session8.Example;
 import java.util.Scanner;
 
 public class ExceptionDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         // Xu ly ngoai le cho khoi lenh ben duoi voi try...catch
         Scanner scanner = new Scanner(System.in);
@@ -36,10 +36,10 @@ public class ExceptionDemo {
 
     public static int divTwoNumber(int firstNumber, int secondNumber) throws Exception {
         // su dung throw de nem ngoai le cac truong hop cu the
-        if (secondNumber == 0) {
-            // nem 1 doi tuong ngoai le de xu ly
-            throw new ArithmeticException("Loi chia 0 trong phep chia");
-        }
+//        if (secondNumber == 0) {
+//            // nem 1 doi tuong ngoai le de xu ly
+//            throw new ArithmeticException("Loi chia 0 trong phep chia");
+//        }
         int result = firstNumber / secondNumber;
         return result;
     }
