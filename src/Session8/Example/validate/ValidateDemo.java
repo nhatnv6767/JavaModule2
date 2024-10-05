@@ -1,5 +1,6 @@
 package Session8.Example.validate;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -17,9 +18,9 @@ public class ValidateDemo {
         Scanner scanner = new Scanner(System.in);
         String studentId = inputStudentId(scanner);
         String studentName = inputStudentName(scanner);
-        int age;
-        float avgMark;
-        Date birthDate;
+        int age = inputStudentAge(scanner);
+        float avgMark = inputAvgMark(scanner);
+        Date birthDate = inputBirthDate(scanner);
     }
 
     public static String inputStudentId(Scanner scanner) {
@@ -76,8 +77,10 @@ public class ValidateDemo {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
                 Date birthDate = sdf.parse(scanner.nextLine());
                 return birthDate;
+            } catch (ParseException e) {
+                System.err.println("Khong dung dinh dang");
             } catch (Exception e) {
-                e.printStackTrace();
+                System.err.println("Da co loi khong xac dinh" + e.getMessage());
             }
         } while (true);
     }
