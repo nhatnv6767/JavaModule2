@@ -75,7 +75,9 @@ public class Categories implements IShop {
                     status = false;
                     isValidInput = false;
                 } else {
+                    isValidInput = false;
                     System.err.println("Đầu vào không hợp lệ. Vui lòng nhập 'true' hoặc 'false'.");
+                    scanner.next();
                 }
 
             } catch (Exception e) {
