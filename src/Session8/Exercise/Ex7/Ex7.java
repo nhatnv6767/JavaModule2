@@ -7,16 +7,15 @@ public class Ex7 {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhập chuỗi: ");
         String input = scanner.nextLine();
-        int intNumber = 0;
         try {
-            intNumber = changeString(input);
+            long intNumber = changeString(input);
             System.out.println("Chuỗi số nguyên sau khi chuyển: " + intNumber);
         } catch (IllegalArgumentException e) {
             System.err.println("Get error: " + e.getMessage());
         }
     }
 
-    public static int changeString(String str) {
+    public static long changeString(String str) {
         if (str == null || str.isEmpty()) {
             throw new IllegalArgumentException("String must not be null");
         }
@@ -29,6 +28,6 @@ public class Ex7 {
                 intNumber.append('0');
             }
         }
-        return Integer.parseInt(intNumber.toString());
+        return Long.parseLong(intNumber.toString());
     }
 }
