@@ -2,6 +2,7 @@ package Session11.Example.ra.Stream;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 
 public class Demo {
@@ -52,11 +53,33 @@ public class Demo {
         listStudent.stream().sorted(Comparator.comparing(Student::getAge).thenComparing(Comparator.comparing(Student::getStudentName).reversed())).forEach(System.out::println);
 
         System.out.println("8. Tao ra 1 danh sach sinh vien gom nhung sinh vien co tuoi nho hon 20");
+        // chuyen stream qua collector,
         List<Student> listStudentUnder20 = listStudent.stream().filter(student -> student.getAge() < 20).toList();
+        listStudentUnder20.forEach(System.out::println);
+        System.out.println("9. Kiem tra trong danh sach sinh vien co sinh vien nao lon hon 21 tuoi hay khong");
+        boolean check = listStudent.stream().anyMatch(student -> student.getAge() > 21);
+        System.out.println(check);
+        System.out.println("10. Kiem tra trong danh sach tat ca sinh vien co lon hon hoac bang 18 tuoi khong");
+        System.out.println(listStudent.stream().allMatch(student -> student.getAge() >= 18));
 
-        System.out.println("THONG TIN CAC SINH VIEN:");
+        System.out.println("11. In ra so sinh vien co tuoi lon hon hoac bang 22");
+        System.out.println(listStudent.stream().filter(student -> student.getAge() >= 22).count());
+
+        System.out.println("12. Tuoi lon nhat " + listStudent.stream().max(Comparator.comparing(Student::getAge)));
+        System.out.println("12. Tuoi nho nhat " + listStudent.stream().min(Comparator.comparing(Student::getAge)));
+
+        System.out.println("14. Thong ke cac sinh vien theo tuoi");
+        IntSummaryStatistics iss = listStudent.stream().mapToInt(Student::getAge).summaryStatistics();
+        System.out.println(iss);
+        System.out.println("14.1 - Tuoi trung binh: " + iss.getAverage());
+        System.out.println("15. Su dung reducer tinh tong tuoi cac sinh vien");
+        int sumAge = listStudent.stream().reduce(0, (total, student) -> total + student.getAge(), Integer::sum);
+        System.out.println(" = " + sumAge);
+
+
+//        System.out.println("THONG TIN CAC SINH VIEN:");
         // ket hop reference method va bieu thuc lambda
 //        listStudent.forEach(student -> System.out.println(student));
-        listStudent.forEach(System.out::println);
+//        listStudent.forEach(System.out::println);
     }
 }
