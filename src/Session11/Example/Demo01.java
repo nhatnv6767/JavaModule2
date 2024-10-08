@@ -5,4 +5,9 @@ public class Demo01 implements DefaultMethod {
     public void test() {
 
     }
+
+    @Override
+    public int sumTwoNumbers(int firstNumber, int secondNumber) {
+        return firstNumber + secondNumber + 10;
+    }
 }
