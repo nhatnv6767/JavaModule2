@@ -25,6 +25,14 @@ public class Demo {
         listStudent.add(student7);
         listStudent.add(student8);
         listStudent.add(student9);
+        System.out.println("1. In ra cac sinh vien co tuoi lon hon 20");
+        /*
+        B1: chuyen sang Stream: Su dung phuong thuc stream()
+        B2: thuc hien cac thao tac trung gian
+        B3: thuc hien cac thao tac dau cuoi
+        * */
+
+        listStudent.stream().filter(student -> student.getAge() > 20).forEach(System.out::println);
 
         System.out.println("THONG TIN CAC SINH VIEN:");
         // ket hop reference method va bieu thuc lambda
