@@ -15,9 +15,18 @@ public class Demo {
         if (optStudent.isPresent()) {
             System.out.println("Ma sinh vien la: " + student.getStudentId());
         }
+
+        optStudent.ifPresent(student1 -> System.out.println("Ten sinh vien la: " + student1.getStudentName()));
+        Student student2 = getStudent1();
+//        Optional<Student> optStudent2 = Optional.of().orElse(new Student());
+
     }
 
     public static Student getStudent1() {
-        return null;
+        return new Student("SV003", "Tthien", 20);
+    }
+
+    public static Optional<Student> getStudent2() {
+        return Optional.ofNullable(null);
     }
 }
