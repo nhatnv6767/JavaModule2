@@ -13,7 +13,7 @@ public class Demo {
 
         Optional<Student> optStudent = Optional.ofNullable(student);
         if (optStudent.isPresent()) {
-            System.out.println("Ma sinh vien la: " + student.getStudentId());
+            System.out.println("Ma sinh vien la, chinh xac " + student.getStudentId());
         }
 
         optStudent.ifPresent(student1 -> System.out.println("Ten sinh vien la: " + student1.getStudentName()));
