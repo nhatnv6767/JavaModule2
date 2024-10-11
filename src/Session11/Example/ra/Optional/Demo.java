@@ -17,7 +17,7 @@ public class Demo {
         }
 
         optStudent.ifPresent(student1 -> System.out.println("Ten sinh vien la: " + student1.getStudentName()));
-        Student student2 = getStudent1();//
+        Student student2 = getStudent1();
 //        Optional<Student> optStudent2 = Optional.of().orElse(new Student());
 
     }
