@@ -3,6 +3,7 @@ package ExampleDB.database;
 import com.mysql.jdbc.Driver;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -36,5 +37,17 @@ public class JDBCUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void printInfo(Connection c) {
+        try {
+            if (c != null) {
+                DatabaseMetaData mtdt = c.getMetaData();
+                System.out.println(c.getMetaData().toString());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
