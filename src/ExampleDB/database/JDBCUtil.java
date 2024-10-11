@@ -43,7 +43,8 @@ public class JDBCUtil {
         try {
             if (c != null) {
                 DatabaseMetaData mtdt = c.getMetaData();
-                System.out.println(c.getMetaData().toString());
+                System.out.println(mtdt.getDatabaseProductName());
+                System.out.println(mtdt.getDatabaseProductVersion());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
