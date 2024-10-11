@@ -19,14 +19,22 @@ public class JDBCUtil {
             String password = "123456";
             // tao ket noi
             c = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
         }
 
         return c;
     }
 
     public static void closeConnection(Connection c) {
-
+        try {
+            if (c != null) {
+                c.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
