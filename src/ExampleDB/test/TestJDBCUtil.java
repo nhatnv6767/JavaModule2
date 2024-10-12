@@ -26,8 +26,6 @@ public class TestJDBCUtil {
 
             // B4: xu ly ket qua
             System.out.println("So dong thay doi: " + check);
-
-            
             if (check > 0) {
                 System.out.println("Them du lieu thanh cong");
             } else {
