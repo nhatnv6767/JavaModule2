@@ -15,7 +15,7 @@ public class JDBCUtil {
             // register JDBC driver voi DriverManager
             Driver driver = new Driver();
             DriverManager.registerDriver(driver);
-            String url = "jdbc:mysql://192.168.1.113:3306/onTap";
+            String url = "jdbc:mysql://192.168.1.113:3306/nhaSach";
             String username = "root";
             String password = "123456";
             // tao ket noi
