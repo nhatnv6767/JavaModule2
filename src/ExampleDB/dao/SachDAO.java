@@ -24,7 +24,7 @@ public class SachDAO implements DAOInterface<Sach> {
             Statement st = con.createStatement();
 
             // B3: Thuc thi cau lenh SQL
-            String sql = "INSERT INTO sach (id, tenSach, giaBan, namXuatBan) VALUES (" + sach.getId() + ", " + sach.getTenSach() + ", " + sach.getGiaBan() + ", " + sach.getNamXuatBan() + ")";
+            String sql = "INSERT INTO sach (id, tenSach, giaBan, namXuatBan) VALUES ('" + sach.getId() + "', '" + sach.getTenSach() + "', " + sach.getGiaBan() + ", " + sach.getNamXuatBan() + ")";
 
             int check = st.executeUpdate(sql);
 
