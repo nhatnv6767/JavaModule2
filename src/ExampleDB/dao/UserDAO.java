@@ -4,10 +4,7 @@ import ExampleDB.database.JDBCUtil;
 import ExampleDB.model.Sach;
 import ExampleDB.model.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class UserDAO implements DAOInterface<User> {
@@ -24,12 +21,18 @@ public class UserDAO implements DAOInterface<User> {
             Connection con = JDBCUtil.getConnection();
 
             // B2: Tao ra doi tuong statement
-            Statement st = con.createStatement();
+            // viet truoc cau lenh sql
+            String sql = "INSERT INTO user (username, password, hovaten) VALUES (?, ?, ?)";
+
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, user.getUsername());
+            pst.setString(2, user.getPassword());
+            pst.setString(3, user.getHovaten());
+
 
             // B3: Thuc thi cau lenh SQL
-            String sql = "INSERT INTO user (username, password, hovaten) VALUES ('" + user.getUsername() + "', '" + user.getPassword() + "', '" + user.getHovaten() + "')";
 
-            check = st.executeUpdate(sql);
+            check = pst.executeUpdate(sql);
 
             // B4: Xu ly ket qua
             System.out.println("Ban da thuc thi: " + sql);
@@ -53,12 +56,15 @@ public class UserDAO implements DAOInterface<User> {
             Connection con = JDBCUtil.getConnection();
 
             // B2: Tao ra doi tuong statement
-            Statement st = con.createStatement();
+            String sql = "UPDATE sach SET password = ?, hovaten = ? WHERE username = ? ";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setString(1, user.getPassword());
+            pst.setString(2, user.getHovaten());
+            pst.setString(3, user.getUsername());
 
             // B3: Thuc thi cau lenh SQL
-            String sql = "UPDATE sach SET password = '" + user.getPassword() + "', hovaten = '" + user.getHovaten() + "' WHERE username = '" + user.getUsername() + "' ";
 
-            check = st.executeUpdate(sql);
+            check = pst.executeUpdate(sql);
 
             // B4: Xu ly ket qua
             System.out.println("Ban da thuc thi: " + sql);
@@ -82,10 +88,13 @@ public class UserDAO implements DAOInterface<User> {
             Connection con = JDBCUtil.getConnection();
 
             // B2: Tao ra doi tuong statement
-            Statement st = con.createStatement();
+            String sql = "DELETE from user WHERE username = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, user.getUsername());
+
 
             // B3: Thuc thi cau lenh SQL
-            String sql = "DELETE from user WHERE username = '" + user.getUsername() + "' ";
+
 
             check = st.executeUpdate(sql);
 
@@ -155,10 +164,13 @@ public class UserDAO implements DAOInterface<User> {
             Connection con = JDBCUtil.getConnection();
 
             // B2: Tao ra doi tuong statement
-            Statement st = con.createStatement();
+            String sql = "SELECT * FROM user where username = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, user.getUsername());
+
 
             // B3: Thuc thi cau lenh SQL
-            String sql = "SELECT * FROM user where username = '" + user.getUsername() + "'";
+
 
             ResultSet rs = st.executeQuery(sql);
 
