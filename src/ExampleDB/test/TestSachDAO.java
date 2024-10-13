@@ -3,6 +3,8 @@ package ExampleDB.test;
 import ExampleDB.dao.SachDAO;
 import ExampleDB.model.Sach;
 
+import java.util.ArrayList;
+
 public class TestSachDAO {
     public static void main(String[] args) {
 //        Sach sach1 = new Sach("LTJAVA", "Lap trinh Java", 50000, 2025);
@@ -23,11 +25,16 @@ public class TestSachDAO {
 
 
         // TEST DELETE
-        for (int i = 0; i < 1000; i++) {
-            Sach sach = new Sach("LT" + i, "Lap trinh i: " + i, 50000, 2025);
-            SachDAO.getInstance().delete(sach);
-        }
+//        for (int i = 0; i < 1000; i++) {
+//            Sach sach = new Sach("LT" + i, "Lap trinh i: " + i, 50000, 2025);
+//            SachDAO.getInstance().delete(sach);
+//        }
 
+
+        ArrayList<Sach> list = SachDAO.getInstance().selectAll();
+        for (Sach sach : list) {
+            System.out.println(sach.toString());
+        }
 
     }
 }

@@ -4,6 +4,7 @@ import ExampleDB.database.JDBCUtil;
 import ExampleDB.model.Sach;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -103,7 +104,49 @@ public class SachDAO implements DAOInterface<Sach> {
 
     @Override
     public ArrayList<Sach> selectAll() {
-        return null;
+        ArrayList<Sach> check = new ArrayList<>();
+        ;
+        try {
+            // B1: Tao ket noi den csdl
+            Connection con = JDBCUtil.getConnection();
+
+            // B2: Tao ra doi tuong statement
+            Statement st = con.createStatement();
+
+            // B3: Thuc thi cau lenh SQL
+            String sql = "SELECT * FROM sach";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            // B4: Xu ly ket qua
+            // next => duyet tung dong (neu con du lieu)
+            while (rs.next()) {
+                Sach sach = new Sach(rs.getString("id"), rs.getString("tenSach"), rs.getFloat("giaBan"), rs.getInt("namXuatBan"));
+                check.add(sach);
+            }
+
+            /*
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String tenSach = rs.getString("tenSach");
+                float giaBan = rs.getFloat("giaBan");
+                int namXuatBan = rs.getInt("namXuatBan");
+                Sach sach = new Sach(id, tenSach, giaBan, namXuatBan);
+                check.add(sach);
+            }
+            */
+
+            System.out.println("Ban da thuc thi: " + sql);
+            System.out.println("So dong thay doi: " + check);
+
+            // B5: Ngat ket noi den csdl
+            JDBCUtil.closeConnection(con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        return check;
     }
 
     @Override
