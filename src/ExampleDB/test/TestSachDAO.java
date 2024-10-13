@@ -31,10 +31,16 @@ public class TestSachDAO {
 //        }
 
 
-        ArrayList<Sach> list = SachDAO.getInstance().selectAll();
-        for (Sach sach : list) {
-            System.out.println(sach.toString());
-        }
+        // SHOW ALL
+//        ArrayList<Sach> list = SachDAO.getInstance().selectAll();
+//        for (Sach sach : list) {
+//            System.out.println(sach.toString());
+//        }
 
+        System.out.println("--------------------------------");
+        Sach find = new Sach();
+        find.setId("LTC");
+        Sach sach2 = SachDAO.getInstance().selectById(find);
+        System.out.println(sach2);
     }
 }

@@ -136,9 +136,6 @@ public class SachDAO implements DAOInterface<Sach> {
             }
             */
 
-            System.out.println("Ban da thuc thi: " + sql);
-            System.out.println("So dong thay doi: " + check);
-
             // B5: Ngat ket noi den csdl
             JDBCUtil.closeConnection(con);
         } catch (SQLException e) {
@@ -151,7 +148,44 @@ public class SachDAO implements DAOInterface<Sach> {
 
     @Override
     public Sach selectById(Sach sach) {
-        return null;
+        Sach result = null;
+        try {
+            // B1: Tao ket noi den csdl
+            Connection con = JDBCUtil.getConnection();
+
+            // B2: Tao ra doi tuong statement
+            Statement st = con.createStatement();
+
+            // B3: Thuc thi cau lenh SQL
+            String sql = "SELECT * FROM sach where id = '" + sach.getId() + "'";
+
+            ResultSet rs = st.executeQuery(sql);
+
+            // B4: Xu ly ket qua
+            // next => duyet tung dong (neu con du lieu)
+            while (rs.next()) {
+                result = new Sach(rs.getString("id"), rs.getString("tenSach"), rs.getFloat("giaBan"), rs.getInt("namXuatBan"));
+            }
+
+            /*
+            while (rs.next()) {
+                String id = rs.getString("id");
+                String tenSach = rs.getString("tenSach");
+                float giaBan = rs.getFloat("giaBan");
+                int namXuatBan = rs.getInt("namXuatBan");
+                Sach sach = new Sach(id, tenSach, giaBan, namXuatBan);
+                check.add(sach);
+            }
+            */
+
+            // B5: Ngat ket noi den csdl
+            JDBCUtil.closeConnection(con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        return result;
     }
 
     @Override
