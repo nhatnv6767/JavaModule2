@@ -10,9 +10,17 @@ public class TestSachDAO {
 //
 //        SachDAO.getInstance().insert(sach2);
 
-        for (int i = 0; i < 1000; i++) {
-            Sach sach = new Sach("LT" + i, "Lap trinh i: " + i, 50000, 2025);
-            SachDAO.getInstance().insert(sach);
-        }
+        // TEST INSERT
+//        for (int i = 0; i < 1000; i++) {
+//            Sach sach = new Sach("LT" + i, "Lap trinh i: " + i, 50000, 2025);
+//            SachDAO.getInstance().insert(sach);
+//        }
+
+
+        // TEST UPDATE
+        Sach sach2 = new Sach("LTC", "Lap trinh C", 123000, 2030);
+        SachDAO.getInstance().update(sach2);
+
+
     }
 }
