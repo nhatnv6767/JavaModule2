@@ -18,8 +18,15 @@ public class TestSachDAO {
 
 
         // TEST UPDATE
-        Sach sach2 = new Sach("LTC", "Lap trinh C", 123000, 2030);
-        SachDAO.getInstance().update(sach2);
+//        Sach sach2 = new Sach("LTC", "Lap trinh C", 123000, 2030);
+//        SachDAO.getInstance().update(sach2);
+
+
+        // TEST DELETE
+        for (int i = 0; i < 1000; i++) {
+            Sach sach = new Sach("LT" + i, "Lap trinh i: " + i, 50000, 2025);
+            SachDAO.getInstance().delete(sach);
+        }
 
 
     }

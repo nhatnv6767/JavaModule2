@@ -74,7 +74,31 @@ public class SachDAO implements DAOInterface<Sach> {
 
     @Override
     public int delete(Sach sach) {
-        return 0;
+        int check = 0;
+        try {
+            // B1: Tao ket noi den csdl
+            Connection con = JDBCUtil.getConnection();
+
+            // B2: Tao ra doi tuong statement
+            Statement st = con.createStatement();
+
+            // B3: Thuc thi cau lenh SQL
+            String sql = "DELETE from sach WHERE id = '" + sach.getId() + "' ";
+
+            check = st.executeUpdate(sql);
+
+            // B4: Xu ly ket qua
+            System.out.println("Ban da thuc thi: " + sql);
+            System.out.println("So dong thay doi: " + check);
+
+            // B5: Ngat ket noi den csdl
+            JDBCUtil.closeConnection(con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        return check;
     }
 
     @Override
