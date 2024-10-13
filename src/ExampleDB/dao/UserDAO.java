@@ -32,7 +32,7 @@ public class UserDAO implements DAOInterface<User> {
 
             // B3: Thuc thi cau lenh SQL
 
-            check = pst.executeUpdate(sql);
+            check = pst.executeUpdate();
 
             // B4: Xu ly ket qua
             System.out.println("Ban da thuc thi: " + sql);
@@ -64,7 +64,7 @@ public class UserDAO implements DAOInterface<User> {
 
             // B3: Thuc thi cau lenh SQL
 
-            check = pst.executeUpdate(sql);
+            check = pst.executeUpdate();
 
             // B4: Xu ly ket qua
             System.out.println("Ban da thuc thi: " + sql);
@@ -96,7 +96,7 @@ public class UserDAO implements DAOInterface<User> {
             // B3: Thuc thi cau lenh SQL
 
 
-            check = st.executeUpdate(sql);
+            check = st.executeUpdate();
 
             // B4: Xu ly ket qua
             System.out.println("Ban da thuc thi: " + sql);
@@ -121,12 +121,13 @@ public class UserDAO implements DAOInterface<User> {
             Connection con = JDBCUtil.getConnection();
 
             // B2: Tao ra doi tuong statement
-            Statement st = con.createStatement();
+            String sql = "SELECT * FROM user";
+            PreparedStatement st = con.prepareStatement(sql);
 
             // B3: Thuc thi cau lenh SQL
-            String sql = "SELECT * FROM user";
 
-            ResultSet rs = st.executeQuery(sql);
+
+            ResultSet rs = st.executeQuery();
 
             // B4: Xu ly ket qua
             // next => duyet tung dong (neu con du lieu)
@@ -172,7 +173,7 @@ public class UserDAO implements DAOInterface<User> {
             // B3: Thuc thi cau lenh SQL
 
 
-            ResultSet rs = st.executeQuery(sql);
+            ResultSet rs = st.executeQuery();
 
             // B4: Xu ly ket qua
             // next => duyet tung dong (neu con du lieu)
