@@ -190,6 +190,34 @@ public class SachDAO implements DAOInterface<Sach> {
 
     @Override
     public ArrayList<Sach> selectByCondition(String condition) {
-        return null;
+        ArrayList<Sach> check = new ArrayList<>();
+        ;
+        try {
+            // B1: Tao ket noi den csdl
+            Connection con = JDBCUtil.getConnection();
+
+            // B2: Tao ra doi tuong statement
+            Statement st = con.createStatement();
+
+            // B3: Thuc thi cau lenh SQL
+            String sql = "SELECT * FROM sach where " + condition;
+
+            ResultSet rs = st.executeQuery(sql);
+
+            // B4: Xu ly ket qua
+            // next => duyet tung dong (neu con du lieu)
+            while (rs.next()) {
+                Sach sach = new Sach(rs.getString("id"), rs.getString("tenSach"), rs.getFloat("giaBan"), rs.getInt("namXuatBan"));
+                check.add(sach);
+            }
+
+            // B5: Ngat ket noi den csdl
+            JDBCUtil.closeConnection(con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
+        return check;
     }
 }
