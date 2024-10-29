@@ -1,4 +1,4 @@
-package Session16.Example.ra.entity;
+package Session16.CataProdManagement.ra.entity;
 
 public class Product {
     private String productId;

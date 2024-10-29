@@ -1,7 +1,7 @@
-package Session16.Example.ra.presentation;
+package Session16.CataProdManagement.ra.presentation;
 
-import Session16.Example.ra.bussiness.CategoriesBussiness;
-import Session16.Example.ra.entity.Categories;
+import Session16.CataProdManagement.ra.bussiness.CategoriesBussiness;
+import Session16.CataProdManagement.ra.entity.Categories;
 
 import java.util.List;
 import java.util.Scanner;

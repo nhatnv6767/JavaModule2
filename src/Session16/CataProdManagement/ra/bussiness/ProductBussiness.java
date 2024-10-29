@@ -1,7 +1,7 @@
-package Session16.Example.ra.bussiness;
+package Session16.CataProdManagement.ra.bussiness;
 
-import Session16.Example.ra.entity.Product;
-import Session16.Example.ra.util.ConnectionDB;
+import Session16.CataProdManagement.ra.util.ConnectionDB;
+import Session16.CataProdManagement.ra.entity.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
