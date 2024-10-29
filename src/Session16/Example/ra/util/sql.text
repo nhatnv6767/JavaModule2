@@ -17,3 +17,83 @@ create table Product(
     foreign key (catalog_id) references Categories(category_id),
     product_status bit
 );
+
+DELIMITER &&
+
+CREATE PROCEDURE find_all_categories()
+begin
+    select * from Categories;
+end &&
+
+DELIMITER &&;
+
+DELIMITER &&
+
+CREATE PROCEDURE create_categories(
+    cat_name_in varchar(100),
+    cat_des_in text,
+    cat_status_in bit
+)
+begin
+    insert into Categories(category_name, catalog_description, catalog_status) values (cat_name_in, cat_des_in, cat_status_in);
+end &&
+
+DELIMITER &&;
+
+
+DELIMITER &&
+CREATE PROCEDURE update_categories(
+    cat_id_in int,
+    cat_name_in varchar(100),
+    cat_des_in text,
+    cat_status_in bit
+)
+begin
+    update Categories set category_name = cat_name_in,
+                          catalog_description = cat_des_in,
+                          catalog_status = cat_status_in
+    where category_id = cat_id_in;
+end &&
+
+DELIMITER &&;
+
+
+
+DELIMITER &&
+CREATE PROCEDURE delete_categories(
+    cat_id_in int
+)
+begin
+    delete  from Categories where category_id = cat_id_in;
+end &&
+
+DELIMITER &&;
+
+
+
+DELIMITER &&
+CREATE PROCEDURE statictic_categories(
+    cat_status_in int,
+    OUT cnt_catalog int
+)
+begin
+    set cnt_catalog = (select count(c.category_id) from Categories c where c.catalog_status = cat_status_in);
+end &&
+
+DELIMITER &&;
+
+
+DELIMITER &&
+
+CREATE PROCEDURE find_categories_by_id(
+    cat_id_in int
+)
+begin
+    select * from Categories c where c.category_id = cat_id_in;
+end &&
+
+DELIMITER &&;
+
+
+
+
