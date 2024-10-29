@@ -1,12 +1,16 @@
 use QuanLyDiemSV;
 
+
+
+
+
 -- 1.
 delimiter &&
 create procedure liet_ke_danh_sach_sinh_vien()
 begin
-select MaSV, HoSV, TenSV, HocBong
-from DMSV dm
-order by MaSV asc;
+    select MaSV, HoSV, TenSV, HocBong
+        from DMSV dm
+    order by MaSV asc;
 end &&
 delimiter &&;
 
@@ -15,9 +19,9 @@ delimiter &&
 drop procedure if exists liet_ke_danh_sach_sinh_vien_theo_gioi_tinh;
 create procedure liet_ke_danh_sach_sinh_vien_theo_gioi_tinh()
 begin
-select MaSV, HoSV, TenSV, Phai, NgaySinh
-from DMSV
-order by phai asc ;
+    select MaSV, HoSV, TenSV, Phai, NgaySinh
+        from DMSV
+            order by phai asc ;
 end &&
 delimiter &&;
 
@@ -25,9 +29,9 @@ delimiter &&;
 delimiter &&
 create procedure thong_tin_ngay_sinh_hoc_bong()
 begin
-select HoSV, TenSV, NgaySinh, HocBong
-from DMSV
-order by NgaySinh asc, HocBong desc ;
+    select HoSV, TenSV, NgaySinh, HocBong
+        from DMSV
+            order by NgaySinh asc, HocBong desc ;
 end &&
 delimiter &&;
 
@@ -36,9 +40,9 @@ delimiter &&;
 delimiter &&
 create procedure mon_hoc_bat_dau_bang_t()
 begin
-select MaMH, TenMH, SoTiet
-from DMMH
-where TenMH like "T%";
+    select MaMH, TenMH, SoTiet
+        from DMMH
+            where TenMH like "T%";
 end &&
 delimiter &&;
 
@@ -48,9 +52,9 @@ delimiter &&;
 delimiter &&
 create procedure require_5()
 begin
-select HoSV, TenSV, NgaySinh, Phai
-from DMSV
-where TenSV like "%i";
+    select HoSV, TenSV, NgaySinh, Phai
+        from DMSV
+            where TenSV like "%i";
 end &&
 delimiter &&;
 
@@ -58,9 +62,9 @@ delimiter &&;
 delimiter &&
 create procedure require_6()
 begin
-select MaKhoa, TenKhoa
-from DMKhoa
-where TenKhoa like "_N%";
+    select MaKhoa, TenKhoa
+        from DMKhoa
+            where TenKhoa like "_N%";
 end &&
 delimiter &&;
 
@@ -69,9 +73,9 @@ delimiter &&;
 delimiter &&
 create procedure require_7()
 begin
-select *
-from DMSV
-where HoSV like "%Thị%";
+    select *
+    from DMSV
+    where HoSV like "%Thị%";
 end &&
 delimiter &&;
 
@@ -79,10 +83,10 @@ delimiter &&;
 delimiter &&
 create procedure require_8()
 begin
-select MaSV, HoSV, TenSV, MaKhoa, HocBong
-from DMSV
-where HocBong > 100000
-order by MaKhoa desc ;
+    select MaSV, HoSV, TenSV, MaKhoa, HocBong
+    from DMSV
+    where HocBong > 100000
+    order by MaKhoa desc ;
 end &&
 delimiter &&;
 
@@ -92,9 +96,9 @@ delimiter &&
 drop procedure if exists require_9;
 create procedure require_9()
 begin
-select MaSV, HoSV, TenSV, MaKhoa, HocBong
-from DMSV
-WHERE HocBong >= 150000 AND NoiSinh = 'Hà Nội';
+    select MaSV, HoSV, TenSV, MaKhoa, HocBong
+    from DMSV
+    WHERE HocBong >= 150000 AND NoiSinh = 'Hà Nội';
 end &&
 delimiter &&;
 
@@ -104,9 +108,9 @@ delimiter &&
 drop procedure if exists require_10;
 create procedure require_10()
 begin
-select MaSV, HoSV, TenSV, MaKhoa, HocBong
-from DMSV
-WHERE MaKhoa = "AV" or MaKhoa = "VL";
+    select MaSV, HoSV, TenSV, MaKhoa, HocBong
+    from DMSV
+    WHERE MaKhoa = "AV" or MaKhoa = "VL";
 end &&
 delimiter &&;
 
@@ -116,9 +120,9 @@ delimiter &&
 drop procedure if exists require_11;
 create procedure require_11()
 begin
-select MaSV, HoSV, TenSV,NgaySinh, MaKhoa, HocBong
-from DMSV
-WHERE NgaySinh BETWEEN '1991-01-01' AND '1992-06-05';
+    select MaSV, HoSV, TenSV,NgaySinh, MaKhoa, HocBong
+    from DMSV
+    WHERE NgaySinh BETWEEN '1991-01-01' AND '1992-06-05';
 end &&
 delimiter &&;
 
@@ -128,9 +132,9 @@ delimiter &&
 drop procedure if exists require_12;
 create procedure require_12()
 begin
-SELECT MaSV, NgaySinh, Phai, MaKhoa
-FROM DMSV
-WHERE HocBong BETWEEN 80000 AND 150000;
+    SELECT MaSV, NgaySinh, Phai, MaKhoa
+    FROM DMSV
+    WHERE HocBong BETWEEN 80000 AND 150000;
 end &&
 delimiter &&;
 
@@ -140,9 +144,9 @@ delimiter &&
 drop procedure if exists require_13;
 create procedure require_13()
 begin
-SELECT MaMH, TenMH, SoTiet
-FROM DMMH
-WHERE SoTiet > 30 AND SoTiet < 45;
+    SELECT MaMH, TenMH, SoTiet
+    FROM DMMH
+    WHERE SoTiet > 30 AND SoTiet < 45;
 end &&
 delimiter &&;
 
@@ -152,10 +156,10 @@ delimiter &&
 drop procedure if exists require_14;
 create procedure require_14()
 begin
-SELECT DMSV.MaSV, DMSV.HoSV, DMSV.TenSV, DMKhoa.TenKhoa, DMSV.Phai
-FROM DMSV
-         inner join DMKhoa on DMSV.MaKhoa = DMKhoa.MaKhoa
-WHERE DMSV.Phai = "Nam" and (DMSV.MaKhoa = "AV" OR DMSV.MaKhoa = "TH");
+    SELECT DMSV.MaSV, DMSV.HoSV, DMSV.TenSV, DMKhoa.TenKhoa, DMSV.Phai
+    FROM DMSV
+    inner join DMKhoa on DMSV.MaKhoa = DMKhoa.MaKhoa
+    WHERE DMSV.Phai = "Nam" and (DMSV.MaKhoa = "AV" OR DMSV.MaKhoa = "TH");
 end &&
 delimiter &&;
 
@@ -165,9 +169,9 @@ delimiter &&
 drop procedure if exists require_15;
 create procedure require_15()
 begin
-select *
-from DMSV
-where Phai = "Nữ" and TenSV like "%N%";
+    select *
+        from DMSV
+            where Phai = "Nữ" and TenSV like "%N%";
 end &&
 delimiter &&;
 
@@ -177,9 +181,9 @@ delimiter &&
 drop procedure if exists require_16;
 create procedure require_16()
 begin
-SELECT HoSV, TenSV, NoiSinh, NgaySinh
-from DMSV
-where NoiSinh = "Hà Nội" and MONTH(NgaySinh) = 12;
+    SELECT HoSV, TenSV, NoiSinh, NgaySinh
+        from DMSV
+            where NoiSinh = "Hà Nội" and MONTH(NgaySinh) = 12;
 end &&
 delimiter &&;
 
@@ -189,9 +193,9 @@ delimiter &&
 drop procedure if exists require_17;
 create procedure require_17()
 begin
-SELECT HoSV, TenSV, HocBong, YEAR(CURRENT_DATE()) - YEAR(NgaySinh) as Tuoi
-from DMSV
-where YEAR(CURRENT_DATE()) - YEAR(NgaySinh) > 20;
+    SELECT HoSV, TenSV, HocBong, YEAR(CURRENT_DATE()) - YEAR(NgaySinh) as Tuoi
+        from DMSV
+            where YEAR(CURRENT_DATE()) - YEAR(NgaySinh) > 20;
 end &&
 delimiter &&;
 
@@ -201,10 +205,10 @@ delimiter &&
 drop procedure if exists require_18;
 create procedure require_18()
 begin
-SELECT HoSV, TenSV, HocBong, YEAR(CURRENT_DATE()) - YEAR(NgaySinh) as Tuoi, TenKhoa
-from DMSV
-    inner join DMKhoa on DMSV.MaKhoa = DMKhoa.MaKhoa
-where YEAR(CURRENT_DATE()) - YEAR(NgaySinh) BETWEEN 20 and 25;
+    SELECT HoSV, TenSV, HocBong, YEAR(CURRENT_DATE()) - YEAR(NgaySinh) as Tuoi, TenKhoa
+        from DMSV
+        inner join DMKhoa on DMSV.MaKhoa = DMKhoa.MaKhoa
+            where YEAR(CURRENT_DATE()) - YEAR(NgaySinh) BETWEEN 20 and 25;
 end &&
 delimiter &&;
 
@@ -214,9 +218,9 @@ delimiter &&
 drop procedure if exists require_19;
 create procedure require_19()
 begin
-SELECT HoSV, TenSV, HocBong, YEAR(CURRENT_DATE()) - YEAR(NgaySinh) as Tuoi, NgaySinh
-from DMSV
-where YEAR(NgaySinh) = 1990 and MONTH(NgaySinh) between 1 and 3;
+    SELECT HoSV, TenSV, HocBong, YEAR(CURRENT_DATE()) - YEAR(NgaySinh) as Tuoi, NgaySinh
+        from DMSV
+            where YEAR(NgaySinh) = 1990 and MONTH(NgaySinh) between 1 and 3;
 end &&
 delimiter &&;
 
@@ -226,13 +230,13 @@ delimiter &&
 drop procedure if exists require_20;
 create procedure require_20()
 begin
-SELECT MaSV, Phai, MaKhoa,
-       CASE
-           WHEN HocBong > 500000 THEN "Học bổng cao"
-           ELSE "Mức trung bình"
+    SELECT MaSV, Phai, MaKhoa,
+           CASE
+               WHEN HocBong > 500000 THEN "Học bổng cao"
+               ELSE "Mức trung bình"
            END as MucHocBong
 
-from DMSV;
+        from DMSV;
 end &&
 delimiter &&;
 
@@ -242,9 +246,9 @@ delimiter &&
 drop procedure if exists require_21;
 create procedure require_21()
 begin
-select count(*) as TongSoSinhVien
+    select count(*) as TongSoSinhVien
 
-from DMSV;
+        from DMSV;
 end &&
 delimiter &&;
 
@@ -254,9 +258,9 @@ delimiter &&
 drop procedure if exists require_22;
 create procedure require_22()
 begin
-select count(*) as TongSoSinhVien, SUM(CASE WHEN Phai = "Nữ" THEN 1 else 0 end) as TongSoSinhVienNu
+    select count(*) as TongSoSinhVien, SUM(CASE WHEN Phai = "Nữ" THEN 1 else 0 end) as TongSoSinhVienNu
 
-from DMSV;
+        from DMSV;
 end &&
 delimiter &&;
 
@@ -266,11 +270,11 @@ delimiter &&
 drop procedure if exists require_23;
 create procedure require_23()
 begin
-select MaKhoa, count(*) as TongSoSinhVien
+    select MaKhoa, count(*) as TongSoSinhVien
 
-from DMSV
-group by MaKhoa
-;
+        from DMSV
+    group by MaKhoa
+    ;
 end &&
 delimiter &&;
 
@@ -280,12 +284,12 @@ delimiter &&
 drop procedure if exists require_24;
 create procedure require_24()
 begin
-select dm.MaMH, dm.TenMH, count(distinct kq.MaSV) as SoLuongSinhVien
+    select dm.MaMH, dm.TenMH, count(distinct kq.MaSV) as SoLuongSinhVien
 
-from KetQua kq
-         inner join DMMH dm on kq.MaMH = dm.MaMH
-group by dm.MaMH, dm.TenMH
-;
+        from KetQua kq
+        inner join DMMH dm on kq.MaMH = dm.MaMH
+    group by dm.MaMH, dm.TenMH
+    ;
 end &&
 delimiter &&;
 
@@ -295,8 +299,8 @@ delimiter &&
 drop procedure if exists require_25;
 create procedure require_25()
 begin
-select count(distinct MaMH) as SoLuongMonHoc
-from KetQua;
+    select count(distinct MaMH) as SoLuongMonHoc
+        from KetQua;
 end &&
 delimiter &&;
 
@@ -306,10 +310,10 @@ delimiter &&
 drop procedure if exists require_26;
 create procedure require_26()
 begin
-select DMSV.MaKhoa, DMKhoa.TenKhoa, SUM(HocBong) as TongHocBong
-from DMSV
-         inner join DMKhoa on DMSV.MaKhoa = DMKhoa.MaKhoa
-group by DMSV.MaKhoa ;
+    select DMSV.MaKhoa, DMKhoa.TenKhoa, SUM(HocBong) as TongHocBong
+        from DMSV
+        inner join DMKhoa on DMSV.MaKhoa = DMKhoa.MaKhoa
+    group by DMSV.MaKhoa ;
 end &&
 delimiter &&;
 
@@ -319,10 +323,10 @@ delimiter &&
 drop procedure if exists require_27;
 create procedure require_27()
 begin
-select DMSV.MaKhoa, DMKhoa.TenKhoa, MAX(HocBong) as HocBongCaoNhat
-from DMSV
-         inner join DMKhoa on DMSV.MaKhoa = DMKhoa.MaKhoa
-group by DMSV.MaKhoa ;
+    select DMSV.MaKhoa, DMKhoa.TenKhoa, MAX(HocBong) as HocBongCaoNhat
+        from DMSV
+        inner join DMKhoa on DMSV.MaKhoa = DMKhoa.MaKhoa
+    group by DMSV.MaKhoa ;
 end &&
 delimiter &&;
 
@@ -332,11 +336,11 @@ delimiter &&
 drop procedure if exists require_28;
 create procedure require_28()
 begin
-select DMSV.MaKhoa,
-       SUM(CASE WHEN Phai = "Nam" THEN 1 ELSE 0 END) as TongNam,
-       SUM(CASE WHEN Phai = "Nữ" THEN 1 ELSE 0 END) as TongNu
-from DMSV
-group by DMSV.MaKhoa ;
+    select DMSV.MaKhoa,
+           SUM(CASE WHEN Phai = "Nam" THEN 1 ELSE 0 END) as TongNam,
+           SUM(CASE WHEN Phai = "Nữ" THEN 1 ELSE 0 END) as TongNu
+        from DMSV
+    group by DMSV.MaKhoa ;
 end &&
 delimiter &&;
 
@@ -346,10 +350,10 @@ delimiter &&
 drop procedure if exists require_29;
 create procedure require_29()
 begin
-select YEAR(CURRENT_DATE()) - YEAR(NgaySinh) as DoTuoi, count(*) as SoLuongSinhVien
+    select YEAR(CURRENT_DATE()) - YEAR(NgaySinh) as DoTuoi, count(*) as SoLuongSinhVien
 
-from DMSV
-group by DoTuoi ;
+        from DMSV
+    group by DoTuoi ;
 end &&
 delimiter &&;
 
@@ -359,10 +363,10 @@ delimiter &&
 drop procedure if exists require_30;
 create procedure require_30()
 begin
-select YEAR(NgaySinh) as NamSinh
-from DMSV
-group by NamSinh
-HAVING COUNT(*) = 2;
+    select YEAR(NgaySinh) as NamSinh
+        from DMSV
+    group by NamSinh
+    HAVING COUNT(*) = 2;
 end &&
 delimiter &&;
 
@@ -372,10 +376,10 @@ delimiter &&
 drop procedure if exists require_31;
 create procedure require_31()
 begin
-select NoiSinh
-from DMSV
-group by NoiSinh
-HAVING COUNT(*) = 2;
+    select NoiSinh
+        from DMSV
+    group by NoiSinh
+    HAVING COUNT(*) = 2;
 end &&
 delimiter &&;
 
@@ -385,11 +389,11 @@ delimiter &&
 drop procedure if exists require_32;
 create procedure require_32()
 begin
-select kq.MaMH, DMMH.TenMH
-from KetQua kq
-         inner join DMMH on kq.MaMH = DMMH.MaMH
-group by kq.MaMH, DMMH.TenMH
-HAVING COUNT(*) > 3;
+    select kq.MaMH, DMMH.TenMH
+        from KetQua kq
+        inner join DMMH on kq.MaMH = DMMH.MaMH
+    group by kq.MaMH, DMMH.TenMH
+    HAVING COUNT(*) > 3;
 end &&
 delimiter &&;
 
@@ -399,10 +403,10 @@ delimiter &&
 drop procedure if exists require_33;
 create procedure require_33()
 begin
-select kq.MaSV, sv.TenSV
-from KetQua kq inner join DMSV sv on kq.MaSV = sv.MaSV
-group by kq.MaSV, sv.TenSV
-having count(*) > 2;
+    select kq.MaSV, sv.TenSV
+        from KetQua kq inner join DMSV sv on kq.MaSV = sv.MaSV
+    group by kq.MaSV, sv.TenSV
+    having count(*) > 2;
 end &&
 delimiter &&;
 
@@ -412,11 +416,11 @@ delimiter &&
 drop procedure if exists require_34;
 create procedure require_34()
 begin
-select kq.MaSV, sv.TenSV
-from KetQua kq inner join DMSV sv on kq.MaSV = sv.MaSV
-where LanThi = 1
-group by kq.MaSV, sv.TenSV
-having avg(Diem) > 7.0;
+    select kq.MaSV, sv.TenSV
+        from KetQua kq inner join DMSV sv on kq.MaSV = sv.MaSV
+        where LanThi = 1
+    group by kq.MaSV, sv.TenSV
+    having avg(Diem) > 7.0;
 end &&
 delimiter &&;
 
@@ -426,14 +430,14 @@ delimiter &&
 drop procedure if exists require_35;
 create procedure require_35()
 begin
-select MaSV, HoSV, TenSV, GROUP_CONCAT(TenMH) as MonHocRot
-from (SELECT KQ.MaSV, SV.HoSV, SV.TenSV, MH.TenMH
-      FROM KetQua KQ
-               INNER JOIN DMSV SV ON KQ.MaSV = SV.MaSV
-               INNER JOIN DMMH MH ON KQ.MaMH = MH.MaMH
-      WHERE KQ.LanThi = 1 AND KQ.Diem < 5) as SV_MH_ROT
-GROUP BY MaSV, HoSV, TenSV
-HAVING COUNT(*) >= 2;
+    select MaSV, HoSV, TenSV, GROUP_CONCAT(TenMH) as MonHocRot
+    from (SELECT KQ.MaSV, SV.HoSV, SV.TenSV, MH.TenMH
+    FROM KetQua KQ
+             INNER JOIN DMSV SV ON KQ.MaSV = SV.MaSV
+             INNER JOIN DMMH MH ON KQ.MaMH = MH.MaMH
+    WHERE KQ.LanThi = 1 AND KQ.Diem < 5) as SV_MH_ROT
+    GROUP BY MaSV, HoSV, TenSV
+    HAVING COUNT(*) >= 2;
 end &&
 delimiter &&;
 
@@ -443,12 +447,12 @@ delimiter &&
 drop procedure if exists require_36;
 create procedure require_36()
 begin
-select k.MaKhoa, k.TenKhoa, count(sv.MaSV) as SoLuongSinhVienNam
-from DMKhoa k
-         inner join DMSV sv on k.MaKhoa = sv.MaKhoa
-where sv.Phai = "Nam"
-group by k.MaKhoa, k.TenKhoa
-having count(sv.MaSV) >= 1;
+    select k.MaKhoa, k.TenKhoa, count(sv.MaSV) as SoLuongSinhVienNam
+        from DMKhoa k
+    inner join DMSV sv on k.MaKhoa = sv.MaKhoa
+    where sv.Phai = "Nam"
+    group by k.MaKhoa, k.TenKhoa
+    having count(sv.MaSV) >= 1;
 
 end &&
 delimiter &&;
@@ -459,12 +463,12 @@ delimiter &&
 drop procedure if exists require_37;
 create procedure require_37()
 begin
-select k.MaKhoa, k.TenKhoa
-from DMKhoa k
-         inner join DMSV sv on k.MaKhoa = sv.MaKhoa
-where sv.HocBong between 100000 and 300000
-group by k.MaKhoa, k.TenKhoa
-having count(sv.MaSV) = 1;
+    select k.MaKhoa, k.TenKhoa
+        from DMKhoa k
+    inner join DMSV sv on k.MaKhoa = sv.MaKhoa
+    where sv.HocBong between 100000 and 300000
+    group by k.MaKhoa, k.TenKhoa
+    having count(sv.MaSV) = 1;
 
 end &&
 delimiter &&;
@@ -475,12 +479,379 @@ delimiter &&
 drop procedure if exists require_38;
 create procedure require_38()
 begin
-select kq.MaMH,mh.TenMH,
-       SUM(case when diem >=5 then 1 else 0 end) as SoLuongDau,
-       sum(case when diem < 5 then 1 else 0 end) as SoLuongRot
-from KetQua kq join DMMH mh on kq.MaMH = mh.MaMH
-where LanThi = 1
-group by kq.MaMH, mh.TenMH ;
+    select kq.MaMH,mh.TenMH,
+           SUM(case when diem >=5 then 1 else 0 end) as SoLuongDau,
+           sum(case when diem < 5 then 1 else 0 end) as SoLuongRot
+        from KetQua kq join DMMH mh on kq.MaMH = mh.MaMH
+            where LanThi = 1
+    group by kq.MaMH, mh.TenMH ;
 
+end &&
+delimiter &&;
+
+-- 39
+delimiter &&
+drop procedure if exists require_39;
+create procedure require_39()
+begin
+   select MaSV, HoSV, TenSV, HocBong
+       from DMSV
+           where HocBong = (SELECT max(HocBong) from DMSV);
+
+end &&
+delimiter &&;
+
+-- 40
+delimiter &&
+drop procedure if exists require_40;
+create procedure require_40()
+begin
+   select MaSV, HoSV, TenSV
+       from DMSV
+           where MaSV = (select KetQua.MaSV
+                             from KetQua
+                             where MaMH = "01" and LanThi = 1
+                             order by Diem desc
+                             limit 1
+                             );
+
+end &&
+delimiter &&;
+
+-- 41
+delimiter &&
+drop procedure if exists require_41;
+create procedure require_41()
+begin
+   select MaSV, HoSV, TenSV, NgaySinh
+       from DMSV
+           WHERE MaKhoa = "AV"
+    order by NgaySinh asc
+    limit 1;
+
+end &&
+delimiter &&;
+
+-- 42
+delimiter &&
+drop procedure if exists require_42;
+create procedure require_42()
+begin
+   select K.MaKhoa, K.TenKhoa, COUNT(*)  SoLuongSinhVien
+                   from DMSV sv
+                   inner join DMKhoa K on sv.MaKhoa = K.MaKhoa
+                   group by MaKhoa
+                   having count(*) = (select max(SoLuongSinhVien)
+                                      from (select MaKhoa, count(*) as SoLuongSinhVien
+                                            from DMSV
+                                            group by MaKhoa) as SoLuongSinhVienMoiKhoa
+                   );
+
+end &&
+delimiter &&;
+
+-- 43
+delimiter &&
+drop procedure if exists require_43;
+create procedure require_43()
+begin
+   select K.MaKhoa, K.TenKhoa, count(*) SoLuongSinhVienNu
+       from DMSV SV inner join DMKhoa K on SV.MaKhoa = K.MaKhoa
+    where SV.Phai = "Nữ"
+    group by K.MaKhoa, K.TenKhoa
+    HAVING count(*) = (select max(SoLuongSinhVienNu)
+                       from (Select MaKhoa, count(*) as SoLuongSinhVienNu
+                             from DMSV
+                             where SV.Phai = "Nữ"
+                             group by MaKhoa
+                             )as SoLuongSinhVienNuMoiKhoa
+                       );
+
+end &&
+delimiter &&;
+
+-- 44
+delimiter &&
+drop procedure if exists require_44;
+create procedure require_44()
+begin
+   select mh.MaMH, mh.TenMH, count(*) SoLuongRot
+       from KetQua kq
+    inner join DMMH mh on kq.MaMH = mh.MaMH
+    where kq.Diem < 5 and kq.LanThi = 1
+    group by mh.MaMH, mh.TenMH
+    having count(*) = (select max(soLuongRot)
+                       from (select KetQua.MaMH, count(*) as soLuongRot
+                                 from KetQua
+                                 where KetQua.Diem < 5 and KetQua.LanThi = 1
+                                 group by KetQua.MaMH
+
+                            )as SinhVienRot
+
+        );
+
+end &&
+delimiter &&;
+
+-- 45
+delimiter &&
+drop procedure if exists require_45;
+create procedure require_45()
+begin
+   select distinct sv.MaSV, sv.HoSV, sv.TenSV
+       from DMSV sv
+    inner join KetQua kq on sv.MaSV = kq.MaSV
+    inner join DMMH mh on kq.MaMH = mh.MaMH
+    where mh.TenMH = "Văn Phạm" and sv.MaKhoa != "AV" and kq.Diem > (
+         select max(kq2.Diem)
+             from DMSV sv2
+             inner join KetQua kq2 on sv2.MaSV = kq2.MaSV
+             inner join DMMH mh2 on kq2.MaMH = mh2.MaMH
+             where mh2.TenMH = "Văn Phạm" and sv2.MaKhoa = "AV"
+        );
+
+end &&
+delimiter &&;
+
+-- 46
+delimiter &&
+drop procedure if exists require_46;
+create procedure require_46()
+begin
+   select sv2.MaSV, sv2.HoSV, sv2.TenSV, sv2.NoiSinh
+       from DMSV sv1
+    inner join DMSV sv2 on sv1.NoiSinh = sv2.NoiSinh
+    where sv1.TenSV = "Hải" and sv2.MaSV != sv1.MaSV;
+
+end &&
+delimiter &&;
+
+
+
+-- 47
+delimiter &&
+drop procedure if exists require_47;
+create procedure require_47()
+begin
+   select MaSV, HoSV, TenSV, HocBong, MaKhoa
+       from DMSV
+where HocBong > (select max(HocBong) from DMSV where MaKhoa = "AV");
+end &&
+delimiter &&;
+
+
+
+-- 48
+delimiter &&
+drop procedure if exists require_48;
+create procedure require_48()
+begin
+   select MaSV, HoSV, TenSV, HocBong, MaKhoa
+       from DMSV
+           where HocBong > (select MIN(HocBong) from DMSV where MaKhoa = "AV");
+end &&
+delimiter &&;
+
+
+
+
+-- 49
+delimiter &&
+drop procedure if exists require_49;
+create procedure require_49()
+begin
+   select distinct kq.MaSV
+       from KetQua kq
+    inner join DMMH mh on kq.MaMH = mh.MaMH
+    where mh.TenMH = "Cơ Sở Dữ Liệu" and kq.LanThi = 2 and kq.Diem > (
+        select max(KetQua.Diem)
+            from KetQua
+            where KetQua.MaMH = "01" and KetQua.LanThi = 1
+
+        );
+end &&
+delimiter &&;
+
+
+-- 50
+delimiter &&
+drop procedure if exists require_50;
+create procedure require_50()
+begin
+   select mh.TenMH, sv.HoSV, sv.TenSV, max(kq.Diem) as DiemCaoNhat
+       from KetQua kq
+    inner join DMMH mh on kq.MaMH = mh.MaMH
+    inner join DMSV sv on kq.MaSV = sv.MaSV
+    group by mh.TenMH, sv.HoSV, sv.TenSV
+    having kq.Diem = (select max(KetQua.Diem)
+                          from KetQua where KetQua.MaMH = mh.MaMH
+                          );
+end &&
+delimiter &&;
+
+
+-- 51
+delimiter &&
+drop procedure if exists require_51;
+create procedure require_51()
+begin
+   select MaKhoa, TenKhoa
+       from DMKhoa
+           where MaKhoa not in (select distinct MaKhoa from DMSV);
+end &&
+delimiter &&;
+
+
+-- 52
+delimiter &&
+drop procedure if exists require_52;
+create procedure require_52()
+begin
+   select MaSV, HoSV, TenSV
+       from DMSV
+           where MaSV not in (select distinct MaSV from KetQua where MaMH = "01");
+end &&
+delimiter &&;
+
+
+-- 53
+delimiter &&
+drop procedure if exists require_53;
+create procedure require_53()
+begin
+   select distinct kq2.MaSV
+       from KetQua kq1
+    right join KetQua kq2 on kq1.MaSV = kq2.MaSV and kq2.LanThi = 2
+    where kq1.LanThi = 1 and kq1.MaSV is null;
+end &&
+delimiter &&;
+
+
+-- 54
+delimiter &&
+drop procedure if exists require_54;
+create procedure require_54()
+begin
+   select MaMH, TenMH
+       from DMMH
+           where MaMH not in (
+               select distinct kq.MaMH
+                   from KetQua kq
+                   inner join DMSV sv on kq.MaSV = sv.MaSV
+                   where sv.MaKhoa = "AV"
+
+               );
+end &&
+delimiter &&;
+
+
+-- 55
+delimiter &&
+drop procedure if exists require_55;
+create procedure require_55()
+begin
+   select MaSV, HoSV, TenSV
+       from DMSV
+           where MaKhoa = "AV" and MaSV not in (select distinct MaSV from KetQua where MaMH = "05");
+end &&
+delimiter &&;
+
+
+-- 56
+delimiter &&
+drop procedure if exists require_56;
+create procedure require_56()
+begin
+   select distinct sv.MaSV, sv.HoSV, sv.TenSV
+       from DMSV sv
+    left join KetQua kq on sv.MaSV = kq.MaSV and kq.Diem < 5
+    where kq.MaSV is null;
+end &&
+delimiter &&;
+
+
+-- 57
+delimiter &&
+drop procedure if exists require_57;
+create procedure require_57()
+begin
+   (select sv.MaSV, sv.HoSV, sv.TenSV
+        from DMSV sv
+        where sv.MaKhoa = "AV" and sv.HocBong > 0)
+    union
+    (select sv.MaSV, sv.HoSV, sv.TenSV
+         from DMSV sv
+         left join KetQua kq on sv.MaSV = kq.MaSV and kq.Diem < 5
+         where kq.MaSV is null
+         );
+end &&
+delimiter &&;
+
+
+-- 58
+delimiter &&
+drop procedure if exists require_58;
+create procedure require_58()
+begin
+   select (select DMSV.MaKhoa from DMSV where HocBong > 0 group by MaKhoa order by count(MaSV) desc limit 1) as KhoaNhieuHocBongNhat,
+   (select DMSV.MaKhoa from DMSV where HocBong > 0 group by MaKhoa order by count(MaSV) asc limit 1) as KhoaItHocBongNhat;
+end &&
+delimiter &&;
+
+
+-- 59
+delimiter &&
+drop procedure if exists require_59;
+create procedure require_59()
+begin
+   select MaSV, HoSV, TenSV
+       from DMSV
+           group by MaSV, HoSV, TenSV
+    order by count(MaSV) desc
+    limit  3;
+end &&
+delimiter &&;
+
+
+-- 60
+delimiter &&
+drop procedure if exists require_60;
+create procedure require_60()
+begin
+   select MaMH, TenMH
+       from DMMH
+           where MaMH in (
+               select MaMH from KetQua
+                           group by MaMH
+                           having count(distinct MaSV) = (select count(*) from DMSV)
+               );
+end &&
+delimiter &&;
+
+
+-- 61
+delimiter &&
+drop procedure if exists require_61;
+create procedure require_61()
+begin
+   select MaSV, HoSV, TenSV
+       from DMSV
+           where MaSV in (select distinct MaSV from KetQua where MaMH in (select distinct MaMH from KetQua where KetQua.MaSV = "A02")) and MaSV != "A02";
+end &&
+delimiter &&;
+
+
+-- 62
+delimiter &&
+drop procedure if exists require_62;
+create procedure require_62()
+begin
+   select MaSV, HoSV, TenSV
+       from DMSV
+           where MaSV in (select KetQua.MaSV
+                              from KetQua where MaMH in (
+                                  select MaMH from KetQua where KetQua.MaSV = "A02"
+               )group by MaSV having count(distinct MaMH) = (select count(distinct MaMH) from KetQua where KetQua.MaSV = "A02")
+                                          ) and MaSV != "A02";
 end &&
 delimiter &&;
