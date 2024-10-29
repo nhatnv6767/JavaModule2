@@ -25,6 +25,7 @@ public class CategoriesManagement {
                     displayListCategories();
                     break;
                 case 2:
+                    createCategories(scanner);
                     break;
                 case 3:
                     break;
@@ -44,5 +45,22 @@ public class CategoriesManagement {
     public static void displayListCategories() {
         List<Categories> listCategories = CategoriesBussiness.findAll();
         listCategories.forEach(System.out::println);
+    }
+
+    public static void createCategories(Scanner scanner) {
+        Categories catalogNew = new Categories();
+        System.out.println("Nhap vao ten danh muc: ");
+        catalogNew.setCatalogName(scanner.nextLine());
+        System.out.println("Nhap vao mo ta: ");
+        catalogNew.setDescription(scanner.nextLine());
+        System.out.println("Nhap vao trang thai (true/false): ");
+        catalogNew.setStatus(Boolean.parseBoolean(scanner.nextLine()));
+
+        boolean result = CategoriesBussiness.save(catalogNew);
+        if (result) {
+            System.out.println("Them moi thanh cong");
+        } else {
+            System.err.println("Them moi khong thanh cong");
+        }
     }
 }
