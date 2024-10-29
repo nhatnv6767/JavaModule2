@@ -14,6 +14,7 @@ public class EcommerceShop {
             int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
+                    CategoriesManagement.displayMenuCategories(scanner);
                     break;
                 case 2:
                     break;

@@ -41,4 +41,21 @@ public class CategoriesBussiness {
         }
         return listCategories;
     }
+
+    // Them moi danh muc
+    public static boolean save(Categories catalog) {
+        Connection conn = null;
+        CallableStatement callSt = null;
+        boolean result = false;
+        try {
+            conn = ConnectionDB.openConnection();
+            callSt = conn.prepareCall("{call create_categories(?, ?, ?)}");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(conn, callSt);
+        }
+        return result;
+    }
 }
