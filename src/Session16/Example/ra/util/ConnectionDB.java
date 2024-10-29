@@ -1,7 +1,9 @@
 package Session16.Example.ra.util;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConnectionDB {
     /*
@@ -20,26 +22,35 @@ public class ConnectionDB {
 
     // Phuong thuc mo ket noi va tao doi tuong Connection de lam viec voi db
     public static Connection openConnection() {
-        // 1. Set Driver cho DriverManager
-        // 2. Khoi tao doi tuong Connection tu DriverManager
-        // 3. Tra ve doi tuong Connection
 
         Connection conn = null;
         try {
+            // 1. Set Driver cho DriverManager
             Class.forName(DRIVER);
+            // 2. Khoi tao doi tuong Connection tu DriverManager
             conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        // 3. Tra ve doi tuong Connection
         return conn;
     }
 
-    public static void main(String[] args) {
-        Connection conn = openConnection();
+    // Phuong thuc dong connection, callableStatement
+    public static void closeConnection(Connection conn, CallableStatement callableStatement) {
         if (conn != null) {
-            System.out.println("Ket noi thanh cong");
-        } else {
-            System.out.println("Ket noi fail");
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if (callableStatement != null) {
+            try {
+                callableStatement.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
