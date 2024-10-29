@@ -1,0 +1,99 @@
+create database EcommerceDB;
+use EcommerceDB;
+create table Categories(
+    category_id int primary key auto_increment,
+    category_name varchar(100) not null unique ,
+    catalog_description text,
+    catalog_status bit
+);
+
+create table Product(
+  product_id char(5) primary key ,
+    product_name varchar(100) not null unique ,
+    product_price float check ( product_price > 0 ),
+    product_title varchar(200),
+    product_description text,
+    catalog_id int ,
+    foreign key (catalog_id) references Categories(category_id),
+    product_status bit
+);
+
+DELIMITER &&
+
+CREATE PROCEDURE find_all_categories()
+begin
+    select * from Categories;
+end &&
+
+DELIMITER &&;
+
+DELIMITER &&
+
+CREATE PROCEDURE create_categories(
+    cat_name_in varchar(100),
+    cat_des_in text,
+    cat_status_in bit
+)
+begin
+    insert into Categories(category_name, catalog_description, catalog_status) values (cat_name_in, cat_des_in, cat_status_in);
+end &&
+
+DELIMITER &&;
+
+
+DELIMITER &&
+CREATE PROCEDURE update_categories(
+    cat_id_in int,
+    cat_name_in varchar(100),
+    cat_des_in text,
+    cat_status_in bit
+)
+begin
+    update Categories set category_name = cat_name_in,
+                          catalog_description = cat_des_in,
+                          catalog_status = cat_status_in
+    where category_id = cat_id_in;
+end &&
+
+DELIMITER &&;
+
+
+
+DELIMITER &&
+CREATE PROCEDURE delete_categories(
+    cat_id_in int
+)
+begin
+    delete  from Categories where category_id = cat_id_in;
+end &&
+
+DELIMITER &&;
+
+
+
+DELIMITER &&
+CREATE PROCEDURE statictic_categories(
+    cat_status_in int,
+    OUT cnt_catalog int
+)
+begin
+    set cnt_catalog = (select count(c.category_id) from Categories c where c.catalog_status = cat_status_in);
+end &&
+
+DELIMITER &&;
+
+
+DELIMITER &&
+
+CREATE PROCEDURE find_categories_by_id(
+    cat_id_in int
+)
+begin
+    select * from Categories c where c.category_id = cat_id_in;
+end &&
+
+DELIMITER &&;
+
+
+
+
