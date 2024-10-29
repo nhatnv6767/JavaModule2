@@ -50,6 +50,15 @@ public class CategoriesBussiness {
         try {
             conn = ConnectionDB.openConnection();
             callSt = conn.prepareCall("{call create_categories(?, ?, ?)}");
+            // 1. set gia tri cho cac tham so vao
+            callSt.setString(1, catalog.getCatalogName());
+            callSt.setString(2, catalog.getDescription());
+            callSt.setBoolean(3, catalog.isStatus());
+            // 2. dang ky kieu du lieu cho cac tham so ra
+
+            // 3. Thuc hien goi procedure
+            callSt.executeUpdate();
+            result = true;
 
         } catch (Exception e) {
             e.printStackTrace();
