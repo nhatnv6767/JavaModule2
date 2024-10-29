@@ -51,10 +51,10 @@ public class Categories {
     @Override
     public String toString() {
         return "Categories{" +
-                "catalogId=" + catalogId +
-                ", catalogName='" + catalogName + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
+                "\n\tcatalogId=" + catalogId +
+                ",\n\tcatalogName='" + catalogName + '\'' +
+                ",\n\tdescription='" + description + '\'' +
+                ",\n\tstatus=" + status +
+                "\n}";
     }
 }

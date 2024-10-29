@@ -77,6 +77,7 @@ public class CategoriesBussiness {
         try {
             conn = ConnectionDB.openConnection();
             callSt = conn.prepareCall("{call find_categories_by_id(?)}");
+            callSt.setInt(1, catalogId);
             ResultSet rs = callSt.executeQuery();
             catalog = new Categories();
             while (rs.next()) {
