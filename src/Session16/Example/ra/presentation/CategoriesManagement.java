@@ -42,7 +42,7 @@ public class CategoriesManagement {
                 default:
                     System.err.println("Vui long chon tu 1 den 6");
             }
-        } while (!isExit);
+        } while (isExit);
     }
 
     public static void displayListCategories() {
