@@ -1,0 +1,19 @@
+create database EcommerceDB;
+use EcommerceDB;
+create table Categories(
+    category_id int primary key auto_increment,
+    category_name varchar(100) not null unique ,
+    catalog_description text,
+    catalog_status bit
+);
+
+create table Product(
+  product_id char(5) primary key ,
+    product_name varchar(100) not null unique ,
+    product_price float check ( product_price > 0 ),
+    product_title varchar(200),
+    product_description text,
+    catalog_id int ,
+    foreign key (catalog_id) references Categories(category_id),
+    product_status bit
+);
