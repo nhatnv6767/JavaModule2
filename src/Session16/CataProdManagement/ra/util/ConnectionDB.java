@@ -1,4 +1,4 @@
-package Session16.Example.ra.util;
+package Session16.CataProdManagement.ra.util;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

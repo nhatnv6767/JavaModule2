@@ -1,4 +1,4 @@
-package Session16.Example.ra.entity;
+package Session16.CataProdManagement.ra.entity;
 
 public class Categories {
     private int catalogId;
@@ -51,10 +51,10 @@ public class Categories {
     @Override
     public String toString() {
         return "Categories{" +
-                "catalogId=" + catalogId +
-                ", catalogName='" + catalogName + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
+                "\n\tcatalogId=" + catalogId +
+                ",\n\tcatalogName='" + catalogName + '\'' +
+                ",\n\tdescription='" + description + '\'' +
+                ",\n\tstatus=" + status +
+                "\n}";
     }
 }

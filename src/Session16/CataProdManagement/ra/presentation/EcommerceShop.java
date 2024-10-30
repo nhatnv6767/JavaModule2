@@ -1,4 +1,4 @@
-package Session16.Example.ra.presentation;
+package Session16.CataProdManagement.ra.presentation;
 
 import java.util.Scanner;
 
@@ -17,6 +17,7 @@ public class EcommerceShop {
                     CategoriesManagement.displayMenuCategories(scanner);
                     break;
                 case 2:
+                    ProductManagement.displayMenuProduct(scanner);
                     break;
                 case 3:
                     System.exit(0);
