@@ -21,7 +21,7 @@ public class BookManagement {
                     "2. Quản lý sách \n" +
                     "0. Thoát  \n");
             System.out.printf("Nhập lựa chọn: ");
-            choice = Integer.parseInt(scanner.nextLine());
+            choice = getIntInput(scanner);
             switch (choice) {
                 case 1:
                     bookTypeMenu(scanner);
@@ -50,7 +50,7 @@ public class BookManagement {
                     "5. Thống kê số lượng sách theo mã loại sách \n" +
                     "0. Quay lại trang chính  \n");
             System.out.printf("Nhập lựa chọn: ");
-            choice = Integer.parseInt(scanner.nextLine());
+            choice = getIntInput(scanner);
 
             switch (choice) {
                 case 1:
@@ -89,7 +89,7 @@ public class BookManagement {
                     "7. Thống kê số lượng sách theo nhóm  \n" +
                     "0. Quay lại trang chính \n");
             System.out.printf("Nhập lựa chọn: ");
-            choice = Integer.parseInt(scanner.nextLine());
+            choice = getIntInput(scanner);
             switch (choice) {
                 case 1:
                     displayAllBook();
@@ -131,19 +131,36 @@ public class BookManagement {
 
     private static void updateBookType(Scanner scanner) {
         System.out.print("Nhập mã loại sách cần cập nhật: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = getIntInput(scanner);
         BookType existingBookType = bookTypeBusiness.get(id);
         if (existingBookType == null) {
             System.err.println("Không tìm thấy loại sách");
             return;
         }
-        existingBookType.inputData(scanner);
+
+        System.out.println("Thông tin loại sách cần cập nhật: ");
+        existingBookType.displayData();
+
+        System.out.println("Nhập thông tin mới");
+        System.out.println("Nhập tên loại sách mới (bỏ qua nếu không muốn thay đổi): ");
+        String newTypeName = scanner.nextLine().trim();
+        if (!newTypeName.isEmpty()) {
+            existingBookType.setTypeName(newTypeName);
+        }
+
+        System.out.println("Nhập mô tả mới (bỏ qua nếu không muốn thay đổi): ");
+        String newDescription = scanner.nextLine().trim();
+        if (!newDescription.isEmpty()) {
+            existingBookType.setDescription(newDescription);
+        }
+
+//        existingBookType.inputData(scanner);
         bookTypeBusiness.update(existingBookType);
     }
 
     private static void deleteBookType(Scanner scanner) {
         System.out.print("Nhập mã loại sách cần xóa: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = getIntInput(scanner);
         BookType existingBookType = bookTypeBusiness.get(id);
         if (existingBookType == null) {
             System.err.println("Không tìm thấy loại sách");
@@ -170,19 +187,104 @@ public class BookManagement {
 
     private static void updateBook(Scanner scanner) {
         System.out.print("Nhập mã sách cần cập nhật: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = getIntInput(scanner);
         Book existingBook = bookBusiness.get(id);
         if (existingBook == null) {
             System.err.println("Không tìm thấy sách");
             return;
         }
-        existingBook.inputData(scanner);
+
+        System.out.println("Thông tin sách cần cập nhật: ");
+        existingBook.displayData();
+
+        int choice;
+        do {
+            System.out.println("Chọn thông tin cần cập nhật:");
+            System.out.println("1. Tên sách");
+            System.out.println("2. Tiêu đề");
+            System.out.println("3. Tác giả");
+            System.out.println("4. Nội dung");
+            System.out.println("5. Tổng số trang");
+            System.out.println("6. Nhà xuất bản");
+            System.out.println("7. Giá");
+            System.out.println("8. Mã loại sách");
+            System.out.println("0. Hoàn tất cập nhật");
+            System.out.print("Nhập lựa chọn: ");
+
+            choice = getIntInput(scanner);
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Nhập tên sách mới: ");
+                    String newBookName = scanner.nextLine().trim();
+                    if (!newBookName.isEmpty()) {
+                        existingBook.setBookName(newBookName);
+                    }
+                    break;
+                case 2:
+                    System.out.print("Nhập tiêu đề mới: ");
+                    String newTitle = scanner.nextLine().trim();
+                    if (!newTitle.isEmpty()) {
+                        existingBook.setTitle(newTitle);
+                    }
+                    break;
+                case 3:
+                    System.out.print("Nhập tác giả mới: ");
+                    String newAuthor = scanner.nextLine().trim();
+                    if (!newAuthor.isEmpty()) {
+                        existingBook.setAuthor(newAuthor);
+                    }
+                    break;
+                case 4:
+                    System.out.print("Nhập nội dung mới: ");
+                    String newContent = scanner.nextLine().trim();
+                    if (!newContent.isEmpty()) {
+                        existingBook.setContent(newContent);
+                    }
+                    break;
+                case 5:
+                    System.out.print("Nhập tổng số trang mới: ");
+                    int newTotalPages = getIntInput(scanner);
+                    if (newTotalPages > 0) {
+                        existingBook.setTotalPages(newTotalPages);
+                    }
+                    break;
+                case 6:
+                    System.out.print("Nhập nhà xuất bản mới: ");
+                    String newPublisher = scanner.nextLine().trim();
+                    if (!newPublisher.isEmpty()) {
+                        existingBook.setPublisher(newPublisher);
+                    }
+                    break;
+                case 7:
+                    System.out.print("Nhập giá mới: ");
+                    double newPrice = Double.parseDouble(scanner.nextLine());
+                    if (newPrice > 0) {
+                        existingBook.setPrice(newPrice);
+                    }
+                    break;
+                case 8:
+                    System.out.print("Nhập mã loại sách mới: ");
+                    int newTypeId = getIntInput(scanner);
+                    if (newTypeId > 0) {
+                        existingBook.setTypeId(newTypeId);
+                    }
+                    break;
+                case 0:
+                    System.out.println("Hoàn tất cập nhật.");
+                    break;
+                default:
+                    System.err.println("Nhập sai, vui lòng nhập lại");
+            }
+        } while (choice != 0);
+
+
         bookBusiness.update(existingBook);
     }
 
     private static void deleteBook(Scanner scanner) {
         System.out.print("Nhập mã sách cần xóa: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = getIntInput(scanner);
         Book existingBook = bookBusiness.get(id);
         if (existingBook == null) {
             System.err.println("Không tìm thấy sách");
@@ -200,8 +302,15 @@ public class BookManagement {
     }
 
     private static void sortBooksByPrice(Scanner scanner) {
-        System.out.print("Nhập thứ tự sắp xếp (ASC hoặc DESC): ");
-        String order = scanner.nextLine();
+        String order;
+        while (true) {
+            System.out.print("Nhập thứ tự sắp xếp (ASC hoặc DESC): ");
+            order = scanner.nextLine();
+            if (order.equalsIgnoreCase("ASC") || order.equalsIgnoreCase("DESC")) {
+                break;
+            }
+            System.err.println("Vui lòng nhập ASC hoặc DESC");
+        }
         List<Book> books = bookBusiness.sortBooksByPrice(order);
         for (Book book : books) {
             book.displayData();
@@ -216,6 +325,16 @@ public class BookManagement {
         for (Book book : books) {
             book.displayData();
             System.out.println("----------------------");
+        }
+    }
+
+    private static int getIntInput(Scanner scanner) {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.err.println("Vui lòng nhập số nguyên");
+            }
         }
     }
 }

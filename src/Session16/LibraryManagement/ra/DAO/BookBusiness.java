@@ -40,6 +40,10 @@ public class BookBusiness implements DAOInterface<Book> {
 
     @Override
     public void insert(Book book) {
+        if (book == null || !isValidBook(book)) {
+            System.err.println("Dữ liệu không hợp lệ");
+            return;
+        }
         try {
             openConnection();
             callSt = conn.prepareCall("{call AddBook(?,?,?,?,?,?,?,?)}");
@@ -62,6 +66,10 @@ public class BookBusiness implements DAOInterface<Book> {
 
     @Override
     public void update(Book book) {
+        if (book == null || !isValidBook(book)) {
+            System.err.println("Dữ liệu không hợp lệ");
+            return;
+        }
         try {
             openConnection();
             callSt = conn.prepareCall("{call UpdateBook(?,?,?,?,?,?,?,?,?)}");
@@ -85,8 +93,18 @@ public class BookBusiness implements DAOInterface<Book> {
 
     @Override
     public void delete(Book book) {
+        if (book == null || book.getBookId() <= 0) {
+            System.err.println("Id không hợp lệ");
+            return;
+        }
         try {
             openConnection();
+
+            if (get(book.getBookId()) == null) {
+                System.out.println("Không tìm thấy sách");
+                return;
+            }
+
             callSt = conn.prepareCall("{call DeleteBook(?)}");
             callSt.setInt(1, book.getBookId());
             callSt.executeUpdate();
@@ -100,6 +118,10 @@ public class BookBusiness implements DAOInterface<Book> {
 
     @Override
     public Book get(int id) {
+        if (id <= 0) {
+            System.err.println("Id không hợp lệ");
+            return null;
+        }
         try {
             openConnection();
             callSt = conn.prepareCall("{call GetBookById(?)}");
@@ -118,6 +140,10 @@ public class BookBusiness implements DAOInterface<Book> {
 
     @Override
     public Book get(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            System.err.println("Vui lòng nhập tên sách");
+            return null;
+        }
         try {
             openConnection();
             callSt = conn.prepareCall("{call GetBookByName(?)}");
@@ -159,6 +185,10 @@ public class BookBusiness implements DAOInterface<Book> {
     }
 
     public List<Book> sortBooksByPrice(String sortOrder) {
+        if (sortOrder == null || (!sortOrder.equalsIgnoreCase("ASC") && !sortOrder.equalsIgnoreCase("DESC"))) {
+            System.err.println("Vui lòng nhập ASC hoặc DESC");
+            return new ArrayList<>();
+        }
         List<Book> books = new ArrayList<>();
         try {
             openConnection();
@@ -177,6 +207,10 @@ public class BookBusiness implements DAOInterface<Book> {
     }
 
     public List<Book> searchBooks(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            System.err.println("Vui lòng nhập từ khóa tìm kiếm");
+            return new ArrayList<>();
+        }
         List<Book> books = new ArrayList<>();
         try {
             openConnection();
@@ -207,5 +241,16 @@ public class BookBusiness implements DAOInterface<Book> {
         } finally {
             closeConnection();
         }
+    }
+
+    private boolean isValidBook(Book book) {
+        return book.getBookName() != null && !book.getBookName().trim().isEmpty() &&
+                book.getTitle() != null && !book.getTitle().trim().isEmpty() &&
+                book.getAuthor() != null && !book.getAuthor().trim().isEmpty() &&
+                book.getContent() != null && !book.getContent().trim().isEmpty() &&
+                book.getTotalPages() > 0 &&
+                book.getPublisher() != null && !book.getPublisher().trim().isEmpty() &&
+                book.getPrice() > 0 &&
+                book.getTypeId() > 0;
     }
 }

@@ -34,6 +34,10 @@ public class BookTypeBusiness implements DAOInterface<BookType> {
 
     @Override
     public void insert(BookType bookType) {
+        if (bookType == null || !isValidBookType(bookType)) {
+            System.err.println("Dữ liệu không hợp lệ");
+            return;
+        }
         try {
             openConnection();
             callSt = conn.prepareCall("{call AddBookType(?,?)}");
@@ -50,6 +54,10 @@ public class BookTypeBusiness implements DAOInterface<BookType> {
 
     @Override
     public void update(BookType bookType) {
+        if (bookType == null || !isValidBookType(bookType)) {
+            System.err.println("Dữ liệu không hợp lệ");
+            return;
+        }
         try {
             openConnection();
             callSt = conn.prepareCall("{call UpdateBookType(?,?,?)}");
@@ -67,6 +75,10 @@ public class BookTypeBusiness implements DAOInterface<BookType> {
 
     @Override
     public void delete(BookType bookType) {
+        if (bookType == null || bookType.getTypeId() <= 0) {
+            System.err.println("Mã loại sách không hợp lệ");
+            return;
+        }
         try {
             openConnection();
             callSt = conn.prepareCall("{call DeleteBookType(?)}");
@@ -82,6 +94,10 @@ public class BookTypeBusiness implements DAOInterface<BookType> {
 
     @Override
     public BookType get(int id) {
+        if (id <= 0) {
+            System.err.println("Mã loại sách không hợp lệ");
+            return null;
+        }
         try {
             openConnection();
             callSt = conn.prepareCall("{call GetBookTypeById(?)}");
@@ -139,5 +155,10 @@ public class BookTypeBusiness implements DAOInterface<BookType> {
         } finally {
             closeConnection();
         }
+    }
+
+    private boolean isValidBookType(BookType bookType) {
+        return bookType.getTypeName() != null && !bookType.getTypeName().trim().isEmpty() &&
+                bookType.getDescription() != null && !bookType.getDescription().trim().isEmpty();
     }
 }
