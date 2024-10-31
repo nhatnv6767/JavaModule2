@@ -181,7 +181,7 @@ public class BookManagement {
 
     private static void addBook(Scanner scanner) {
         Book book = new Book();
-        book.inputData(scanner);
+        book.inputData(scanner, bookTypeBusiness);
         bookBusiness.insert(book);
     }
 
@@ -243,11 +243,15 @@ public class BookManagement {
                     }
                     break;
                 case 5:
-                    System.out.print("Nhập tổng số trang mới: ");
-                    int newTotalPages = getIntInput(scanner);
-                    if (newTotalPages > 0) {
-                        existingBook.setTotalPages(newTotalPages);
-                    }
+                    int newTotalPages;
+                    do {
+                        System.out.print("Nhập tổng số trang mới: ");
+                        newTotalPages = getIntInput(scanner);
+                        if (newTotalPages <= 0) {
+                            System.err.println("Số trang phải là số nguyên lớn hơn 0");
+                        }
+                    } while (newTotalPages <= 0);
+                    existingBook.setTotalPages(newTotalPages);
                     break;
                 case 6:
                     System.out.print("Nhập nhà xuất bản mới: ");
@@ -257,18 +261,26 @@ public class BookManagement {
                     }
                     break;
                 case 7:
-                    System.out.print("Nhập giá mới: ");
-                    double newPrice = Double.parseDouble(scanner.nextLine());
-                    if (newPrice > 0) {
-                        existingBook.setPrice(newPrice);
-                    }
+                    double newPrice;
+                    do {
+                        System.out.print("Nhập giá mới: ");
+                        newPrice = Double.parseDouble(scanner.nextLine());
+                        if (newPrice <= 0) {
+                            System.err.println("Giá phải là số dương lớn hơn 0");
+                        }
+                    } while (newPrice <= 0);
+                    existingBook.setPrice(newPrice);
                     break;
                 case 8:
-                    System.out.print("Nhập mã loại sách mới: ");
-                    int newTypeId = getIntInput(scanner);
-                    if (newTypeId > 0) {
-                        existingBook.setTypeId(newTypeId);
-                    }
+                    int newTypeId;
+                    do {
+                        System.out.print("Nhập mã loại sách mới: ");
+                        newTypeId = getIntInput(scanner);
+                        if (bookTypeBusiness.get(newTypeId) == null) {
+                            System.err.println("Mã loại sách không tồn tại.");
+                        }
+                    } while (bookTypeBusiness.get(newTypeId) == null);
+                    existingBook.setTypeId(newTypeId);
                     break;
                 case 0:
                     System.out.println("Hoàn tất cập nhật.");
