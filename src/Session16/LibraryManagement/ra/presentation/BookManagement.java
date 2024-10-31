@@ -48,7 +48,7 @@ public class BookManagement {
                     "3. Cập nhật thông tin loại sách \n" +
                     "4. Xóa loại sách \n" +
                     "5. Thống kê số lượng sách theo mã loại sách \n" +
-                    "0. Thoát  \n");
+                    "0. Quay lại trang chính  \n");
             System.out.printf("Nhập lựa chọn: ");
             choice = Integer.parseInt(scanner.nextLine());
 
@@ -87,7 +87,7 @@ public class BookManagement {
                     "5. Hiển thị danh sách các cuốn sách theo giá giảm dần \n" +
                     "6. Tìm kiếm sách theo tên hoặc nội dung \n" +
                     "7. Thống kê số lượng sách theo nhóm  \n" +
-                    "0. Thoát \n");
+                    "0. Quay lại trang chính \n");
             System.out.printf("Nhập lựa chọn: ");
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
