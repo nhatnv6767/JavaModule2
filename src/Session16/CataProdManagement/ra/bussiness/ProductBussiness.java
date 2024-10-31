@@ -8,30 +8,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductBussiness {
+
+    private static Connection openConnection() throws SQLException {
+        return ConnectionDB.openConnection();
+    }
+
+    private static void closeConnection(Connection conn, CallableStatement callSt) {
+        ConnectionDB.closeConnection(conn, callSt);
+    }
+
+    private static Product mapProduct(ResultSet rs) throws SQLException {
+        Product product = new Product();
+        product.setProductId(rs.getString("product_id"));
+        product.setProductName(rs.getString("product_name"));
+        product.setProductPrice(rs.getFloat("product_price"));
+        product.setProductTitle(rs.getString("product_title"));
+        product.setProductDescription(rs.getString("product_description"));
+        product.setCatalogId(rs.getInt("catalog_id"));
+        product.setProductStatus(rs.getBoolean("product_status"));
+        return product;
+    }
+
     public static List<Product> findAll() {
-        Connection conn = null;
-        CallableStatement callSt = null;
         List<Product> listProduct = null;
-        try {
-            conn = ConnectionDB.openConnection();
-            callSt = conn.prepareCall("{call find_all_product()}");
+        try (Connection conn = openConnection();
+             CallableStatement callSt = conn.prepareCall("{call find_all_product()}")) {
             ResultSet rs = callSt.executeQuery();
             listProduct = new ArrayList<>();
             while (rs.next()) {
-                Product product = new Product();
-                product.setProductId(rs.getString("product_id"));
-                product.setProductName(rs.getString("product_name"));
-                product.setProductPrice(rs.getFloat("product_price"));
-                product.setProductTitle(rs.getString("product_title"));
-                product.setProductDescription(rs.getString("product_description"));
-                product.setCatalogId(rs.getInt("catalog_id"));
-                product.setProductStatus(rs.getBoolean("product_status"));
-                listProduct.add(product);
+                listProduct.add(mapProduct(rs));
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            ConnectionDB.closeConnection(conn, callSt);
         }
         return listProduct;
     }
