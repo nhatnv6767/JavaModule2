@@ -52,6 +52,27 @@ public class BookManagement {
             System.out.printf("Nhập lựa chọn: ");
             choice = Integer.parseInt(scanner.nextLine());
 
+            switch (choice) {
+                case 1:
+                    displayAllBookType();
+                    break;
+                case 2:
+                    addBookType(scanner);
+                    break;
+                case 3:
+                    updateBookType(scanner);
+                    break;
+                case 4:
+                    deleteBookType(scanner);
+                    break;
+                case 5:
+                    bookTypeBusiness.getBookCountByTypes();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.err.println("Nhập sai, vui lòng nhập lại");
+            }
         } while (choice != 0);
     }
 
@@ -66,9 +87,37 @@ public class BookManagement {
                     "5. Hiển thị danh sách các cuốn sách theo giá giảm dần \n" +
                     "6. Tìm kiếm sách theo tên hoặc nội dung \n" +
                     "7. Thống kê số lượng sách theo nhóm  \n" +
-                    "8. Thoát \n");
+                    "0. Thoát \n");
             System.out.printf("Nhập lựa chọn: ");
             choice = Integer.parseInt(scanner.nextLine());
+            switch (choice) {
+                case 1:
+                    displayAllBook();
+                    break;
+                case 2:
+                    addBook(scanner);
+                    break;
+                case 3:
+                    updateBook(scanner);
+                    break;
+                case 4:
+                    deleteBook(scanner);
+                    break;
+                case 5:
+//                    cho nay chi cho sap xep theo giam dan
+                    sortBooksByPrice(scanner);
+                    break;
+                case 6:
+                    searchBook(scanner);
+                    break;
+                case 7:
+                    bookBusiness.getBookCountByPages();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.err.println("Nhập sai, vui lòng nhập lại");
+            }
 
         } while (choice != 0);
     }
