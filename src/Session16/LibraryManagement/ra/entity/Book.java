@@ -1,6 +1,6 @@
 package Session16.LibraryManagement.ra.entity;
 
-import Session16.LibraryManagement.ra.DAO.BookTypeBusiness;
+import Session16.LibraryManagement.ra.Validation.BookValidator;
 
 import java.util.Scanner;
 
@@ -132,44 +132,15 @@ public class Book implements IBookManagement {
         this.typeId = Integer.parseInt(scanner.nextLine());
     }
 
-    public void inputData(Scanner scanner, BookTypeBusiness bookTypeBusiness) {
-
-        setBookName(getNonEmptyStringInput(scanner, "Nhập tên sách: "));
-        setTitle(getNonEmptyStringInput(scanner, "Nhập tiêu đề: "));
-        setAuthor(getNonEmptyStringInput(scanner, "Nhập tác giả: "));
-        setContent(getNonEmptyStringInput(scanner, "Nhập nội dung: "));
-
-        int totalPages;
-        do {
-            System.out.print("Nhập số trang: ");
-            totalPages = getIntInput(scanner);
-            if (totalPages <= 0) {
-                System.err.println("\nSố trang phải là số nguyên lớn hơn 0");
-            }
-        } while (totalPages <= 0);
-        setTotalPages(totalPages);
-
-        setPublisher(getNonEmptyStringInput(scanner, "Nhập nhà xuất bản: "));
-
-        double price;
-        do {
-            System.out.print("Nhập giá: ");
-            price = getIntInput(scanner);
-            if (price <= 0) {
-                System.err.println("\nGiá phải là số lớn hơn 0");
-            }
-        } while (price <= 0);
-        setPrice(price);
-
-        int typeId;
-        do {
-            System.out.print("Nhập mã loại sách: ");
-            typeId = getIntInput(scanner);
-            if (bookTypeBusiness.get(typeId) == null) {
-                System.err.println("Mã loại sách không tồn tại");
-            }
-        } while (bookTypeBusiness.get(typeId) == null);
-        setTypeId(typeId);
+    public void inputData(Scanner scanner, BookValidator bookValidator) {
+        setBookName(bookValidator.getNonEmptyStringInput(scanner, "Nhập tên sách: "));
+        setTitle(bookValidator.getNonEmptyStringInput(scanner, "Nhập tiêu đề: "));
+        setAuthor(bookValidator.getNonEmptyStringInput(scanner, "Nhập tác giả: "));
+        setContent(bookValidator.getNonEmptyStringInput(scanner, "Nhập nội dung: "));
+        setTotalPages(bookValidator.getPositiveIntInput(scanner, "Nhập số trang: "));
+        setPublisher(bookValidator.getNonEmptyStringInput(scanner, "Nhập nhà xuất bản: "));
+        setPrice(bookValidator.getPositiveDoubleInput(scanner, "Nhập giá: "));
+        setTypeId(bookValidator.getValidTypeId(scanner, "Nhập mã loại sách: "));
     }
 
     @Override
@@ -185,25 +156,4 @@ public class Book implements IBookManagement {
         System.out.printf("Mã loại sách: %d\n", this.typeId);
     }
 
-    private int getIntInput(Scanner scanner) {
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (Exception e) {
-                System.err.println("Vui lòng nhập số nguyên");
-            }
-        }
-    }
-
-    private String getNonEmptyStringInput(Scanner scanner, String prompt) {
-        String input;
-        do {
-            System.out.print(prompt);
-            input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.err.println("Không được để trống");
-            }
-        } while (input.isEmpty());
-        return input;
-    }
 }
