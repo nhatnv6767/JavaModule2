@@ -1,8 +1,10 @@
 package Session16.LibraryManagement.ra.database;
 
+import javax.sql.DataSource;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class JDBCUtil {
 
@@ -22,17 +24,18 @@ public class JDBCUtil {
     }
 
     public void closeConnection(Connection conn, CallableStatement callSt) {
-        if (callSt != null) {
-            try {
+        try {
+            if (callSt != null) {
                 callSt.close();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        }
-        if (conn != null) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
             try {
-                conn.close();
-            } catch (Exception e) {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
