@@ -2,15 +2,69 @@ package Session16.LibraryManagement.ra.presentation;
 
 import Session16.LibraryManagement.ra.DAO.BookBusiness;
 import Session16.LibraryManagement.ra.DAO.BookTypeBusiness;
+import Session16.LibraryManagement.ra.Validation.Validator;
 import Session16.LibraryManagement.ra.entity.Book;
 import Session16.LibraryManagement.ra.entity.BookType;
 
 import java.util.List;
 import java.util.Scanner;
 
+enum BookMenu {
+    LIST(1, "Danh sách sách"),
+    ADD(2, "Tạo mới sách"),
+    UPDATE(3, "Cập nhật thông tin sách"),
+    DELETE(4, "Xóa sách"),
+    SORT(5, "Hiển thị danh sách các cuốn sách theo giá giảm dần"),
+    SEARCH(6, "Tìm kiếm sách theo tên hoặc nội dung"),
+    STATISTIC(7, "Thống kê số lượng sách theo nhóm"),
+    BACK(0, "Quay lại trang chính");
+
+    private final int value;
+    private final String label;
+
+    BookMenu(int value, String label) {
+        this.value = value;
+        this.label = label;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+}
+
+enum BookTypeMenu {
+    LIST(1, "Danh sách loại sách"),
+    ADD(2, "Tạo mới loại sách"),
+    UPDATE(3, "Cập nhật thông tin loại sách"),
+    DELETE(4, "Xóa loại sách"),
+    STATISTIC(5, "Thống kê số lượng sách theo mã loại sách"),
+    BACK(0, "Quay lại trang chính");
+
+    private final int value;
+    private final String label;
+
+    BookTypeMenu(int value, String label) {
+        this.value = value;
+        this.label = label;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+}
+
 public class BookManagement {
-    private static final BookTypeBusiness bookTypeBusiness = new BookTypeBusiness();
+    private static BookTypeBusiness bookTypeBusiness = new BookTypeBusiness();
     private static final BookBusiness bookBusiness = new BookBusiness();
+    private static final Validator validator = new Validator(bookTypeBusiness);
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -42,13 +96,10 @@ public class BookManagement {
     private static void bookTypeMenu(Scanner scanner) {
         int choice;
         do {
-            System.out.println("**********************BOOKTYPE-MENU******************** \n" +
-                    "1. Danh sách loại sách \n" +
-                    "2. Tạo mới loại sách \n" +
-                    "3. Cập nhật thông tin loại sách \n" +
-                    "4. Xóa loại sách \n" +
-                    "5. Thống kê số lượng sách theo mã loại sách \n" +
-                    "0. Quay lại trang chính  \n");
+            System.out.println("**********************BOOKTYPE-MENU******************** ");
+            for (BookTypeMenu option : BookTypeMenu.values()) {
+                System.out.println(option.getValue() + ". " + option.getLabel());
+            }
             System.out.printf("Nhập lựa chọn: ");
             choice = getIntInput(scanner);
 
@@ -79,15 +130,10 @@ public class BookManagement {
     private static void bookMenu(Scanner scanner) {
         int choice;
         do {
-            System.out.println("***********************BOOK-MENU*********************** \n" +
-                    "1. Danh sách sách \n" +
-                    "2. Tạo mới sách \n" +
-                    "3. Cập nhật thông tin sách \n" +
-                    "4. Xóa sách \n" +
-                    "5. Hiển thị danh sách các cuốn sách theo giá giảm dần \n" +
-                    "6. Tìm kiếm sách theo tên hoặc nội dung \n" +
-                    "7. Thống kê số lượng sách theo nhóm  \n" +
-                    "0. Quay lại trang chính \n");
+            System.out.println("***********************BOOK-MENU***********************");
+            for (BookMenu option : BookMenu.values()) {
+                System.out.println(option.getValue() + ". " + option.getLabel());
+            }
             System.out.printf("Nhập lựa chọn: ");
             choice = getIntInput(scanner);
             switch (choice) {
@@ -119,13 +165,13 @@ public class BookManagement {
                     System.err.println("Nhập sai, vui lòng nhập lại");
             }
 
-        } while (choice != 0);
+        } while (choice != BookMenu.BACK.getValue());
     }
 
     // BookType
     private static void addBookType(Scanner scanner) {
         BookType bookType = new BookType();
-        bookType.inputData(scanner);
+        bookType.inputData(scanner, validator);
         bookTypeBusiness.insert(bookType);
     }
 
@@ -181,7 +227,7 @@ public class BookManagement {
 
     private static void addBook(Scanner scanner) {
         Book book = new Book();
-        book.inputData(scanner);
+        book.inputData(scanner, validator);
         bookBusiness.insert(book);
     }
 
@@ -243,11 +289,15 @@ public class BookManagement {
                     }
                     break;
                 case 5:
-                    System.out.print("Nhập tổng số trang mới: ");
-                    int newTotalPages = getIntInput(scanner);
-                    if (newTotalPages > 0) {
-                        existingBook.setTotalPages(newTotalPages);
-                    }
+                    int newTotalPages;
+                    do {
+                        System.out.print("Nhập tổng số trang mới: ");
+                        newTotalPages = getIntInput(scanner);
+                        if (newTotalPages <= 0) {
+                            System.err.println("Số trang phải là số nguyên lớn hơn 0");
+                        }
+                    } while (newTotalPages <= 0);
+                    existingBook.setTotalPages(newTotalPages);
                     break;
                 case 6:
                     System.out.print("Nhập nhà xuất bản mới: ");
@@ -257,18 +307,26 @@ public class BookManagement {
                     }
                     break;
                 case 7:
-                    System.out.print("Nhập giá mới: ");
-                    double newPrice = Double.parseDouble(scanner.nextLine());
-                    if (newPrice > 0) {
-                        existingBook.setPrice(newPrice);
-                    }
+                    double newPrice;
+                    do {
+                        System.out.print("Nhập giá mới: ");
+                        newPrice = Double.parseDouble(scanner.nextLine());
+                        if (newPrice <= 0) {
+                            System.err.println("Giá phải là số dương lớn hơn 0");
+                        }
+                    } while (newPrice <= 0);
+                    existingBook.setPrice(newPrice);
                     break;
                 case 8:
-                    System.out.print("Nhập mã loại sách mới: ");
-                    int newTypeId = getIntInput(scanner);
-                    if (newTypeId > 0) {
-                        existingBook.setTypeId(newTypeId);
-                    }
+                    int newTypeId;
+                    do {
+                        System.out.print("Nhập mã loại sách mới: ");
+                        newTypeId = getIntInput(scanner);
+                        if (bookTypeBusiness.get(newTypeId) == null) {
+                            System.err.println("Mã loại sách không tồn tại.");
+                        }
+                    } while (bookTypeBusiness.get(newTypeId) == null);
+                    existingBook.setTypeId(newTypeId);
                     break;
                 case 0:
                     System.out.println("Hoàn tất cập nhật.");

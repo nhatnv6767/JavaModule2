@@ -1,38 +1,50 @@
 package Session16.LibraryManagement.ra.database;
 
+import javax.sql.DataSource;
+import java.io.FileInputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
 
 public class JDBCUtil {
 
-    private static final String DB_URL = "jdbc:mysql://192.168.1.113:3306/library_management";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "123456";
+    //    private static final String DB_URL = "jdbc:mysql://192.168.1.113:3306/library_management";
+//    private static final String DB_USER = "root";
+//    private static final String DB_PASSWORD = "123456";
+    private static final String DB_PROPERTIES_FILE = "src/database.properties";
 
     public Connection openConnection() {
-        Connection conn = null;
-        try {
+//        Connection conn = null;
+        try (FileInputStream input = new FileInputStream(DB_PROPERTIES_FILE)) {
+            Properties prop = new Properties();
+            prop.load(input);
+            String dbUrl = prop.getProperty("db.url");
+            String dbUser = prop.getProperty("db.user");
+            String dbPassword = prop.getProperty("db.password");
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            return DriverManager.getConnection(dbUrl, dbUser, dbPassword);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return conn;
+
     }
 
     public void closeConnection(Connection conn, CallableStatement callSt) {
-        if (callSt != null) {
-            try {
+        try {
+            if (callSt != null) {
                 callSt.close();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-        }
-        if (conn != null) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
             try {
-                conn.close();
-            } catch (Exception e) {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
