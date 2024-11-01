@@ -1,5 +1,7 @@
 package Session16.LibraryManagement.ra.entity;
 
+import Session16.LibraryManagement.ra.Validation.Validator;
+
 import java.util.Scanner;
 
 public class BookType implements IBookManagement {
@@ -52,11 +54,9 @@ public class BookType implements IBookManagement {
     }
 
     @Override
-    public void inputData(Scanner scanner) {
-        System.out.print("Nhập tên loại sách: ");
-        this.typeName = scanner.nextLine();
-        System.out.print("Nhập mô tả: ");
-        this.description = scanner.nextLine();
+    public void inputData(Scanner scanner, Validator bookTypeValidator) {
+        setTypeName(bookTypeValidator.getNonEmptyStringInput(scanner, "Nhập tên loại sách: "));
+        setDescription(bookTypeValidator.getNonEmptyStringInput(scanner, "Nhập mô tả: "));
     }
 
     @Override

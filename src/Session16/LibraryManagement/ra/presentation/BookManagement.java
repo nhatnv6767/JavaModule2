@@ -2,7 +2,7 @@ package Session16.LibraryManagement.ra.presentation;
 
 import Session16.LibraryManagement.ra.DAO.BookBusiness;
 import Session16.LibraryManagement.ra.DAO.BookTypeBusiness;
-import Session16.LibraryManagement.ra.Validation.BookValidator;
+import Session16.LibraryManagement.ra.Validation.Validator;
 import Session16.LibraryManagement.ra.entity.Book;
 import Session16.LibraryManagement.ra.entity.BookType;
 
@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class BookManagement {
     private static BookTypeBusiness bookTypeBusiness = new BookTypeBusiness();
     private static final BookBusiness bookBusiness = new BookBusiness();
-    private static final BookValidator bookValidator = new BookValidator(bookTypeBusiness);
+    private static final Validator validator = new Validator(bookTypeBusiness);
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -127,7 +127,7 @@ public class BookManagement {
     // BookType
     private static void addBookType(Scanner scanner) {
         BookType bookType = new BookType();
-        bookType.inputData(scanner);
+        bookType.inputData(scanner, validator);
         bookTypeBusiness.insert(bookType);
     }
 
@@ -183,7 +183,7 @@ public class BookManagement {
 
     private static void addBook(Scanner scanner) {
         Book book = new Book();
-        book.inputData(scanner, bookValidator);
+        book.inputData(scanner, validator);
         bookBusiness.insert(book);
     }
 

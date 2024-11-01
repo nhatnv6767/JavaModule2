@@ -4,10 +4,10 @@ import Session16.LibraryManagement.ra.DAO.BookTypeBusiness;
 
 import java.util.Scanner;
 
-public class BookValidator {
+public class Validator {
     private BookTypeBusiness bookTypeBusiness;
 
-    public BookValidator(BookTypeBusiness bookTypeBusiness) {
+    public Validator(BookTypeBusiness bookTypeBusiness) {
         this.bookTypeBusiness = bookTypeBusiness;
     }
 

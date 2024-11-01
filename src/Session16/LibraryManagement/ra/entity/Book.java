@@ -1,6 +1,6 @@
 package Session16.LibraryManagement.ra.entity;
 
-import Session16.LibraryManagement.ra.Validation.BookValidator;
+import Session16.LibraryManagement.ra.Validation.Validator;
 
 import java.util.Scanner;
 
@@ -112,27 +112,7 @@ public class Book implements IBookManagement {
         isDeleted = deleted;
     }
 
-    @Override
-    public void inputData(Scanner scanner) {
-        System.out.print("Nhập tên sách: ");
-        this.bookName = scanner.nextLine();
-        System.out.print("Nhập tiêu đề: ");
-        this.title = scanner.nextLine();
-        System.out.print("Nhập tác giả: ");
-        this.author = scanner.nextLine();
-        System.out.print("Nhập nội dung: ");
-        this.content = scanner.nextLine();
-        System.out.print("Nhập số trang: ");
-        this.totalPages = Integer.parseInt(scanner.nextLine());
-        System.out.print("Nhập nhà xuất bản: ");
-        this.publisher = scanner.nextLine();
-        System.out.print("Nhập giá: ");
-        this.price = Double.parseDouble(scanner.nextLine());
-        System.out.print("Nhập mã loại sách: ");
-        this.typeId = Integer.parseInt(scanner.nextLine());
-    }
-
-    public void inputData(Scanner scanner, BookValidator bookValidator) {
+    public void inputData(Scanner scanner, Validator bookValidator) {
         setBookName(bookValidator.getNonEmptyStringInput(scanner, "Nhập tên sách: "));
         setTitle(bookValidator.getNonEmptyStringInput(scanner, "Nhập tiêu đề: "));
         setAuthor(bookValidator.getNonEmptyStringInput(scanner, "Nhập tác giả: "));
