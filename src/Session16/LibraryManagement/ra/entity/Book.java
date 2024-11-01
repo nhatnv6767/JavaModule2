@@ -133,41 +133,11 @@ public class Book implements IBookManagement {
     }
 
     public void inputData(Scanner scanner, BookTypeBusiness bookTypeBusiness) {
-        System.out.print("Nhập tên sách: ");
-        String bookName = scanner.nextLine().trim();
-        while (bookName.isEmpty()) {
-            System.out.println("Tên sách không được để trống");
-            System.out.print("Nhập tên sách: ");
-            bookName = scanner.nextLine().trim();
-        }
-        setBookName(bookName);
 
-        System.out.print("Nhập tiêu đề: ");
-        String title = scanner.nextLine().trim();
-        while (title.isEmpty()) {
-            System.out.println("Tiêu đề không được để trống");
-            System.out.print("Nhập tiêu đề: ");
-            title = scanner.nextLine().trim();
-        }
-        setTitle(title);
-
-        System.out.print("Nhập tác giả: ");
-        String author = scanner.nextLine().trim();
-        while (author.isEmpty()) {
-            System.out.println("Tác giả không được để trống");
-            System.out.print("Nhập tác giả: ");
-            author = scanner.nextLine().trim();
-        }
-        setAuthor(author);
-
-        System.out.print("Nhập nội dung: ");
-        String content = scanner.nextLine().trim();
-        while (content.isEmpty()) {
-            System.out.println("Nội dung không được để trống");
-            System.out.print("Nhập nội dung: ");
-            content = scanner.nextLine().trim();
-        }
-        setContent(content);
+        setBookName(getNonEmptyStringInput(scanner, "Nhập tên sách: "));
+        setTitle(getNonEmptyStringInput(scanner, "Nhập tiêu đề: "));
+        setAuthor(getNonEmptyStringInput(scanner, "Nhập tác giả: "));
+        setContent(getNonEmptyStringInput(scanner, "Nhập nội dung: "));
 
         int totalPages;
         do {
@@ -179,14 +149,7 @@ public class Book implements IBookManagement {
         } while (totalPages <= 0);
         setTotalPages(totalPages);
 
-        System.out.print("Nhập nhà xuất bản: ");
-        String publisher = scanner.nextLine().trim();
-        while (publisher.isEmpty()) {
-            System.out.println("Nhà xuất bản không được để trống");
-            System.out.print("Nhập nhà xuất bản: ");
-            publisher = scanner.nextLine().trim();
-        }
-        setPublisher(publisher);
+        setPublisher(getNonEmptyStringInput(scanner, "Nhập nhà xuất bản: "));
 
         double price;
         do {
@@ -230,5 +193,17 @@ public class Book implements IBookManagement {
                 System.err.println("Vui lòng nhập số nguyên");
             }
         }
+    }
+
+    private String getNonEmptyStringInput(Scanner scanner, String prompt) {
+        String input;
+        do {
+            System.out.print(prompt);
+            input = scanner.nextLine().trim();
+            if (input.isEmpty()) {
+                System.err.println("Không được để trống");
+            }
+        } while (input.isEmpty());
+        return input;
     }
 }
